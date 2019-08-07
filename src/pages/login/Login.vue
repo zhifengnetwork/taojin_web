@@ -13,7 +13,7 @@
         <label class="login_inp">
             <span class="login_title">密码:</span><input class="login_input" placeholder="请输入密码" v-model="psd" type="password">
         </label>
-        <div class="login_btn" @click="login" :class="checked?'active':''">
+        <div class="login_btn" @click="login">
             登录
         </div>
         <div class="login_link">
