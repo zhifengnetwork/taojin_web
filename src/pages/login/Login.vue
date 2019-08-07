@@ -13,9 +13,6 @@
         <label class="login_inp">
             <span class="login_title">密码:</span><input class="login_input" placeholder="请输入密码" v-model="psd" type="password">
         </label>
-        <van-checkbox v-model="checked" checked-color="#fb946a">我已阅读并同意
-            <router-link class="serve" to="#">服务条款</router-link>
-        </van-checkbox>
         <div class="login_btn" @click="login" :class="checked?'active':''">
             登录
         </div>
@@ -33,16 +30,11 @@
         data(){
             return{
                 mobile:'',
-                psd:'',
-                checked: false
+                psd:''
             }
         },
         methods:{
             login(){
-                if(!this.checked){
-                    return false;
-                }
-
                 if(!this.mobile){
                     Toast.fail('请填写手机号!');
                     return false;
@@ -65,6 +57,7 @@
                     console.log(res);
                     if(res.data.status == 1){
                         Toast.success('登录成功');
+                        _this.$store.state.token = res.data.data.token;
                         _this.$router.push('/Home')
                     }else{
                         Toast.fail(res.data.msg);
@@ -122,14 +115,10 @@
     line-height: 100px;
     text-align: center;
     font-size: 36px;
-    color: #ccc;
-    background: #eee;
-    border-radius: 50px;
-}
-.active{
     color: #fff;
     background: -webkit-gradient(linear, left top, right top, from(#f9a775), to(#fb946a));
     background: linear-gradient(to right, #f9a775, #fb946a);
+    border-radius: 50px;
 }
 .login_link{
     width: 100%;
