@@ -104,7 +104,7 @@
                     Toast.fail("手机号码有误，请重填");
                     return false; 
                 }
-               let _this = this;
+                let _this = this;
                 this.$axios.post('captcha/get_code',{
                     phone:_this.mobile
                 })
@@ -116,7 +116,6 @@
                     }else{
                         Toast.fail(res.data.msg);
                     }
-                    console.log(_this.data)
                 })
                 .catch(function(error){
                     console.log(error);

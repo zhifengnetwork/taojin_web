@@ -1,7 +1,7 @@
 <template>
     <div class="Navigate">
         <ul>
-            <li v-for="(item,index) in list" :key="index">
+            <li v-for="(item,index) in list" :key="index" @click="page(index)">
                 <router-link :to="item.pages">
                     <i class="iconfont" :class="item.pages==$route.path?item.imgactive:item.img"></i>
                     <span>{{item.name}}</span>
@@ -25,7 +25,9 @@
             }
         },
         methods:{
-            
+            page(index){
+                this.$router.push({'path':this.list[index].pages})
+            }
         }
     }
 </script>
