@@ -4,7 +4,9 @@
       <!-- 用户信息 -->
       <div class="userInfo_content">
         <div class="userInfo_picture">
-          <img class="userInfo_img" src="" alt="">
+          <router-link to="user_info">
+            <img class="userInfo_img" src="" alt="">
+          </router-link>
         </div>
         <div class="userInfo_text">
           <p class="userInfo_name">杰*不要啊</p>
@@ -19,17 +21,11 @@
       <div class="user_orderWrap">
         <div class="user_order">
           <ul class="user_order_list">
-            <li class="user_order_item">
-              <p>666</p>
-              <p>余额<van-icon name="arrow"/></p>
-            </li>
-            <li class="user_order_item">
-              <p>686</p>
-              <p>糖果<van-icon name="arrow"/></p>
-            </li>
-            <li class="user_order_item">
-              <p>866</p>
-              <p>币<van-icon name="arrow"/></p>
+            <li class="user_order_item" v-for="(item,index) in user_order" :key="index">
+              <router-link :to="item.pages">
+                <p>{{item.num}}</p>
+                <p>{{item.text}}<van-icon name="arrow"/></p>
+              </router-link>
             </li>
           </ul>
         </div>
@@ -37,29 +33,13 @@
     </div>
     <!-- 列表项 -->
     <dir class="user_option">
-      <div class="option_item">
-        我的订单
-        <div class="option_icon">
-          <van-icon name="arrow"/>
-        </div>
-      </div>
-      <div class="option_item">
-        我的团队
-        <div class="option_icon">
-          <van-icon name="arrow"/>
-        </div>
-      </div>
-      <div class="option_item">
-        邀请链接
-        <div class="option_icon">
-          <van-icon name="arrow"/>
-        </div>
-      </div>
-      <div class="option_item">
-        我的推广
-        <div class="option_icon">
-          <van-icon name="arrow"/>
-        </div>
+      <div class="option_item" v-for="(item,index) in option_item" :key="index">
+        <router-link :to="item.pages">
+          {{item.text}}
+          <div class="option_icon">
+            <van-icon name="arrow"/>
+          </div>
+        </router-link>
       </div>
     </dir>
     <!-- 底部导航 -->
@@ -72,7 +52,18 @@
     name:'User',
     data(){
       return{
-
+        // 订单
+        user_order:[
+          {text:'余额',num:'123',pages:'balance'},
+          {text:'糖果',num:'233',pages:'sugar'},
+          {text:'币',num:'686',pages:'#'}
+        ],
+        option_item:[
+          {text:'我的订单',pages:'my_order'},
+          {text:'我的团队',pages:'#'},
+          {text:'邀请链接',pages:'#'},
+          {text:'我的推广',pages:'#'}
+        ]
       }
     }
   }

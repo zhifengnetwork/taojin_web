@@ -1,12 +1,5 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Home from '@/pages/home/Home'
-import Login from '@/pages/login/Login'
-import Register from '@/pages/login/Register'
-import Reset from '@/pages/login/Reset'
-import Rank from '@/pages/rank/Rank'
-import Deal from '@/pages/deal/Deal'
-import Ueal from '@/pages/user/User'
 Vue.use(Router)
 
 export default new Router({
@@ -45,12 +38,16 @@ export default new Router({
     },
 
 
+
+
     // 排名
     {
       path: '/Rank',
       name: 'Rank',
       component: () => import('@/pages/rank/Rank'),
     },
+
+
 
 
     // 挂卖
@@ -61,11 +58,84 @@ export default new Router({
     },
 
 
+
+
     // 我的
     {
       path: '/User',
       name: 'User',
       component: () => import('@/pages/user/User'),
+    },
+    // 个人资料
+    {
+      path: '/user_info',
+      name: 'user_info',
+      component: () => import('@/pages/user/user_info'),
+    },
+    // 我的订单
+    {
+      path: '/my_order',
+      name: 'my_order',
+      component: () => import('@/pages/user/my_order'),
+    },
+
+
+    // 账号余额
+    {
+      path: '/balance',
+      name: 'balance',
+      component: () => import('@/pages/user/balance'),
+    },
+    // 提现
+    {
+      path: '/withdraw',
+      name: 'withdraw',
+      component: () => import('@/pages/user/withdraw'),
+    },
+    // 添加支付宝账号
+    {
+      path: '/withdraw_alipay',
+      name: 'withdraw_alipay',
+      component: () => import('@/pages/user/withdraw_alipay'),
+    },
+    // 添加银行卡账号
+    {
+      path: '/withdraw_bank',
+      name: 'withdraw_bank',
+      component: () => import('@/pages/user/withdraw_bank'),
+    },
+    // 提现明细
+    {
+      path: '/withdraw_record',
+      name: 'withdraw_record',
+      component: () => import('@/pages/user/withdraw_record'),
+    },
+    // 提现-账单明细
+    {
+      path: '/withdraw_bill',
+      name: 'withdraw_bill',
+      component: () => import('@/pages/user/withdraw_bill'),
+    },
+
+
+
+    // 糖果sugar_give
+    {
+      path: '/sugar',
+      name: 'sugar',
+      component: () => import('@/pages/user/sugar'),
+    },
+    // 赠送糖果
+    {
+      path: '/sugar_give',
+      name: 'sugar_give',
+      component: () => import('@/pages/user/sugar_give'),
+    },
+    // 赠送记录
+    {
+      path: '/sugar_record',
+      name: 'sugar_record',
+      component: () => import('@/pages/user/sugar_record'),
     },
   ]
 })

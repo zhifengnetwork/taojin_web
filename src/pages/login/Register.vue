@@ -1,5 +1,5 @@
 <template>
-    <div class="register">
+    <div class="height-88">
         <!-- 头部组件 back-url=>反回路径，默认返回上一页 title=>标题内容 fixed=>是否固定在顶部 rgb=>背景色 col=>字体颜色 -->
 		<TopHeader back-url="" custom-title="注册" :custom-fixed="true" custom-rgb custom-col>
 			<!-- 返回按钮 -->
@@ -141,12 +141,9 @@
 </script>
 
 <style lang="scss" scoped>
-.register{
-    padding: 88px 24px 0;
-    background: #fff;
-    box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    -webkit-box-sizing: border-box;
+.height-88{
+    padding-left: 24px;
+    padding-right: 24px;
 }
 .register_inp{
     display: block;

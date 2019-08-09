@@ -1,5 +1,5 @@
 <template>
-    <div class="login">
+    <div class="height-88">
         <!-- 头部组件 back-url=>反回路径，默认返回上一页 title=>标题内容 fixed=>是否固定在顶部 rgb=>背景色 col=>字体颜色 -->
 		<TopHeader back-url="" custom-title="登录" :custom-fixed="true" custom-rgb custom-col>
 			<!-- 返回按钮 -->
@@ -73,16 +73,10 @@
 </script>
 
 <style lang="scss" scoped>
-.login{
-    padding: 88px 24px 0;
-    background: #fff;
-    box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    -webkit-box-sizing: border-box;
+.height-88{
+    padding-left: 24px;
+    padding-right: 24px;
 }
-// .login_inp:nth-of-type(1){
-//     margin-top: 200px;
-// }
 .login_inp{
     display: block;
     margin: 40px auto;
@@ -129,6 +123,7 @@
     -webkit-box-sizing: border-box;
 }
 .link{
+    width: auto;
     color: #151515;
     text-decoration: underline;
 }

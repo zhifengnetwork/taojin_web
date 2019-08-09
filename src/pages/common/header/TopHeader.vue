@@ -58,19 +58,20 @@ export default {
 
 <style lang="scss" scoped>
 .TopHeader{
-    letter-spacing: 2px;
+    position:relative;
+    left:0;
+    top:0;
+    display:flex;
+    justify-content:space-between;
     width:100%;
     height:88px;
     line-height:88px;
+    align-items:center;
     color:#151515;
     font-size:30px;
+    letter-spacing: 2px;
+    border-bottom: 1px solid #ccc;
     background-color:#ffffff;
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    position:relative;
-    top:0;
-    left:0;
     z-index:9;
 }
 .backBtn{
