@@ -56,7 +56,7 @@
         user_order:[
           {text:'余额',num:'123',pages:'balance'},
           {text:'糖果',num:'233',pages:'sugar'},
-          {text:'币',num:'686',pages:'#'}
+          {text:'币',num:'686',pages:'currency'}
         ],
         option_item:[
           {text:'我的订单',pages:'my_order'},

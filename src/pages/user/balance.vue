@@ -86,8 +86,8 @@
 }
 .option_item{
     position: relative;
-    height: 120px;
-    line-height: 120px;
+    height: 150px;
+    line-height: 150px;
     text-align: left;
     text-indent: 60px;
     border-bottom: 1px solid #ccc;

@@ -119,7 +119,7 @@ export default new Router({
 
 
 
-    // 糖果sugar_give
+    // 糖果
     {
       path: '/sugar',
       name: 'sugar',
@@ -136,6 +136,20 @@ export default new Router({
       path: '/sugar_record',
       name: 'sugar_record',
       component: () => import('@/pages/user/sugar_record'),
+    },
+
+
+    // 货币
+    {
+      path: '/currency',
+      name: 'currency',
+      component: () => import('@/pages/user/currency'),
+    },
+    // 货币兑换
+    {
+      path: '/currency_convert',
+      name: 'currency_convert',
+      component: () => import('@/pages/user/currency_convert'),
     },
   ]
 })
