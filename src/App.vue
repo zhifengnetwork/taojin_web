@@ -8,19 +8,11 @@
 export default {
   name: "App",
   beforeMount() {
-
       var huoqutoken = window.localStorage.getItem("token");
-
-      if (
-        huoqutoken == "" ||
-        huoqutoken == null ||
-        huoqutoken == "null" ||
-        huoqutoken == undefined
-      ) {
-        
+      if ( huoqutoken == "" || huoqutoken == null || huoqutoken == "null" || huoqutoken == undefined)  
+      {
         this.login();
-
-    } 
+      } 
   },
   methods: {
      login(){
