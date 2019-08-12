@@ -57,7 +57,8 @@
                     console.log(res);
                     if(res.data.status == 1){
                         Toast.success('登录成功');
-                        _this.$store.state.token = res.data.data.token;
+                        // _this.$store.state.token = res.data.data.token;
+                        window.localStorage.setItem("token",res.data.data.token);
                         _this.$router.push('/Home')
                     }else{
                         Toast.fail(res.data.msg);
@@ -79,13 +80,13 @@
 }
 .login_inp{
     display: block;
-    margin: 40px auto;
+    margin: 36px auto;
     width: 100%;
-    height: 100px;
-    line-height: 100px;
+    height: 80px;
+    line-height: 80px;
     text-align: left;
     background: #eee;
-    border-radius: 25px;
+    border-radius: 10px;
 }
 .login_title{
     display: inline-block;
@@ -101,23 +102,23 @@
     color:#FF0000;
 }
 .login_btn{
-    margin-top: 50px;
+    margin-top: 36px;
     width: 100%;
-    height: 100px;
+    height: 80px;
     letter-spacing: 50px;
     text-indent: 50px;
-    line-height: 100px;
+    line-height: 80px;
     text-align: center;
-    font-size: 36px;
+    font-size: 30px;
     color: #fff;
     background: -webkit-gradient(linear, left top, right top, from(#f9a775), to(#fb946a));
     background: linear-gradient(to right, #f9a775, #fb946a);
-    border-radius: 50px;
+    border-radius: 10px;
 }
 .login_link{
     width: 100%;
-    padding: 0 24px;
-    line-height: 80px;
+    padding: 10px 20px;
+    line-height: 90px;
     box-sizing: border-box;
     -moz-box-sizing: border-box;
     -webkit-box-sizing: border-box;
