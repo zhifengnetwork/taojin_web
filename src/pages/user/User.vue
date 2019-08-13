@@ -61,8 +61,8 @@
         option_item:[
           {text:'我的订单',pages:'my_order'},
           {text:'我的团队',pages:'#'},
-          {text:'邀请链接',pages:'#'},
-          {text:'我的推广',pages:'#'}
+          {text:'开奖记录',pages:'prize'},
+          {text:'我的推广',pages:'promotion'}
         ]
       }
     }

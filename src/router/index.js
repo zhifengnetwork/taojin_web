@@ -36,9 +36,18 @@ export default new Router({
       name: 'Home',
       component: () => import('@/pages/home/Home'),
     },
-
-
-
+    // 购买道具
+    {
+      path: '/buy_item',
+      name: 'buy_item',
+      component: () => import('@/pages/home/buy_item'),
+    },
+    // 奖金池
+    {
+      path: '/bonus',
+      name: 'bonus',
+      component: () => import('@/pages/home/bonus'),
+    },
 
     // 排名
     {
@@ -150,6 +159,19 @@ export default new Router({
       path: '/currency_convert',
       name: 'currency_convert',
       component: () => import('@/pages/user/currency_convert'),
+    },
+
+    // 中奖记录
+    {
+      path: '/prize',
+      name: 'prize',
+      component: () => import('@/pages/user/prize'),
+    },
+    // 我的推广
+    {
+      path: '/promotion',
+      name: 'promotion',
+      component: () => import('@/pages/user/promotion'),
     },
   ]
 })
