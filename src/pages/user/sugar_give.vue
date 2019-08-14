@@ -69,7 +69,7 @@
 }
 .give_btn{
     margin: 200px auto 0;
-    width: 712px;
+    width: 702px;
     height: 100px;
     line-height: 100px;
     border-radius: 20px;

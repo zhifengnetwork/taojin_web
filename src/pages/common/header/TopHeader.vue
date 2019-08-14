@@ -67,7 +67,7 @@ export default {
     height:88px;
     line-height:88px;
     align-items:center;
-    color:#151515;
+    color:#4a1901;
     font-size:30px;
     letter-spacing: 2px;
     border-bottom: 1px solid #ccc;

@@ -171,7 +171,7 @@
 }
 .withdraw_btn{
     margin: 40px auto;
-    width: 712px;
+    width: 702px;
     height: 100px;
     line-height: 100px;
     background: #66ccff;

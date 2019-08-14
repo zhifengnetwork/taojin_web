@@ -1,19 +1,15 @@
 <template>
   <div class="home">
-    <van-notice-bar
-      color="#1989fa"
-      background="#ecf9ff"
-      left-icon="info-o"
+    <van-notice-bar class="notice"
+      color="#642903"
+      background="#a8dbff"
+      left-icon="static/images/notice.png"
     >
       通知内容6666666666666666666666666666666666666
     </van-notice-bar>
 
-    <div class="mine">
-        <img class="mine_img" src="">
-    </div> 
     <div class="mine_info">
-      <p>220元</p>
-      <p>数字波动</p>
+      <p>220<span>元</span></p>
     </div>
 
     <div class="mine_btns">
@@ -24,7 +20,7 @@
         </span>
         <span class="mine_btn">
           <router-link to="bonus">
-            奖金池
+            矿池
           </router-link>
         </span>
     </div>
@@ -63,35 +59,71 @@
 </script>
 
 <style lang="scss" scoped>
-.mine{
-  margin: 100px auto 20px;
-  width: 712px;
-  height: 712px;
-  overflow: hidden;
-  background: red;
-  border-radius: 50%;
+.home{
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  background: url("../../../static/images/home_bg.png");
+  background-size: cover;
 }
-.mine_img{
-  width: 100%;
-  height: 100%;
+.notice{
+  position: relative;
+  margin: 20px auto;
+  width:660px;
+  height:70px;
+  box-sizing: border-box;
+  border:1px solid #75a9eb;
+}
+.notice::before{
+  content:'';
+  display: block;
+  position: absolute;
+  left: -10px;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+  width: 14px;
+  height: 14px;
+  background: #a8dbff;
+  border:1px solid #75a9eb;
+  border-color:transparent transparent #75a9eb #75a9eb;
+  transform: rotate(45deg);
 }
 .mine_info{
+  margin-top: 100px;
+  color: #fff;
+  font-size: 60px;
   line-height: 50px;
+  letter-spacing: 5px;
+  font-weight: bold;
+  text-shadow: -1px 0 5px #622804,
+                0 1px 5px #622804,
+                1px 0 5px #622804,
+                0 -1px 5px #622804;
 }
-.mine_info :nth-child(2){
-  color:#999;
+.mine_info span{
+  margin-left: 10px;
+  font-weight: normal;
+  font-size: 40px;
 }
 .mine_btns{
   margin-top: 60px;
 }
 .mine_btn{
-  margin: 0 50px;
+  margin: 60vh 50px 0;
   display: inline-block;
-  width: 250px;
-  height: 100px;
-  line-height: 100px;
-  border: 1px solid #ccc;
-  background: #fff;
+  width: 156px;
+  height: 60px;
+  line-height: 50px;
+  font-size: 32px;
+  font-weight: bold;
+  background: url('../../../static/images/home_btn.png');
+  background-size: contain;
+}
+.mine_btn a{
+  color: #fff;  
 }
 .mask{
   display: none;
@@ -110,7 +142,7 @@
   right: 0;
   bottom: 0;
   margin: auto;
-  width: 712px;
+  width: 702px;
   height: 700px;
   overflow: hidden;
   border-radius: 50px;

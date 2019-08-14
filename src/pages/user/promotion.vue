@@ -39,7 +39,7 @@
     box-sizing: border-box;
     -moz-box-sizing: border-box;
     -webkit-box-sizing: border-box;
-    width: 712px;
+    width: 702px;
     height: 850px;
     background: #00ffff;
 }

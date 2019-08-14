@@ -3,8 +3,7 @@
         <ul>
             <li v-for="(item,index) in list" :key="index" @click="page(index)">
                 <router-link :to="item.pages">
-                    <i class="iconfont" :class="item.pages==$route.path?item.imgactive:item.img"></i>
-                    <span>{{item.name}}</span>
+                    <span class="nav_item" :style="{'background-image':'url('+(item.pages==$route.path?imgactive:img)+')'}">{{item.name}}</span>
                 </router-link>
             </li>
         </ul>
@@ -17,11 +16,13 @@
         data(){
             return{
                 list:[
-                    {name:'首页',img:'iconhome',imgactive:'iconai-home',pages:'/Home'},
-                    {name:'排位',img:'iconrank',imgactive:'iconpaiming',pages:'/Rank'},
-                    {name:'挂卖',img:'iconjiaoyi1',imgactive:'iconjiaoyi',pages:'/Deal'},
-                    {name:'我的',img:'iconwode',imgactive:'icon04f',pages:'/User'}
-                ]
+                    {name:'首页',pages:'/Home'},
+                    {name:'排位',pages:'/Rank'},
+                    {name:'挂卖',pages:'/Deal'},
+                    {name:'我的',pages:'/User'}
+                ],
+                img:'static/images/navigate.png',
+                imgactive:'static/images/navigate-active.png'
             }
         },
         methods:{
@@ -39,8 +40,8 @@
     bottom: 0;
     width: 100%;
     height: 98px;
-	background:#ffffff;
-    border-top: 1px solid #f8f2f2;
+    line-height: 90px;
+	background:#ffcb8f;
 	z-index:10;
 }
 ul{
@@ -48,20 +49,19 @@ ul{
     height: 100%;
 }
 li{
+    position: relative;
     float: left;
     width: 25%;
     height: 100%;
     text-align: center;
 }
-i{
-    display: block;
-    color: #151515;
-    margin: 10px auto;
-    width: 36px;
-    height: 36px;
-}
-span{
-    color: #151515;
+.nav_item{
+    display: inline-block;
+    margin-top: 10px;
+    width: 100px;
+    height: 80px;
+    color: #f5f5f5;
     font-size: 28px;
+    background-size: cover;
 }
 </style>
