@@ -3,9 +3,8 @@
         <!-- 头部组件 back-url=>反回路径，默认返回上一页 title=>标题内容 fixed=>是否固定在顶部 rgb=>背景色 col=>字体颜色 -->
 		<TopHeader back-url="" custom-title="注册" :custom-fixed="true" custom-rgb custom-col>
 			<!-- 返回按钮 -->
-			<i slot="backBtn" class="iconfont iconfanhui"></i>
-            <!-- 右侧按钮 -->
-			<!-- <i slot="rightBtn" class="iconfont iconfanhui"></i> -->
+			<img slot="backBtn" src="static/images/head_back.png">
+            
 		</TopHeader>
         <label class="register_inp">
             <span class="register_title">账号:</span><input class="register_input" placeholder="请输入手机号" v-model="mobile" type="number">

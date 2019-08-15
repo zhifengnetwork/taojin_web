@@ -1,9 +1,9 @@
 <template>
     <div class="height-88">
         <!-- 头部组件 back-url=>反回路径，默认返回上一页 title=>标题内容 fixed=>是否固定在顶部 rgb=>背景色 col=>字体颜色 -->
-        <TopHeader back-url="" style="border:0;" custom-title=" " :custom-fixed="true" custom-rgb="transparent" custom-col>
+        <TopHeader back-url="" custom-title=" " :custom-fixed="true" custom-col>
             <!-- 返回按钮 -->
-            <i slot="backBtn" class="iconfont iconfanhui"></i>
+            <img slot="backBtn" src="static/images/head_back.png">
         </TopHeader>
         <div class="promotion_code">
             <div class="promotion_imgWrap">

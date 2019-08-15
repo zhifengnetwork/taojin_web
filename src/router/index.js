@@ -154,12 +154,6 @@ export default new Router({
       name: 'currency',
       component: () => import('@/pages/user/currency'),
     },
-    // 货币兑换
-    {
-      path: '/currency_convert',
-      name: 'currency_convert',
-      component: () => import('@/pages/user/currency_convert'),
-    },
 
     // 中奖记录
     {

@@ -32,12 +32,12 @@ export default {
     // 标题背景
     customRgb: {
       type: String,
-      default: "#FFFFFF"
+      default: "#transparent"
     },
     //字体颜色
     customCol:{
         type:String,
-        default:'#151515'
+        default:'#4a1901'
     } 
   },
   data() {
@@ -70,16 +70,19 @@ export default {
     color:#4a1901;
     font-size:30px;
     letter-spacing: 2px;
-    border-bottom: 1px solid #ccc;
-    background-color:#ffffff;
     z-index:9;
 }
 .backBtn{
-    width:10%;
-    text-align:center;
-    position:absolute;
-    left:0;
-    top:0;
+  position: relative;
+}
+.backBtn img{
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  margin: auto;
+  width: 90px;
+  height: 56px;
 }
 .iconfont{
     font-size:36px;

@@ -3,9 +3,8 @@
         <!-- 头部组件 back-url=>反回路径，默认返回上一页 title=>标题内容 fixed=>是否固定在顶部 rgb=>背景色 col=>字体颜色 -->
 		<TopHeader back-url="" custom-title="我的订单" :custom-fixed="true" custom-rgb custom-col>
 			<!-- 返回按钮 -->
-			<i slot="backBtn" class="iconfont iconfanhui"></i>
-            <!-- 右侧按钮 -->
-			<!-- <i slot="rightBtn" class="iconfont iconfanhui"></i> -->
+			<img slot="backBtn" src="static/images/head_back.png">
+            
 		</TopHeader>
         <div class="order_item">
             <h3 class="order_title">订单号201907025487445</h3>

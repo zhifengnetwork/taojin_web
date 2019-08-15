@@ -1,31 +1,33 @@
 <template>
-    <div class="height-88">
+    <div class="height-88 sugar_record">
         <!-- 头部组件 back-url=>反回路径，默认返回上一页 title=>标题内容 fixed=>是否固定在顶部 rgb=>背景色 col=>字体颜色 -->
 		<TopHeader back-url="" custom-title="赠送记录" :custom-fixed="true" custom-rgb custom-col>
 			<!-- 返回按钮 -->
-			<i slot="backBtn" class="iconfont iconfanhui"></i>
-            <!-- 右侧按钮 -->
-			<!-- <i slot="rightBtn" class="iconfont iconfanhui"></i> -->
+			<img slot="backBtn" src="static/images/head_back.png">
 		</TopHeader>
-        <div class="record_title">
-            <ul>
-                <li>赠送日期</li>
-                <li>收款ID/手机号</li>
-                <li>糖果</li>
-            </ul>
+        <div class="record">
+            <div class="record_item">
+                <p class="item_id">4555555555555555</p>
+                <p class="item_time">2019-01-02</p>
+                <div class="item_num">
+                    <span>40</span>
+                </div>
+            </div>
+            <div class="record_item">
+                <p class="item_id">4555555555555555</p>
+                <p class="item_time">2019-01-02</p>
+                <div class="item_num">
+                    <span>40</span>
+                </div>
+            </div>
+            <div class="record_item">
+                <p class="item_id">4555555555555555</p>
+                <p class="item_time">2019-01-02</p>
+                <div class="item_num">
+                    <span>40</span>
+                </div>
+            </div>
         </div>
-        <div class="record_content">
-            <ul>
-                <li>12151220</li>
-                <li>45451687465631</li>
-                <li>40</li>
-            </ul>
-            <ul>
-                <li>12151220</li>
-                <li>45451687465631</li>
-                <li>40</li>
-            </ul>
-        </div>  
     </div>
 </template>
 
@@ -36,23 +38,55 @@
 </script>
 
 <style lang="scss" scoped>
-.record_title{
-    width: 100%;
-    height: 100px;
-    line-height: 100px;
-    border-bottom: 1px solid #ccc;
+.sugar_record{
+    width: 100vw;
+    height: 100vh;
+    color: #4a1901;
+    background: -moz-linear-gradient(top, #fdd287 0%, #eaa050 100%);  
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#fdd287), color-stop(100%,#eaa050));  
+    background: -webkit-linear-gradient(top, #fdd287 0%,#eaa050 100%);  
+    background: -o-linear-gradient(top, #fdd287 0%,#eaa050 100%);  
+    background: -ms-linear-gradient(top, #fdd287 0%,#eaa050 100%);  
+    background: linear-gradient(to bottom, #fdd287 0%,#eaa050 100%);
 }
-.record_title li,.record_content li{
-    float: left;
-    width: 20%;
+.record{
+    margin: 20px auto;
+    width: 702px;
+    height: 1180px;
+    border: 4px solid #c17b2a;
+    border-radius: 20px;
+    background: #ffc787;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
 }
-.record_title li:nth-of-type(2),.record_content li:nth-of-type(2){
-    width: 60%;
+.record_item{
+    position: relative;
+    margin: 10px auto;
+    width: 680px;
+    height: 126px;
+    line-height: 50px;
+    text-align: left;
+    text-indent: 60px;
+    background: #b38a5b;
 }
-.record_content{
-    width: 100%;
-    height: 100px;
-    line-height: 100px;
+.item_id{
+    padding-top: 10px;
+    color: #fff;
 }
-
+.item_num{
+    position: absolute;
+    right: 36px;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    width: 150px;
+    height: 60px;
+    line-height: 60px;
+    text-indent: 0;
+    text-align: center;
+    color: #fff;
+    background: url('../../../static/images/sugar_record.png')no-repeat;
+    background-size: contain;
+}
 </style>

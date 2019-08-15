@@ -25,6 +25,16 @@
         </span>
     </div>
 
+    <!-- 动图 -->
+    <div class="cart">
+      <img src="static/images/cart.png">
+    </div>
+    <div class="eagle_left">
+      <img src="static/images/eagle_left.png">
+    </div>
+    <div class="eagle_right">
+      <img src="static/images/eagle_right.png">
+    </div>
     <div class="mask">
       <div class="mask_content">
         <h3 class="content_title">中奖名单</h3>
@@ -80,7 +90,7 @@
   content:'';
   display: block;
   position: absolute;
-  left: -10px;
+  left: -7px;
   top: 0;
   bottom: 0;
   margin: auto;
@@ -124,6 +134,55 @@
 }
 .mine_btn a{
   color: #fff;  
+}
+
+// 动图
+.cart{
+  position: absolute;
+  left: 250px;
+  bottom: 490px;
+  width: 200px;
+  height: 200px;
+  animation: cart 4s infinite;
+}
+@keyframes cart{
+  0%{left: 360px;bottom: 500px;transform:scale(0.6);}
+  70%{left: 120px;bottom: 460px;transform:rotate(-5deg) scale(1.2);}
+  80%{left: 120px;bottom: 460px;transform:rotate(-5deg) scale(1.2);}
+  100%{left: 120px;bottom: 460px;transform:rotate(-5deg) scale(1.2);}
+}
+.eagle_left{
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  left: 120px;
+  animation: eagle_left 5s infinite;
+}
+@keyframes eagle_left{
+  0%{top: 400px;}
+  25%{top: 380px;}
+  50%{top: 400px;}
+  75%{top: 380px;}
+  100%{top: 400px;}
+}
+.eagle_right{
+  position: absolute;
+  width: 60px;
+  height: 60px;
+  top: 320px;
+  right: 120px;
+  animation: eagle_right 5s infinite 0.5s;
+}
+@keyframes eagle_right{
+  0%{transform: rotate(35deg)}
+  25%{transform: rotate(15deg)}
+  50%{transform: rotate(35deg)}
+  75%{transform: rotate(15deg)}
+  100%{transform: rotate(35deg)}
+}
+.cart img,.eagle_left img,.eagle_right img{
+  width:100%;
+  height:100%;
 }
 .mask{
   display: none;
