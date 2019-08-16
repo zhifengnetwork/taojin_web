@@ -1,32 +1,35 @@
 <template>
     <div class="height-88 public_bg">
         <!-- 头部组件 back-url=>反回路径，默认返回上一页 title=>标题内容 fixed=>是否固定在顶部 rgb=>背景色 col=>字体颜色 -->
-		<TopHeader back-url="" custom-title="赠送" :custom-fixed="true" custom-rgb custom-col>
+		<TopHeader back-url="" custom-title="兑换币" :custom-fixed="true" custom-rgb custom-col>
 			<!-- 返回按钮 -->
 			<img slot="backBtn" src="static/images/head_back.png">
 		</TopHeader>
-        <div class="sugar_container">
-            <div class="sugar_num">
-                <img class="sugar_img" src="static/images/sugar.png">
-                <span>50</span>
+        <div class="convert_info">
+            <div class="info_num">
+                <span>
+                    <img src="static/images/currency.png">
+                    50
+                </span>
+                <span>
+                    <img src="static/images/sugar.png">
+                    40
+                </span>
+                <span>
+                    <img src="static/images/gold.png">
+                    20
+                </span>
             </div>
-            <div class="give_inp">
+            <div class="info_inp">
                 <label>
-                    <span>收款&nbsp;&nbsp;ID</span><input class="give_input" type="text">
+                    <span>兑换币</span><input class="info_input" type="text">
                 </label>
             </div>
-            <div class="give_inp">
-                <label>
-                    <span>手机号码</span><input class="give_input" type="text">
-                </label>
+            <div class="info_text">
+                注:10糖果+1金沙可兑换1个币
             </div>
-            <div class="give_inp">
-                <label>
-                    <span>糖<i class="give_i"></i>果</span><input class="give_input" type="text">
-                </label>
-            </div>
-            <div class="give_btn">
-                确认赠送
+            <div class="info_btn">
+                确定兑换
             </div>
         </div>
     </div>
@@ -34,40 +37,46 @@
 
 <script>
     export default {
-        name:'sugar_give'
+        name:'currency_convert'
     }
 </script>
 
 <style lang="scss" scoped>
-.sugar_container{
+.convert_info{
     margin: 20px auto;
     width: 702px;
-    height: 710px;
+    height: 508px;
     background: #ffc787;
     border: 4px solid #c17b2a;
     border-radius: 20px;
+    padding: 22px;
     box-sizing: border-box;
     -moz-box-sizing: border-box;
     -webkit-box-sizing: border-box;
 }
-.sugar_num{
-    margin: 40px 0;
+.info_num{
+    margin: 20px 0;
     color: #fff;
-    font-size: 32px;
     font-weight: bold;
-    text-indent: 24px;
-    line-height: 100px;
+    font-size: 32px;
     text-shadow: -1px 0 5px #622804,
             0 1px 5px #622804,
             1px 0 5px #622804,
             0 -1px 5px #622804;
 }
-.sugar_img{
-    margin-right: 15px;
-    width: 110px;
-    height: 70px;
+.info_num span{
+    display: inline-block;
+    width: 30%;
 }
-.give_inp{
+.info_num img{
+    margin-right: 10px;
+    width: 65px;
+    height: 65px;
+}
+.info_num span:nth-of-type(2) img {
+    width: 110px;
+}
+.info_inp{
     margin: 40px auto;
     width: 650px;
     height: 80px;
@@ -79,28 +88,29 @@
     -moz-box-sizing: border-box;
     -webkit-box-sizing: border-box;
 }
-.give_inp span{
+.info_inp span{
     display: block;
     float: left;
     width: 25%;
 }
-.give_input{
+.info_input{
     width: 70%;
     height: 80%;
     border-radius: 20px;
 }
-.give_i{
-    display: inline-block;
-    width: 50px;
+.info_text{
+    margin-bottom: 80px;
+    text-align: left;
+    color: #f05306;
 }
-.give_btn{
-    margin: 40px auto 0;
+.info_btn{
+    margin: 0 auto;
     width: 140px;
     height: 65px;
     line-height: 65px;
-    color: #fff;
     font-size: 28px;
-    background: url('../../../static/images/sugar_btn.png') no-repeat;
+    color: #fff;
+    background: url('../../../static/images/sugar_btn.png')no-repeat;
     background-size: contain;
 }
 </style>

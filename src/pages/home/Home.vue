@@ -24,6 +24,15 @@
           </router-link>
         </span>
     </div>
+    
+    <div class="left_icon">
+      <img src="static/images/home_iconL.png">
+      <p>渔场</p>
+    </div>
+    <div class="right_icon">
+      <img src="static/images/home_iconR.png">
+      <p>养殖场</p>
+    </div>
 
     <!-- 动图 -->
     <div class="cart">
@@ -73,6 +82,7 @@
   position: fixed;
   left: 0;
   top: 0;
+  color: #632904;
   width: 100vw;
   height: 100vh;
   background: url("../../../static/images/home_bg.png");
@@ -135,7 +145,20 @@
 .mine_btn a{
   color: #fff;  
 }
-
+.left_icon{
+  position: absolute;
+  top: 380px;
+  left: 20px;
+}
+.right_icon{
+  position: absolute;
+  top: 380px;
+  right: 20px;
+}
+.left_icon img,.right_icon img{
+  width: 60px;
+  height: 48px;
+}
 // 动图
 .cart{
   position: absolute;
@@ -159,11 +182,11 @@
   animation: eagle_left 5s infinite;
 }
 @keyframes eagle_left{
-  0%{top: 400px;}
-  25%{top: 380px;}
-  50%{top: 400px;}
-  75%{top: 380px;}
-  100%{top: 400px;}
+  0%{top: 260px;}
+  25%{top: 280px;}
+  50%{top: 260px;}
+  75%{top: 280px;}
+  100%{top: 260px;}
 }
 .eagle_right{
   position: absolute;

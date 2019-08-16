@@ -154,7 +154,24 @@ export default new Router({
       name: 'currency',
       component: () => import('@/pages/user/currency'),
     },
-
+    // 货币-兑换
+    {
+      path: '/currency_convert',
+      name: 'currency_convert',
+      component: () => import('@/pages/user/currency_convert'),
+    },
+    // 货币-赠送
+    {
+      path: '/currency_give',
+      name: 'currency_give',
+      component: () => import('@/pages/user/currency_give'),
+    },
+    // 货币-挂卖
+    {
+      path: '/currency_sell',
+      name: 'currency_sell',
+      component: () => import('@/pages/user/currency_sell'),
+    },
     // 中奖记录
     {
       path: '/prize',

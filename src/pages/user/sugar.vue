@@ -1,5 +1,5 @@
 <template>
-    <div class="height-88 sugar">
+    <div class="height-88 public_bg">
         <!-- 头部组件 back-url=>反回路径，默认返回上一页 title=>标题内容 fixed=>是否固定在顶部 rgb=>背景色 col=>字体颜色 -->
 		<TopHeader back-url="" custom-title="糖果" :custom-fixed="true" custom-rgb custom-col>
 			<!-- 返回按钮 -->
@@ -31,16 +31,6 @@
 </script>
 
 <style lang="scss" scoped>
-.sugar{
-    width: 100vw;
-    height: 100vh;
-    background: -moz-linear-gradient(top, #fdd287 0%, #eaa050 100%);  
-    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#fdd287), color-stop(100%,#eaa050));  
-    background: -webkit-linear-gradient(top, #fdd287 0%,#eaa050 100%);  
-    background: -o-linear-gradient(top, #fdd287 0%,#eaa050 100%);  
-    background: -ms-linear-gradient(top, #fdd287 0%,#eaa050 100%);  
-    background: linear-gradient(to bottom, #fdd287 0%,#eaa050 100%);
-}
 .sugar_info{
     margin: 20px auto 40px;
     width: 702px;
@@ -53,6 +43,10 @@
     box-sizing: border-box;
     -moz-box-sizing: border-box;
     -webkit-box-sizing: border-box;
+    text-shadow: -1px 0 5px #622804,
+            0 1px 5px #622804,
+            1px 0 5px #622804,
+            0 -1px 5px #622804;
 }
 .sugar_img{
     margin-right: 15px;

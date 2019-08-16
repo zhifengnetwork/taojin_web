@@ -5,28 +5,25 @@
 			<!-- 返回按钮 -->
 			<img slot="backBtn" src="static/images/head_back.png">
 		</TopHeader>
-        <div class="sugar_container">
-            <div class="sugar_num">
-                <img class="sugar_img" src="static/images/sugar.png">
-                <span>50</span>
+        <div class="give_info">
+            <div class="info_num">
+                <span>
+                    <img src="static/images/currency.png">
+                    50
+                </span>
             </div>
-            <div class="give_inp">
+            <div class="info_inp">
                 <label>
-                    <span>收款&nbsp;&nbsp;ID</span><input class="give_input" type="text">
+                    <span>收款ID</span><input class="info_input" type="text">
                 </label>
             </div>
-            <div class="give_inp">
+            <div class="info_inp">
                 <label>
-                    <span>手机号码</span><input class="give_input" type="text">
+                    <span>币</span><input class="info_input" type="text">
                 </label>
             </div>
-            <div class="give_inp">
-                <label>
-                    <span>糖<i class="give_i"></i>果</span><input class="give_input" type="text">
-                </label>
-            </div>
-            <div class="give_btn">
-                确认赠送
+            <div class="info_btn">
+                确定赠送
             </div>
         </div>
     </div>
@@ -34,40 +31,43 @@
 
 <script>
     export default {
-        name:'sugar_give'
+        name:'currency_give'
     }
 </script>
 
 <style lang="scss" scoped>
-.sugar_container{
+.give_info{
     margin: 20px auto;
     width: 702px;
-    height: 710px;
+    height: 590px;
     background: #ffc787;
     border: 4px solid #c17b2a;
     border-radius: 20px;
+    padding: 22px;
     box-sizing: border-box;
     -moz-box-sizing: border-box;
     -webkit-box-sizing: border-box;
 }
-.sugar_num{
-    margin: 40px 0;
+.info_num{
+    margin: 20px 0;
     color: #fff;
-    font-size: 32px;
     font-weight: bold;
-    text-indent: 24px;
-    line-height: 100px;
+    font-size: 32px;
     text-shadow: -1px 0 5px #622804,
             0 1px 5px #622804,
             1px 0 5px #622804,
             0 -1px 5px #622804;
 }
-.sugar_img{
-    margin-right: 15px;
-    width: 110px;
-    height: 70px;
+.info_num span{
+    display: inline-block;
+    width: 30%;
 }
-.give_inp{
+.info_num img{
+    margin-right: 10px;
+    width: 65px;
+    height: 65px;
+}
+.info_inp{
     margin: 40px auto;
     width: 650px;
     height: 80px;
@@ -79,28 +79,24 @@
     -moz-box-sizing: border-box;
     -webkit-box-sizing: border-box;
 }
-.give_inp span{
+.info_inp span{
     display: block;
     float: left;
     width: 25%;
 }
-.give_input{
+.info_input{
     width: 70%;
     height: 80%;
     border-radius: 20px;
 }
-.give_i{
-    display: inline-block;
-    width: 50px;
-}
-.give_btn{
-    margin: 40px auto 0;
+.info_btn{
+    margin: 80px auto;
     width: 140px;
     height: 65px;
     line-height: 65px;
-    color: #fff;
     font-size: 28px;
-    background: url('../../../static/images/sugar_btn.png') no-repeat;
+    color: #fff;
+    background: url('../../../static/images/sugar_btn.png')no-repeat;
     background-size: contain;
 }
 </style>

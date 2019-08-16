@@ -134,7 +134,13 @@
   float: left;
   width: 33.3%;
   height: 210px;
+  font-size: 30px;
+  font-weight: bold;
   border-bottom: 1px solid #c17b2a;
+  text-shadow: -1px 0 5px #622804,
+              0 1px 5px #622804,
+              1px 0 5px #622804,
+              0 -1px 5px #622804;
 }
 .option_item:nth-last-of-type(1){
   border:0;

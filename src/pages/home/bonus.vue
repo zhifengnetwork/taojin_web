@@ -59,6 +59,13 @@
                     <li>45</li>
                     <li>766</li>
                 </ul>
+                <ul class="list_item">
+                    <li>4</li>
+                    <li>20190725 14:25:32</li>
+                    <li>二小姐</li>
+                    <li>45</li>
+                    <li>766</li>
+                </ul>
             </div>
         </div>
     </div>
@@ -79,7 +86,7 @@
     height: 100vh;
     color: #4a1901;
     background: url("../../../static/images/bonus.png");
-    background-size: cover;
+    background-size: contain;
 }
 .bonus_title{
     margin: 0 auto;
@@ -155,6 +162,8 @@
 }
 .rank_list{
     padding: 0 24px;
+    height: 580px;
+    overflow-y: scroll;
     box-sizing: border-box;
     -moz-box-sizing: border-box;
     -webkit-box-sizing: border-box;
@@ -169,8 +178,14 @@
     border-bottom: 1px solid #bb862d;
     
 }
+.list_title li:nth-of-type(1),.list_item li:nth-of-type(1){
+    width: 10%;
+}
 .list_title li:nth-of-type(2),.list_item li:nth-of-type(2){
     width: 40%;
+}
+.list_title li:nth-of-type(3),.list_item li:nth-of-type(3){
+    width: 20%;
 }
 .list_item:nth-of-type(2) :nth-child(1){
     background: url('../../../static/images/one.png')no-repeat;
@@ -183,9 +198,9 @@
 }
 .list_item:nth-of-type(2) :nth-child(1),.list_item:nth-of-type(3) :nth-child(1),.list_item:nth-of-type(4) :nth-child(1){
     color: #fff;
-    background-size: 40px;
-    background-position-x: 25px;
-    background-position-y: 40px;
+    background-size: 50px;
+    background-position-x: 5px;
+    background-position-y: 35px;
 }
 
 </style>
