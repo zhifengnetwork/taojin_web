@@ -1,5 +1,5 @@
 <template>
-    <div class="height-88">
+    <div class="height-88 withdraw_wrap">
         <!-- 头部组件 back-url=>反回路径，默认返回上一页 title=>标题内容 fixed=>是否固定在顶部 rgb=>背景色 col=>字体颜色 -->
 		<TopHeader back-url="" custom-title="账户提现" :custom-fixed="true" custom-rgb custom-col>
 			<!-- 返回按钮 -->
@@ -7,47 +7,48 @@
             
 		</TopHeader>
         <div class="money">
-            <div class="money_title">金额</div>
             <p class="money_num">214.52</p>
         </div>
-        <div class="type">
-            <div class="type_title">选择提现方式</div>
-            <div class="type_btns">
-                <span class="type_btn">支付宝</span>
-                <span class="type_btn">+添加银行卡</span>
-            </div>
-        </div>
-        <div class="alipay">
-            <router-link to="withdraw_alipay">
-                输入支付宝账号
-                <div class="alipay_icon">
-                    <van-icon name="arrow"/>
+        <div class="withdraw_content">
+            <div class="type">
+                <div class="type_title">选择提现方式</div>
+                <div class="type_btns">
+                    <span class="type_btn">支付宝</span>
+                    <span class="type_btn">+添加银行卡</span>
                 </div>
-            </router-link>
-        </div>
-        <div class="alipay">
-            <router-link to="withdraw_bank">
-                输入银行卡号
-                <div class="alipay_icon">
-                    <van-icon name="arrow"/>
+            </div>
+            <div class="alipay">
+                <router-link to="withdraw_alipay">
+                    输入支付宝账号
+                    <div class="alipay_icon">
+                        <van-icon name="arrow"/>
+                    </div>
+                </router-link>
+            </div>
+            <div class="alipay">
+                <router-link to="withdraw_bank">
+                    输入银行卡号
+                    <div class="alipay_icon">
+                        <van-icon name="arrow"/>
+                    </div>
+                </router-link>
+            </div>
+            <div class="withdraw">
+                <h3 class="withdraw_title">提现金额</h3>
+                <div class="withdraw_inp">
+                    <input class="withdraw_input" placeholder="请输入提现金额" type="text">
+                    <div class="withdraw_all">全部提现</div>
                 </div>
-            </router-link>
-        </div>
-        <div class="withdraw">
-            <h3 class="withdraw_title">提现金额</h3>
-            <div class="withdraw_inp">
-                <input class="withdraw_input" placeholder="请输入提现金额" type="text">
-                <div class="withdraw_all">全部提现</div>
+                <div class="withdraw_tax">
+                    <span class="withdraw_tax_text">手续费</span>0
+                </div>
+                <div class="withdraw_tax">
+                    <span class="withdraw_tax_text">实际到账</span>0
+                </div>
             </div>
-            <div class="withdraw_tax">
-                <span class="withdraw_tax_text">手续费</span>0
+            <div class="withdraw_btn" @click="send">
+                申请提交
             </div>
-            <div class="withdraw_tax">
-                <span class="withdraw_tax_text">实际到账</span>0
-            </div>
-        </div>
-        <div class="withdraw_btn" @click="send">
-            申请提交
         </div>
     </div>
 </template>
@@ -69,6 +70,16 @@
 </script>
 
 <style lang="scss" scoped>
+.withdraw_wrap{
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  color: #4a1901;
+  background: #ffda9e;
+  background-size: contain;
+}
 .money{
     width: 100%;
     height: 250px;
@@ -119,6 +130,16 @@
   bottom: 0;
   right: 20px;
   margin: auto;
+}
+.withdraw_content{
+    margin: 20px auto;
+    width: 702px;
+    height: 870px;
+    background: #ffe4b8;
+    border: 4px solid #c17b2a;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
 }
 .withdraw{
     text-align: left;

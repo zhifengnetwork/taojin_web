@@ -1,20 +1,19 @@
 <template>
-    <div class="height-88">
+    <div class="height-88 balance">
         <!-- 头部组件 back-url=>反回路径，默认返回上一页 title=>标题内容 fixed=>是否固定在顶部 rgb=>背景色 col=>字体颜色 -->
 		<TopHeader back-url="" custom-title="账户金额" :custom-fixed="true" custom-rgb custom-col>
 			<!-- 返回按钮 -->
 			<img slot="backBtn" src="static/images/head_back.png">
-            
 		</TopHeader>
         <div class="balance_content">
             <div class="balance_info">
                 <div class="balance_info_item">
+                    <p><span>122.00</span></p>
                     <p>可提现余额</p>
-                    <p>122.00</p>
                 </div>
                 <div class="balance_info_item">
+                    <p><span>122.00</span></p>
                     <p>出局余额</p>
-                    <p>122.00</p>
                 </div>
             </div>
             <div class="balance_btn">
@@ -27,9 +26,7 @@
             <div class="option_item" v-for="(item,index) in option_item" :key="index">
                 <router-link :to="item.pages">
                     {{item.text}}
-                    <div class="option_icon">
-                        <van-icon name="arrow"/>
-                    </div>
+                    <van-icon name="arrow"/>
                 </router-link>
             </div>
         </div>
@@ -54,49 +51,74 @@
 </script>
 
 <style lang="scss" scoped>
-.balance_content{
-    width: 100%;
-    height: 600px;
-    background: red;
+.balance{
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  color: #4a1901;
+  background: url('../../../static/images/balance_bg.png');
+  background-size: contain;
 }
-.balance_info{
-    height: 400px;
-    background: orange;
+.balance_content{
+    margin: 20px auto;
+    width: 702px;
+    height: 340px;
+    background: #eeb057;
+    border: 4px solid #a65421;
+    border-radius: 20px;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
 }
 .balance_info_item{
     float: left;
-    margin-top: 120px;
+    margin: 20px auto;
     width: 50%;
+    height: 180px;
     line-height: 50px;
 }
-.balance_info_item p:nth-of-type(2){
-    font-size: 60px;
-    line-height: 100px;
+.balance_info_item p:nth-of-type(1) span{
+    display: block;
+    margin: 20px auto;
+    width: 320px;
+    height: 72px;
+    font-size: 40px;
+    line-height: 72px;
+    background: url('../../../static/images/balance_money.png')no-repeat;
+    background-size: contain;
 }
 .balance_btn{
-    margin: 40px 24px;
-    height: 120px;
-    line-height: 120px;
-    background: skyblue;
-    border-radius: 20px;
+    display: inline-block;
+    width: 140px;
+    height: 66px;
+    line-height: 66px;
+    background: url('../../../static/images/sugar_btn.png')no-repeat;
+    background-size: contain;
 }
-.balance_option{
-    border-top: 20px solid #e5e5e5;
+.balance_btn a{
+    color: #fff;
 }
 .option_item{
-    position: relative;
-    height: 150px;
-    line-height: 150px;
-    text-align: left;
-    text-indent: 60px;
-    border-bottom: 1px solid #ccc;
-    background: #fff;
+  margin: 40px auto;
+  width: 702px;
+  height: 80px;
+  line-height: 72px;
+  text-align: left;
+  text-indent: 30px;
+  background: #be7d43;
+  border-radius: 20px;
+  border: 4px solid #a65421;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
 }
-.option_icon{
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  right: 20px;
-  margin: auto;
+.option_item a{
+    color: #fff;
+}
+.van-icon{
+  text-indent: 0;
+  vertical-align: text-top;
 }
 </style>

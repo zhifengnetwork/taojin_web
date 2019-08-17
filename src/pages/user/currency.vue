@@ -91,7 +91,7 @@
     color: #fff;
 }
 .option_item{
-  margin: 20px auto;
+  margin: 40px auto;
   width: 702px;
   height: 80px;
   line-height: 72px;
@@ -108,6 +108,7 @@
     color: #fff;
 }
 .van-icon{
+  text-indent: 0;
   vertical-align: text-top;
 }
 </style>
