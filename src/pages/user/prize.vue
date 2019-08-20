@@ -56,14 +56,19 @@
     -moz-box-sizing: border-box;
     -webkit-box-sizing: border-box;
 }
-.prize_title li,.prize_item li{
+.prize_title li{
     float: left;
     width: 50%;
-}
-.prize_title li{
-    line-height: 80px;
+    font-size: 30px;
+    line-height: 100px;
 }
 .prize_item li{
-    line-height: 120px;
+    float: left;
+    width: 50%;
+    line-height: 60px;
+    background: #ffc787;
+}
+.prize_item:nth-of-type(2n) li{
+    background: #ffbb7e;
 }
 </style>

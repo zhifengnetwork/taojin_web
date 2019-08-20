@@ -37,7 +37,22 @@
       return{
 
       }
-    }
+    },
+    mounted(){
+      let _this = this;
+      this.$axios.post('ranking/user_auction',{
+          page:1
+      })
+      .then(function(res){
+          console.log(res);
+      })
+      .catch(function(error){
+          console.log(error);
+      })
+    },
+    methods:{
+      
+    },
   }
 </script>
 

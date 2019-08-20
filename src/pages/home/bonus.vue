@@ -31,41 +31,43 @@
                     <li>数量</li>
                     <li>金额</li>
                 </ul>
-                <ul class="list_item">
-                    <li>1</li>
-                    <li>20190725 14:25:32</li>
-                    <li>二小姐</li>
-                    <li>45</li>
-                    <li>766</li>
-                </ul>
-                <ul class="list_item">
-                    <li>2</li>
-                    <li>20190725 14:25:32</li>
-                    <li>二小姐</li>
-                    <li>45</li>
-                    <li>766</li>
-                </ul>
-                <ul class="list_item">
-                    <li>3</li>
-                    <li>20190725 14:25:32</li>
-                    <li>二小姐</li>
-                    <li>45</li>
-                    <li>766</li>
-                </ul>
-                <ul class="list_item">
-                    <li>4</li>
-                    <li>20190725 14:25:32</li>
-                    <li>二小姐</li>
-                    <li>45</li>
-                    <li>766</li>
-                </ul>
-                <ul class="list_item">
-                    <li>4</li>
-                    <li>20190725 14:25:32</li>
-                    <li>二小姐</li>
-                    <li>45</li>
-                    <li>766</li>
-                </ul>
+                <div class="rank_item">
+                    <ul class="list_item">
+                        <li>1</li>
+                        <li>20190725 14:25:32</li>
+                        <li>二小姐</li>
+                        <li>45</li>
+                        <li>766</li>
+                    </ul>
+                    <ul class="list_item">
+                        <li>2</li>
+                        <li>20190725 14:25:32</li>
+                        <li>二小姐</li>
+                        <li>45</li>
+                        <li>766</li>
+                    </ul>
+                    <ul class="list_item">
+                        <li>3</li>
+                        <li>20190725 14:25:32</li>
+                        <li>二小姐</li>
+                        <li>45</li>
+                        <li>766</li>
+                    </ul>
+                    <ul class="list_item">
+                        <li>4</li>
+                        <li>20190725 14:25:32</li>
+                        <li>二小姐</li>
+                        <li>45</li>
+                        <li>766</li>
+                    </ul>
+                    <ul class="list_item">
+                        <li>4</li>
+                        <li>20190725 14:25:32</li>
+                        <li>二小姐</li>
+                        <li>45</li>
+                        <li>766</li>
+                    </ul>
+                </div>
             </div>
         </div>
     </div>
@@ -162,7 +164,10 @@
 }
 .rank_list{
     padding: 0 24px;
-    height: 580px;
+}
+.rank_item{
+    width: 100%;
+    height: 480px;
     overflow-y: scroll;
     box-sizing: border-box;
     -moz-box-sizing: border-box;
@@ -187,16 +192,16 @@
 .list_title li:nth-of-type(3),.list_item li:nth-of-type(3){
     width: 20%;
 }
-.list_item:nth-of-type(2) :nth-child(1){
+.list_item:nth-of-type(1) :nth-child(1){
     background: url('../../../static/images/one.png')no-repeat;
 }
-.list_item:nth-of-type(3) :nth-child(1){
+.list_item:nth-of-type(2) :nth-child(1){
     background: url('../../../static/images/tow.png')no-repeat;
 }
-.list_item:nth-of-type(4) :nth-child(1){
+.list_item:nth-of-type(3) :nth-child(1){
     background: url('../../../static/images/three.png')no-repeat;
 }
-.list_item:nth-of-type(2) :nth-child(1),.list_item:nth-of-type(3) :nth-child(1),.list_item:nth-of-type(4) :nth-child(1){
+.list_item:nth-of-type(1) :nth-child(1),.list_item:nth-of-type(2) :nth-child(1),.list_item:nth-of-type(3) :nth-child(1){
     color: #fff;
     background-size: 50px;
     background-position-x: 5px;

@@ -39,7 +39,23 @@
       return{
 
       }
-    }
+    },
+    mounted(){
+      let _this = this;
+      this.$axios.post('ranking/my_ranking',{
+          token:1,
+          page:1
+      })
+      .then(function(res){
+          console.log(res);
+      })
+      .catch(function(error){
+          console.log(error);
+      })
+    },
+    methods:{
+      
+    },
   }
 </script>
 

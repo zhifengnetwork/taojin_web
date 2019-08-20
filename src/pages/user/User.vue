@@ -5,11 +5,11 @@
       <div class="userInfo_content">
         <div class="userInfo_picture">
           <router-link to="user_info">
-            <img class="userInfo_img" src="static/images/user/currency.png">
+            <img class="userInfo_img" :src="user_info.avatar">
           </router-link>
         </div>
         <div class="userInfo_text">
-          <p class="userInfo_name">杰*不要啊<span class="userInfo_id">ID:77591746</span></p>
+          <p class="userInfo_name">{{user_info.nick_name}}<span class="userInfo_id">ID:{{user_info.id}}</span></p>
           <p>注册时间: 2019.08.08</p>
         </div>
         <div class="userInfo_tag">
@@ -32,6 +32,7 @@
 </template>
 
 <script>
+  import { Toast } from 'vant';
   export default {
     name:'User',
     data(){
@@ -48,9 +49,30 @@
           {text:'我的团队',img:'static/images/user/team.png',pages:'my_team'},
           {text:'开奖记录',img:'static/images/user/prize.png',pages:'prize'},
           {text:'我的推广',img:'static/images/user/promotion.png',pages:'promotion'}
-        ]
+        ],
+        user_info:''
       }
-    }
+    },
+    mounted(){
+      let _this = this;
+      this.$axios.post('user/userinfo',{
+          token:localStorage.getItem('token')
+      })
+      .then(function(res){
+          console.log(res);
+          if(res.data.status == 1){
+            _this.user_info = res.data.data
+          }else{
+            Toast(res.data.msg)
+          }
+      })
+      .catch(function(error){
+          console.log(error);
+      })
+    },
+    methods:{
+      
+    },
   }
 </script>
 

@@ -13,8 +13,8 @@
     </div>
 
     <div class="mine_btns">
-        <span class="mine_btn">
-          <router-link to="buy_item">
+        <span class="mine_btn" @click="buyMask">
+          <router-link to="#">
             购买道具
           </router-link>
         </span>
@@ -44,6 +44,21 @@
     <div class="eagle_right">
       <img src="static/images/eagle_right.png">
     </div>
+    <div class="buyitem_mask" v-show="buyitem">
+      <div class="buyitem">
+        <img class="buyitem_img" src="static/images/buyitem_img.png">
+        <div class="buyitem_price">￥20</div>
+        <div class="buyitem_num">
+          <span>-</span>
+          <input type="text">
+          <span>+</span>
+        </div>
+        <div class="buyitem_btn">购买</div>
+        <div class="buyitem_back" @click="buyMask">
+          <img class="buyitem_backimg" src="static/images/buyitem_backimg.png">
+        </div>
+      </div>
+    </div>
     <div class="mask">
       <div class="mask_content">
         <h3 class="content_title">中奖名单</h3>
@@ -71,9 +86,24 @@
     name:'Home',
     data(){
       return{
-
+        buyitem: false,
       }
-    }
+    },
+    mounted(){
+      let _this = this;
+      this.$axios.post('index/index')
+      .then(function(res){
+          console.log(res);
+      })
+      .catch(function(error){
+          console.log(error);
+      })
+    },
+    methods:{
+      buyMask(){
+        this.buyitem = !this.buyitem;
+      }
+    },
   }
 </script>
 
@@ -256,5 +286,78 @@
   font-size: 80px;
   border:1px solid #fff;
   border-radius: 50%;
+}
+.buyitem_mask{
+  position: absolute;
+  top:0;
+  left:0;
+  width:100vw;
+  height:100vh;
+  background:rgba(0,0,0,.5);
+  z-index: 20;
+}
+.buyitem{
+  position:absolute;
+  top:30vh;
+  left:0;
+  right:0;
+  margin:auto;
+  width:500px;
+  height:600px;
+  background: url('../../../static/images/buyitem.png');
+  background-size: contain;
+}
+.buyitem_img{
+  position:absolute;
+  top:50px;
+  left:220px;
+  width:120px;
+  height:150px;
+}
+.buyitem_price{
+  margin-top: 210px;
+}
+.buyitem_num{
+  width:200px;
+  margin:80px auto;
+}
+.buyitem_num input{
+  margin:0 10px;
+  width:100px;
+  height:36px;
+  line-height: 36px;
+  color:#fff;
+  text-align: center;
+  vertical-align: top;
+  background:#b38a5b;
+}
+.buyitem_num span{
+  display: inline-block;
+  width: 32px;
+  height: 36px;
+  line-height: 36px;
+  font-size: 36px;
+  color: #a65421;
+}
+.buyitem_btn{
+  margin: 0 auto;
+  width: 140px;
+  height: 65px;
+  line-height: 65px;
+  font-size: 28px;
+  color: #fff;
+  background: url('../../../static/images/sugar_btn.png')no-repeat;
+  background-size: contain;
+}
+.buyitem_back{
+  position:absolute;
+  top:20px;
+  right:20px;
+  width:42px;
+  height:42px;
+}
+.buyitem_backimg{
+  width:100%;
+  height:100%;
 }
 </style>
