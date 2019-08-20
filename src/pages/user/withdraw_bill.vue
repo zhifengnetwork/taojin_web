@@ -113,6 +113,7 @@
   background-size: contain;
 }
 .active{
+    opacity: 1 !important;
     color: #7d4e2a;
 }
 .bill_tab{
@@ -123,6 +124,7 @@
 }
 .bill_tab li{
     float: left;
+    opacity: 0.5;
     width: 200px;
     height: 60px;
     line-height: 60px;

@@ -1,5 +1,5 @@
 <template>
-    <div class="height-88">
+    <div class="height-88 prize">
         <!-- 头部组件 back-url=>反回路径，默认返回上一页 title=>标题内容 fixed=>是否固定在顶部 rgb=>背景色 col=>字体颜色 -->
         <TopHeader back-url="" custom-title="中奖记录" :custom-fixed="true" custom-rgb custom-col>
             <!-- 返回按钮 -->
@@ -7,7 +7,7 @@
             <!-- 右侧按钮 -->
             <!-- <i slot="rightBtn" class="iconfont iconfanhui"></i> -->
         </TopHeader>
-        <div class="prize">
+        <div class="prize_wrap">
             <ul class="prize_title">
                 <li>中奖ID</li>
                 <li>手机号</li>
@@ -35,10 +35,30 @@
 </script>
 
 <style lang="scss" scoped>
+.prize{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    color: #4a1901;
+    background: #ffda9e;
+}
+.prize_wrap{
+    margin: 20px auto;
+    width: 702px;
+    height: 1180px;
+    background: #ffe4b8;
+    border: 4px solid #c17b2a;
+    border-radius: 10px;
+    padding: 10px;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+}
 .prize_title li,.prize_item li{
     float: left;
     width: 50%;
-    border-bottom: 1px solid #ccc;
 }
 .prize_title li{
     line-height: 80px;

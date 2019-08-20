@@ -81,6 +81,25 @@ export default new Router({
       name: 'user_info',
       component: () => import('@/pages/user/user_info'),
     },
+    // 修改用户名
+    {
+      path: '/user_setname',
+      name: 'user_setname',
+      component: () => import('@/pages/user/user_setname'),
+    },
+    // 修改密码
+    {
+      path: '/user_amendPwd',
+      name: 'user_amendPwd',
+      component: () => import('@/pages/user/user_amendPwd'),
+    },
+    // 设置支付密码
+    {
+      path: '/user_paymentPwd',
+      name: 'user_paymentPwd',
+      component: () => import('@/pages/user/user_paymentPwd'),
+    },
+
     // 我的订单
     {
       path: '/my_order',
@@ -178,11 +197,20 @@ export default new Router({
       name: 'prize',
       component: () => import('@/pages/user/prize'),
     },
+
+
     // 我的推广
     {
       path: '/promotion',
       name: 'promotion',
       component: () => import('@/pages/user/promotion'),
+    },
+
+    // 我的团队
+    {
+      path: '/my_team',
+      name: 'my_team',
+      component: () => import('@/pages/user/my_team'),
     },
   ]
 })

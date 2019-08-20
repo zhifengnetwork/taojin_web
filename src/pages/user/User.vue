@@ -45,7 +45,7 @@
           {text:'糖果',img:'static/images/user/sugar.png',pages:'sugar'},
           {text:'币',img:'static/images/user/currency.png',pages:'currency'},
           {text:'我的订单',img:'static/images/user/my_order.png',pages:'my_order'},
-          {text:'我的团队',img:'static/images/user/team.png',pages:'#'},
+          {text:'我的团队',img:'static/images/user/team.png',pages:'my_team'},
           {text:'开奖记录',img:'static/images/user/prize.png',pages:'prize'},
           {text:'我的推广',img:'static/images/user/promotion.png',pages:'promotion'}
         ]
