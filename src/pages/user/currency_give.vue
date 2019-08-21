@@ -9,20 +9,20 @@
             <div class="info_num">
                 <span>
                     <img src="static/images/currency.png">
-                    50
+                    {{user_info.currency}}
                 </span>
             </div>
             <div class="info_inp">
                 <label>
-                    <span>收款ID</span><input class="info_input" type="text">
+                    <span>收款ID</span><input v-model="ID" class="info_input" type="text">
                 </label>
             </div>
             <div class="info_inp">
                 <label>
-                    <span>币</span><input class="info_input" type="text">
+                    <span>币</span><input v-model="currency" class="info_input" type="text">
                 </label>
             </div>
-            <div class="info_btn">
+            <div class="info_btn" @click="send">
                 确定赠送
             </div>
         </div>
@@ -30,8 +30,49 @@
 </template>
 
 <script>
+    import { Toast } from 'vant';
     export default {
-        name:'currency_give'
+        name:'currency_give',
+        data(){
+            return {
+                user_info:'',
+                ID:'',
+                currency:''
+            }
+        },
+        mounted(){
+            this.user_info = JSON.parse(this.$route.query.user_info)
+        },
+        methods:{
+            send(){
+                if(!this.ID){
+                    Toast('请输入赠送ID')
+                    return false;
+                }
+                if(!this.currency){
+                    Toast('请输入赠送数量')
+                    return false;
+                }
+                let _this = this;
+                this.$axios.post('users/give_currency',{
+                    token:localStorage.getItem('token'),
+                    u_id:_this.ID,
+                    currency:_this.currency
+                })
+                .then(function(res){
+                    console.log(res);
+                    if(res.data.status == 1){
+                        Toast.success('赠送成功');
+                        _this.$router.push('User');
+                    }else{
+                        Toast(res.data.msg)
+                    }
+                })
+                .catch(function(error){
+                    console.log(error);
+                })
+            }
+        }
     }
 </script>
 

@@ -12,65 +12,35 @@
         </div>
         <div class="team_wrap">
             <div class="team_content" v-if="active==0">
-                <div class="team_item">
+                <div class="team_item" v-for="(item,index) in team.data" :key="index">
                     <div class="team_name">
-                        二小姐
+                        {{item.nick_name}}
                     </div>
                     <div class="team_mobile">
                         <img class="team_img" src="static/images/team_mobile.png">
-                        <span>13344445555</span>
+                        <span>{{item.phone}}</span>
                     </div>
                     <div class="team_id">
-                        ID:12138
+                        ID:{{item.id}}
                     </div>
-                    <div class="team_btn" @click="mask_show">
-                        查看
-                    </div>
-                </div>
-                <div class="team_item">
-                    <div class="team_name">
-                        二小姐
-                    </div>
-                    <div class="team_mobile">
-                        <img class="team_img" src="static/images/team_mobile.png">
-                        <span>13344445555</span>
-                    </div>
-                    <div class="team_id">
-                        ID:12138
-                    </div>
-                    <div class="team_btn" @click="mask_show">
-                        查看
-                    </div>
-                </div>
-                <div class="team_item">
-                    <div class="team_name">
-                        二小姐
-                    </div>
-                    <div class="team_mobile">
-                        <img class="team_img" src="static/images/team_mobile.png">
-                        <span>13344445555</span>
-                    </div>
-                    <div class="team_id">
-                        ID:12138
-                    </div>
-                    <div class="team_btn" @click="mask_show">
+                    <div class="team_btn" @click="mask_show(item.id)">
                         查看
                     </div>
                 </div>
             </div>
             <div class="team_content" v-if="active!=0">
-                <div class="team_item">
+                <div class="team_item" v-for="(item,index) in team.data" :key="index">
                     <div class="team_name">
-                        二小姐
+                        {{item.nick_name}}
                     </div>
                     <div class="team_mobile">
                         <img class="team_img" src="static/images/team_mobile.png">
-                        <span>13344445555</span>
+                        <span>{{item.phone}}</span>
                     </div>
                     <div class="team_id">
-                        ID:12138
+                        ID:{{item.id}}
                     </div>
-                    <div class="team_btn" @click="mask_show">
+                    <div class="team_btn" @click="mask_show(item.id)">
                         查看
                     </div>
                 </div>
@@ -83,20 +53,10 @@
                             <img class="mask_img" src="static/images/team_back.png">
                         </div>
                     </div>
-                    <div class="mask_item">
-                        下单时间:20190405 订单号:14567895464 金额:500
-                    </div>
-                    <div class="mask_item">
-                        下单时间:20190405 订单号:14567895464 金额:500
-                    </div>
-                    <div class="mask_item">
-                        下单时间:20190405 订单号:14567895464 金额:500
-                    </div>
-                    <div class="mask_item">
-                        下单时间:20190405 订单号:14567895464 金额:500
-                    </div>
-                    <div class="mask_item">
-                        下单时间:20190405 订单号:14567895464 金额:500
+                    <div class="mask_item" v-for="(item,index) in team_order" :key="index">
+                        <span>下单时间:{{item.add_time}}</span>
+                        <span>订单号:{{item.id}}</span>
+                        <span>金额:{{item.money}}</span>
                     </div>
                 </div>
             </div>
@@ -105,24 +65,73 @@
 </template>
 
 <script>
+    import { Toast } from 'vant';
     export default {
         name:'my_team',
         data(){
             return{
                 tab:[
-                    {text:'直推会员(50)'},
-                    {text:'其他会员(111)'}
+                    {text:'直推会员'},
+                    {text:'其他会员'}
                 ],
                 active:'0',
-                show:false
+                show:false,
+                team:'',
+                team_order:''
             }
         },
+        mounted(){
+            this.initalize(0);
+        },
         methods:{
+            initalize(is_direct){
+                let _this = this;
+                this.$axios.post('team/team_list',{
+                    token:1,
+                    is_direct:is_direct
+                })
+                .then(function(res){
+                    console.log(res);
+                    if(res.data.status == 1){
+                        _this.team = res.data.data;
+                        if(is_direct==0){
+                            _this.tab[is_direct].text = '直推会员('+res.data.data.count+')' 
+                        }else{
+                            _this.tab[is_direct].text = '其他会员('+res.data.data.count+')' 
+                        }
+                    }else{
+                        Toast(res.data.msg)
+                    }
+                })
+                .catch(function(error){
+                    console.log(error);
+                })
+            },
             team_tab(index){
                 this.active = index;
+                this.initalize(index);
             },
-            mask_show(){
+            mask_show(user_id){
                 this.show = !this.show;
+                if(!this.show){
+                    return false;
+                }
+                let _this = this;
+                this.$axios.post('team/team_rank_list',{
+                    token:1,
+                    user_id:user_id
+                })
+                .then(function(res){
+                    console.log(res);
+                    if(res.data.status == 1){
+                        _this.team_order = res.data.data;
+                    }else{
+                        Toast(res.data.msg)
+                    }
+                })
+                .catch(function(error){
+                    console.log(error);
+                })
             }
         }
     }
@@ -264,5 +273,9 @@
 }
 .mask_item:nth-of-type(2n){
     background: #ffdab5;
+}
+.mask_item span{
+    display: inline-block;
+    width:32%;
 }
 </style>

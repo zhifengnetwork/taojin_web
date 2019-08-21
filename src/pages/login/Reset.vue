@@ -87,6 +87,9 @@
                 })
             },
             getCode(){
+                if(!this.flag){
+                    return false;
+                }
                 if(!this.mobile){
                     Toast.fail('请填写手机号!');
                     return false;

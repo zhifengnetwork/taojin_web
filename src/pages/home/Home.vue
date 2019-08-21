@@ -49,11 +49,11 @@
         <img class="buyitem_img" src="static/images/buyitem_img.png">
         <div class="buyitem_price">￥20</div>
         <div class="buyitem_num">
-          <span>-</span>
-          <input type="text">
-          <span>+</span>
+          <span @click="minus">-</span>
+          <input v-model="buyitem_num" type="text">
+          <span @click="add">+</span>
         </div>
-        <div class="buyitem_btn">购买</div>
+        <div class="buyitem_btn" @click="buyItem">购买</div>
         <div class="buyitem_back" @click="buyMask">
           <img class="buyitem_backimg" src="static/images/buyitem_backimg.png">
         </div>
@@ -82,11 +82,13 @@
 </template>
 
 <script>
+  import { Toast } from 'vant';
   export default {
     name:'Home',
     data(){
       return{
         buyitem: false,
+        buyitem_num: 1
       }
     },
     mounted(){
@@ -102,6 +104,35 @@
     methods:{
       buyMask(){
         this.buyitem = !this.buyitem;
+      },
+      minus(){
+        if(this.buyitem_num==1){
+          Toast('购买数量不能小于1');
+          return false;
+        }
+        this.buyitem_num--;
+      },
+      add(){
+        this.buyitem_num++;
+      },
+      buyItem(){
+        let _this = this;
+        this.$axios.post('ranking/buy_gold_shovel',{
+            token:localStorage.getItem('token'),
+            num:_this.buyitem_num
+        })
+        .then(function(res){
+            console.log(res);
+            if(res.data.status == 1){
+              Toast.success('购买成功');
+              _this.buyitem = false;
+            }else{
+              Toast(res.data.msg)
+            }
+        })
+        .catch(function(error){
+            console.log(error);
+        })
       }
     },
   }

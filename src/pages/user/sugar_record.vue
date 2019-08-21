@@ -6,25 +6,11 @@
 			<img slot="backBtn" src="static/images/head_back.png">
 		</TopHeader>
         <div class="record">
-            <div class="record_item">
-                <p class="item_id">4555555555555555</p>
-                <p class="item_time">2019-01-02</p>
+            <div class="record_item" v-for="(item,index) in record" :key="index">
+                <p class="item_id">{{item.type_text}}</p>
+                <p class="item_time">{{item.createtime}}</p>
                 <div class="item_num">
-                    <span>40</span>
-                </div>
-            </div>
-            <div class="record_item">
-                <p class="item_id">4555555555555555</p>
-                <p class="item_time">2019-01-02</p>
-                <div class="item_num">
-                    <span>40</span>
-                </div>
-            </div>
-            <div class="record_item">
-                <p class="item_id">4555555555555555</p>
-                <p class="item_time">2019-01-02</p>
-                <div class="item_num">
-                    <span>40</span>
+                    <span>{{item.integral }}</span>
                 </div>
             </div>
         </div>
@@ -32,8 +18,36 @@
 </template>
 
 <script>
+    import { Toast } from 'vant';
     export default {
-        name:'sugar_record'
+        name:'sugar_record',
+        data(){
+            return {
+                record:''
+            }
+        },
+        mounted(){
+            this.initalize();
+        },
+        methods:{
+            initalize(){
+                let _this = this;
+                this.$axios.post('index/integral_list',{
+                    token:localStorage.getItem('token')
+                })
+                .then(function(res){
+                    console.log(res);
+                    if(res.data.status == 1){
+                        _this.record = res.data.data;
+                    }else{
+                        Toast(res.data.msg)
+                    }
+                })
+                .catch(function(error){
+                    console.log(error);
+                })
+            }
+        }
     }
 </script>
 
@@ -42,6 +56,7 @@
     margin: 20px auto;
     width: 702px;
     height: 1180px;
+    overflow-y: scroll;
     border: 4px solid #c17b2a;
     border-radius: 20px;
     background: #ffc787;

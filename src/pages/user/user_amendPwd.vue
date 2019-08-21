@@ -8,26 +8,26 @@
         <div class="amend">
             <div class="amend_inp">
                 <label>
-                    <span class="amend_text">输入手机号</span><input class="amend_input" type="text">
+                    <span class="amend_text">输入手机号</span><input v-model="mobile" class="amend_input" type="text">
                 </label>
             </div>
             <div class="amend_inp">
                 <label>
-                    <span class="amend_text">输入密码</span><input class="amend_input" type="text">
+                    <span class="amend_text">输入密码</span><input v-model="pwd1" class="amend_input" type="password">
                 </label>
             </div>
             <div class="amend_inp">
                 <label>
-                    <span class="amend_text">再次输入密码</span><input class="amend_input" type="text">
+                    <span class="amend_text">再次输入密码</span><input v-model="pwd2" class="amend_input" type="password">
                 </label>
             </div>
             <div class="amend_inp">
                 <label>
-                    <span class="amend_text">输入验证码</span><input class="amend_input" type="text">
-                    <span class="amend_code">获取验证码</span>
+                    <span class="amend_text">输入验证码</span><input v-model="code" class="amend_input" type="text">
+                    <span class="amend_code" @click="getCode">{{codeText}}</span>
                 </label>
             </div>
-            <div class="amend_btn">
+            <div class="amend_btn" @click="amend_send">
                 确认
             </div>
         </div>
@@ -35,8 +35,102 @@
 </template>
 
 <script>
+    import { Toast } from 'vant';
     export default {
-        name:'user_amendPwd'
+        name:'user_amendPwd',
+        data(){
+            return{
+                mobile:'',
+                pwd1:'',
+                pwd2:'',
+                code:'',
+                codeText:'获取验证码',
+                flag:true
+            }
+        },
+        methods:{
+            amend_send(){
+                if(!this.mobile){
+                    Toast('请输入手机号')
+                    return false;
+                }
+                if(!this.pwd1){
+                    Toast('请输入密码')
+                    return false;
+                }
+                if(!this.pwd2){
+                    Toast('请再次输入密码')
+                    return false;
+                }
+                if(!this.code){
+                    Toast('请输入验证码')
+                    return false;
+                }
+                let _this = this;
+                this.$axios.post('user/reset_pwd',{
+                    token:localStorage.getItem('token'),
+                    password1:_this.pwd1,
+                    password2:_this.pwd1,
+                    code:_this.code,
+                })
+                .then(function(res){
+                    console.log(res);
+                    if(res.data.status == 1){
+                        Toast.success('修改成功');
+                        _this.$router.push('User');
+                    }else{
+                        Toast(res.data.msg)
+                    }
+                })
+                .catch(function(error){
+                    console.log(error);
+                })
+            },
+            getCode(){
+                if(!this.flag){
+                    return false;
+                }
+                if(!this.mobile){
+                    Toast.fail('请填写手机号!');
+                    return false;
+                }
+                if(!(/^1[3456789]\d{9}$/.test(this.mobile))){ 
+                    Toast.fail("手机号码有误，请重填");
+                    return false; 
+                }
+                let _this = this;
+                this.$axios.post('captcha/get_code',{
+                    phone:_this.mobile
+                })
+                .then(function(res){
+                    console.log(res);
+                    if(res.data.status == 1){
+                        Toast.success('发送成功');
+                        _this.time();
+                    }else{
+                        Toast.fail(res.data.msg);
+                    }
+                })
+                .catch(function(error){
+                    console.log(error);
+                }) 
+            },
+            time(){
+                if(this.flag){
+                    let s = 60;
+                    let time = setInterval(() => {
+                        s--;
+                        this.flag = false;
+                        this.codeText = s+'秒后重新获取';
+                        if(s==0){
+                            clearInterval(time);
+                            this.flag = true;
+                            this.codeText = '获取验证码';
+                        }
+                    }, 1000);
+                }
+            }
+        }
     }
 </script>
 

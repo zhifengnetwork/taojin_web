@@ -4,13 +4,13 @@
       <!-- 用户信息 -->
       <div class="userInfo_content">
         <div class="userInfo_picture">
-          <router-link to="user_info">
+          <router-link :to="{path:'user_info',query:{'user_info':JSON.stringify(user_info)}}">
             <img class="userInfo_img" :src="user_info.avatar">
           </router-link>
         </div>
         <div class="userInfo_text">
           <p class="userInfo_name">{{user_info.nick_name}}<span class="userInfo_id">ID:{{user_info.id}}</span></p>
-          <p>注册时间: 2019.08.08</p>
+          <p>注册时间: {{user_info.add_time}}</p>
         </div>
         <div class="userInfo_tag">
           矿工
@@ -20,7 +20,7 @@
     <!-- 列表项 -->
     <div class="user_option">
       <div class="option_item" v-for="(item,index) in option_item" :key="index">
-        <router-link :to="item.pages">
+        <router-link :to="{path:item.pages,query:{'user_info':JSON.stringify(user_info)}}">
           <img class="option_img" :src="item.img">
           <p>{{item.text}}</p>
         </router-link>

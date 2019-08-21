@@ -29,8 +29,36 @@
 </template>
 
 <script>
+    import { Toast } from 'vant';
     export default {
-        name:'prize'
+        name:'prize',
+        data(){
+            return {
+                prize:''
+            }
+        },
+        mounted(){
+            this.initalize();
+        },
+        methods:{
+            initalize(){
+                let _this = this;
+                this.$axios.post('index/reward_list',{
+                    token:localStorage.getItem('token')
+                })
+                .then(function(res){
+                    console.log(res);
+                    if(res.data.status == 1){
+                        _this.prize = res.data.data;
+                    }else{
+                        Toast(res.data.msg)
+                    }
+                })
+                .catch(function(error){
+                    console.log(error);
+                })
+            }
+        }
     }
 </script>
 

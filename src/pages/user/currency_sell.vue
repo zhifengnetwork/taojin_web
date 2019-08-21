@@ -9,15 +9,15 @@
             <div class="info_num">
                 <span>
                     <img src="static/images/currency.png">
-                    50
+                    {{user_info.currency}}
                 </span>
             </div>
             <div class="info_inp">
                 <label>
-                    <span>出售</span><input class="info_input" type="text">
+                    <span>出售</span><input v-model="currency" class="info_input" type="text">
                 </label>
             </div>
-            <div class="info_btn">
+            <div class="info_btn" @click="send">
                 确定出售
             </div>
         </div>
@@ -25,8 +25,44 @@
 </template>
 
 <script>
+    import { Toast } from 'vant';
     export default {
-        name:'currency_sell'
+        name:'currency_sell',
+        data(){
+            return {
+                user_info:'',
+                currency:''
+            }
+        },
+        mounted(){
+            this.user_info = JSON.parse(this.$route.query.user_info)
+        },
+        methods:{
+            send(){
+                if(!this.currency){
+                    Toast('请输入赠送数量')
+                    return false;
+                }
+                let _this = this;
+                this.$axios.post('users/auction',{
+                    token:localStorage.getItem('token'),
+                    u_id:_this.ID,
+                    currency:_this.currency
+                })
+                .then(function(res){
+                    console.log(res);
+                    if(res.data.status == 1){
+                        Toast.success('提交成功');
+                        _this.$router.push('User');
+                    }else{
+                        Toast(res.data.msg)
+                    }
+                })
+                .catch(function(error){
+                    console.log(error);
+                })
+            }
+        }
     }
 </script>
 

@@ -8,11 +8,11 @@
         <div class="balance_content">
             <div class="balance_info">
                 <div class="balance_info_item">
-                    <p><span>122.00</span></p>
+                    <p><span>{{user_info.balance}}</span></p>
                     <p>可提现余额</p>
                 </div>
                 <div class="balance_info_item">
-                    <p><span>122.00</span></p>
+                    <p><span>{{user_info.lock_balance}}</span></p>
                     <p>出局余额</p>
                 </div>
             </div>
@@ -41,8 +41,12 @@
                 option_item:[
                     {text:'提现明细',pages:'withdraw_record'},
                     {text:'账单明细',pages:'withdraw_bill'},
-                ]
+                ],
+                user_info:''
             }
+        },
+        mounted(){
+            this.user_info = JSON.parse(this.$route.query.user_info)
         },
         methods:{
 

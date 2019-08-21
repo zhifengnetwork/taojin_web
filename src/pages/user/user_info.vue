@@ -12,10 +12,10 @@
                     <router-link :to="item.pages">
                         {{item.text}}
                         <div class="info_name" v-if="index==1">
-                            七七七
+                            {{user_info.nick_name}}
                         </div>
                         <div class="info_phone" v-if="index==2">
-                            133 4444 5555
+                            {{user_info.phone}}
                         </div>
                         <div class="info_picture" v-if="index==0">
                             <img class="info_img" src="static/images/user_icon.png">
@@ -44,9 +44,13 @@
                     {text:'手机号绑定',pages:'#'},
                     {text:'修改密码',pages:'user_amendPwd'},
                     {text:'支付密码',pages:'user_paymentPwd'}
-                ]
+                ],
+                user_info:''
             }
-        }
+        },
+        mounted(){
+            this.user_info = JSON.parse(this.$route.query.user_info)
+        },
     }
 </script>
 

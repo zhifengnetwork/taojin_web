@@ -3,30 +3,22 @@
     <!-- 头部组件 back-url=>反回路径，默认返回上一页 title=>标题内容 fixed=>是否固定在顶部 rgb=>背景色 col=>字体颜色 -->
 		<TopHeader custom-title="排位" :custom-fixed="true"></TopHeader>
     <div class="notice">
-      <p><span>145</span>人</p>
+      <p><span>{{rank_info.count}}</span>人</p>
       <p>出局ID总数</p>
     </div>
     <div class="rank_list">
-      <ul class="rank_title">
+      <ul class="rank_title clearfix">
         <li>排名</li>
         <li>时间</li>
         <li>备注</li>
       </ul>
-      <ul class="rank_item">
-        <li>5</li>
-        <li>2017-07-14 14:30:25</li>
-        <li>前面还有04位</li>
-      </ul>
-      <ul class="rank_item">
-        <li>5</li>
-        <li>2017-07-14 14:30:25</li>
-        <li>前面还有04位</li>
-      </ul>
-      <ul class="rank_item">
-        <li>5</li>
-        <li>2017-07-14 14:30:25</li>
-        <li>前面还有04位</li>
-      </ul>
+      <div class="item_content">
+        <ul class="rank_item" v-for="(item,index) in rank_info.rank_list" :key="index">
+          <li>{{item.rank}}</li>
+          <li>{{item.rank_time}}</li>
+          <li>前面还有{{item.num}}位</li>
+        </ul>
+      </div>
     </div>
     <Navigate></Navigate>
   </div>
@@ -37,17 +29,22 @@
     name:'Rank',
     data(){
       return{
-
+        rank_info:''
       }
     },
     mounted(){
       let _this = this;
       this.$axios.post('ranking/my_ranking',{
-          token:1,
+          token:localStorage.getItem('token'),
           page:1
       })
       .then(function(res){
           console.log(res);
+          if(res.data.status == 1){
+            _this.rank_info = res.data.data
+          }else{
+            Toast(res.data.msg)
+          }
       })
       .catch(function(error){
           console.log(error);
@@ -81,9 +78,6 @@
   -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;
 }
-.rank_title li{
-  margin-bottom: 20px;
-}
 .rank_title li,.rank_item li{
   float: left;
   width: 30%;
@@ -92,6 +86,11 @@
 }
 .rank_title li:nth-of-type(2),.rank_item li:nth-of-type(2){
   width: 40%;
+}
+.item_content{
+  width:100%;
+  height:86%;
+  overflow-y: scroll;
 }
 .notice{
   margin: auto;

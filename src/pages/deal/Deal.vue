@@ -2,40 +2,25 @@
   <div class="height-88 deal">
     <!-- 头部组件 back-url=>反回路径，默认返回上一页 title=>标题内容 fixed=>是否固定在顶部 rgb=>背景色 col=>字体颜色 -->
 		<TopHeader custom-title="挂卖" :custom-fixed="true"></TopHeader>
-    <div class="deal_list">
-      <p class="list_text">ID:451545<span>￥648</span></p>
-      <p class="list_text">抢单人:平台</p>
-      <p class="list_text">挂单数量:10</p>
-      <p class="list_text">挂单时间:2019-07-12  15:23:45</p>
-    </div>
-    <div class="deal_list">
-      <p class="list_text">ID:451545<span>￥648</span></p>
-      <p class="list_text">抢单人:平台</p>
-      <p class="list_text">挂单数量:10</p>
-      <p class="list_text">挂单时间:2019-07-12  15:23:45</p>
-    </div>
-    <div class="deal_list">
-      <p class="list_text">ID:451545<span>￥648</span></p>
-      <p class="list_text">抢单人:平台</p>
-      <p class="list_text">挂单数量:10</p>
-      <p class="list_text">挂单时间:2019-07-12  15:23:45</p>
-    </div>
-    <div class="deal_list">
-      <p class="list_text">ID:451545<span>￥648</span></p>
-      <p class="list_text">抢单人:平台</p>
-      <p class="list_text">挂单数量:10</p>
-      <p class="list_text">挂单时间:2019-07-12  15:23:45</p>
+    <div class="deal_wrap">
+      <div class="deal_list" v-for="(item,index) in deal_info" :key="index">
+        <p class="list_text">ID:{{item.id}}<span>￥{{item.all_money}}</span></p>
+        <p class="list_text">抢单人:平台</p>
+        <p class="list_text">挂单数量:{{item.currency_num}}</p>
+        <p class="list_text">挂单时间:{{item.add_time}}</p>
+      </div>
     </div>
     <Navigate></Navigate>
   </div>
 </template>
 
 <script>
+  import { Toast } from 'vant';
   export default {
     name:'Deal',
     data(){
       return{
-
+        deal_info:''
       }
     },
     mounted(){
@@ -45,6 +30,12 @@
       })
       .then(function(res){
           console.log(res);
+          console.log(res);
+          if(res.data.status == 1){
+            _this.deal_info = res.data.data
+          }else{
+            Toast(res.data.msg)
+          }
       })
       .catch(function(error){
           console.log(error);
@@ -67,6 +58,11 @@
   background: url('../../../static/images/public_bg.png');
   background-size: contain;
 }
+.deal_wrap{
+  height: 85vh;
+  width: 100%;
+  overflow-y: scroll;
+}
 .deal_list{
   margin: 20px auto;
   width: 702px;
@@ -86,7 +82,7 @@
   float: right;
   color: #ff0000;
 }
-.deal_list:nth-last-of-type(2){
+.deal_list:nth-last-of-type(1){
   margin-bottom: 88px;
 }
 </style>

@@ -8,10 +8,10 @@
         <div class="setname">
             <div class="setname_inp">
                 <label>
-                    <span class="setname_text">输入用户名:</span><input class="setname_input" type="text">
+                    <span class="setname_text">输入用户名:</span><input v-model="username" class="setname_input" type="text">
                 </label>
             </div>
-            <div class="setname_btn">
+            <div class="setname_btn" @click="send">
                 确认修改
             </div>
         </div>
@@ -19,8 +19,42 @@
 </template>
 
 <script>
+    import { Toast } from 'vant';
     export default {
-        name:'user_setname'
+        name:'user_setname',
+        data(){
+            return {
+                username:''
+            }
+        },
+        mounted(){
+            this.sugar = this.$route.query.sugar
+        },
+        methods:{
+            send(){
+                if(!this.username){
+                    Toast('请输入用户名')
+                    return false;
+                }
+                let _this = this;
+                this.$axios.post('user/update_username',{
+                    token:localStorage.getItem('token'),
+                    username:_this.username
+                })
+                .then(function(res){
+                    console.log(res);
+                    if(res.data.status == 1){
+                        Toast.success('修改成功');
+                        _this.$router.push('User');
+                    }else{
+                        Toast(res.data.msg)
+                    }
+                })
+                .catch(function(error){
+                    console.log(error);
+                })
+            },
+        }
     }
 </script>
 

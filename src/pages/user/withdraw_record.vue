@@ -16,29 +16,11 @@
                 </ul>
             </div>
             <div class="record_info">
-                <ul>
-                    <li>20190521</li>
-                    <li>22.3</li>
-                    <li>1</li>
-                    <li class="failure">审核失败</li>
-                </ul>
-                <ul>
-                    <li>20190521</li>
-                    <li>22.3</li>
-                    <li>1</li>
-                    <li class="succeed">审核成功</li>
-                </ul>
-                <ul>
-                    <li>20190521</li>
-                    <li>22.3</li>
-                    <li>1</li>
-                    <li class="failure">审核失败</li>
-                </ul>
-                <ul>
-                    <li>20190521</li>
-                    <li>22.3</li>
-                    <li>1</li>
-                    <li class="succeed">审核成功</li>
+                <ul v-for="(item,index) in record" :key="index">
+                    <li>{{item.create_time}}</li>
+                    <li>{{item.money}}</li>
+                    <li>{{item.fee}}</li>
+                    <li :class="item.status_text=='申请中'?failure:succeed">{{item.status_text}}</li>
                 </ul>
             </div>
         </div>
@@ -46,8 +28,36 @@
 </template>
 
 <script>
+    import { Toast } from 'vant';
     export default {
-        name:'withdraw_record'
+        name:'withdraw_record',
+        data(){
+            return {
+                record:''
+            }
+        },
+        mounted(){
+            this.initalize();
+        },
+        methods:{
+            initalize(){
+                let _this = this;
+                this.$axios.post('user/withdraw_list',{
+                    token:localStorage.getItem('token')
+                })
+                .then(function(res){
+                    console.log(res);
+                    if(res.data.status == 1){
+                        _this.record = res.data.data;
+                    }else{
+                        Toast(res.data.msg)
+                    }
+                })
+                .catch(function(error){
+                    console.log(error);
+                })
+            }
+        }
     }
 </script>
 

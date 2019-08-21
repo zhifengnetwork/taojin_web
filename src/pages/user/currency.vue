@@ -7,21 +7,21 @@
 		</TopHeader>
         <div class="currency">
             <img class="currency_img" src="static/images/currency.png">
-            <span>50</span>
+            <span>{{user_info.currency}}</span>
         </div>
         <div class="currency_btn">
             <div class="btn_item">
-                <router-link to="currency_convert">
+                <router-link :to="{path:'currency_convert',query:{'user_info':JSON.stringify(user_info)}}">
                     兑换
                 </router-link>
             </div>
             <div class="btn_item">
-                <router-link to="currency_give">
+                <router-link :to="{path:'currency_give',query:{'user_info':JSON.stringify(user_info)}}">
                     赠送
                 </router-link>
             </div>
             <div class="btn_item">
-                <router-link to="currency_sell">
+                <router-link :to="{path:'currency_sell',query:{'user_info':JSON.stringify(user_info)}}">
                     挂卖
                 </router-link>
             </div>
@@ -43,7 +43,15 @@
 
 <script>
     export default {
-        name:'currency'
+        name:'currency',
+        data(){
+            return {
+                user_info:''
+            }
+        },
+        mounted(){
+            this.user_info = JSON.parse(this.$route.query.user_info)
+        },
     }
 </script>
 

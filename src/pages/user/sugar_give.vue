@@ -8,24 +8,24 @@
         <div class="sugar_container">
             <div class="sugar_num">
                 <img class="sugar_img" src="static/images/sugar.png">
-                <span>50</span>
+                <span>{{sugar}}</span>
             </div>
             <div class="give_inp">
                 <label>
-                    <span>收款&nbsp;&nbsp;ID</span><input class="give_input" type="text">
+                    <span>收款&nbsp;&nbsp;ID</span><input v-model="ID" class="give_input" type="text">
                 </label>
             </div>
+            <!-- <div class="give_inp">
+                <label>
+                    <span>手机号码</span><input v-model="mobile" class="give_input" type="text">
+                </label>
+            </div> -->
             <div class="give_inp">
                 <label>
-                    <span>手机号码</span><input class="give_input" type="text">
+                    <span>糖<i class="give_i"></i>果</span><input v-model="integral" class="give_input" type="text">
                 </label>
             </div>
-            <div class="give_inp">
-                <label>
-                    <span>糖<i class="give_i"></i>果</span><input class="give_input" type="text">
-                </label>
-            </div>
-            <div class="give_btn">
+            <div class="give_btn" @click="give_send">
                 确认赠送
             </div>
         </div>
@@ -33,8 +33,54 @@
 </template>
 
 <script>
+    import { Toast } from 'vant';
     export default {
-        name:'sugar_give'
+        name:'sugar_give',
+        data(){
+            return {
+                sugar:'',
+                ID:'',
+                mobile:'',
+                integral:''
+            }
+        },
+        mounted(){
+            this.sugar = this.$route.query.sugar
+        },
+        methods:{
+            give_send(){
+                if(!this.ID){
+                    Toast('请输入赠送ID')
+                    return false;
+                }
+                // if(!this.mobile){
+                //     Toast('请输入赠送号码')
+                //     return false;
+                // }
+                if(!this.integral){
+                    Toast('请输入赠送数量')
+                    return false;
+                }
+                let _this = this;
+                this.$axios.post('users/give_integral',{
+                    token:localStorage.getItem('token'),
+                    u_id:_this.ID,
+                    integral:_this.integral
+                })
+                .then(function(res){
+                    console.log(res);
+                    if(res.data.status == 1){
+                        Toast.success('赠送成功');
+                        _this.$router.push('User');
+                    }else{
+                        Toast(res.data.msg)
+                    }
+                })
+                .catch(function(error){
+                    console.log(error);
+                })
+            },
+        }
     }
 </script>
 

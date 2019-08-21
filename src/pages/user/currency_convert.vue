@@ -9,26 +9,26 @@
             <div class="info_num">
                 <span>
                     <img src="static/images/currency.png">
-                    50
+                    {{user_info.currency}}
                 </span>
                 <span>
                     <img src="static/images/sugar.png">
-                    40
+                    {{user_info.integral}}
                 </span>
                 <span>
                     <img src="static/images/gold.png">
-                    20
+                    {{parseInt(user_info.balance)}}
                 </span>
             </div>
             <div class="info_inp">
                 <label>
-                    <span>兑换币</span><input class="info_input" type="text">
+                    <span>兑换币</span><input v-model="num" class="info_input" type="text">
                 </label>
             </div>
             <div class="info_text">
                 注:10糖果+1金沙可兑换1个币
             </div>
-            <div class="info_btn">
+            <div class="info_btn" @click="send">
                 确定兑换
             </div>
         </div>
@@ -36,8 +36,43 @@
 </template>
 
 <script>
+    import { Toast } from 'vant';
     export default {
-        name:'currency_convert'
+        name:'currency_convert',
+        data(){
+            return {
+                user_info:'',
+                num:''
+            }
+        },
+        mounted(){
+            this.user_info = JSON.parse(this.$route.query.user_info)
+        },
+        methods:{
+            send(){
+                if(!this.num){
+                    Toast('请输入兑换数量')
+                    return false;
+                }
+                let _this = this;
+                this.$axios.post('users/exchange_currency',{
+                    token:localStorage.getItem('token'),
+                    currency:_this.num
+                })
+                .then(function(res){
+                    console.log(res);
+                    if(res.data.status == 1){
+                        Toast.success('兑换成功');
+                        _this.$router.push('User');
+                    }else{
+                        Toast(res.data.msg)
+                    }
+                })
+                .catch(function(error){
+                    console.log(error);
+                })
+            }
+        }
     }
 </script>
 

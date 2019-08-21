@@ -7,11 +7,11 @@
 		</TopHeader>
         <div class="sugar_info">
             <img class="sugar_img" src="static/images/sugar.png">
-            <span>50</span>
+            <span>{{user_info.integral}}</span>
         </div>
         <div class="sugar_option">
             <div class="option_item">
-                <router-link to="sugar_give">
+                <router-link :to="{path:'sugar_give',query:{sugar:user_info.integral}}">
                     赠送
                 </router-link>
             </div>
@@ -26,7 +26,15 @@
 
 <script>
     export default {
-        name:'sugar'
+        name:'sugar',
+        data(){
+            return {
+                user_info:''
+            }
+        },
+        mounted(){
+            this.user_info = JSON.parse(this.$route.query.user_info)
+        },
     }
 </script>
 
