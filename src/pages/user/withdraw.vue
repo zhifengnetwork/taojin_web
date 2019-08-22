@@ -9,16 +9,16 @@
         <div class="money">
             <p class="money_num">
                 <img class="money_img" src="static/images/withdraw_money.png">
-                214.52
+                {{withdraw.money}}
             </p>
         </div>
         <div class="withdraw_content">
             <div class="type">
                 <div class="type_title">选择提现方式</div>
                 <div class="type_btns">
-                    <img class="type_img active" src="static/images/alipay.png">
-                    <img class="type_img" src="static/images/bank.png">
-                    <span class="type_btn">+添加银行卡</span>
+                    <img class="type_img" :class="tp==1?'active':''" @click="type(1)" src="static/images/alipay.png">
+                    <img class="type_img" v-if="withdraw.card" :class="tp==2?'active':''" @click="type(2)" src="static/images/bank.png">
+                    <span class="type_btn" @click="withdraw_bank">+添加银行卡</span>
                 </div>
             </div>
             <div class="alipay">
@@ -40,16 +40,16 @@
             <div class="withdraw">
                 <h3 class="withdraw_title">提现金额</h3>
                 <div class="withdraw_inp">
-                    <input class="withdraw_input" placeholder="请输入提现金额" type="text">
-                    <div class="withdraw_all">全部提现</div>
+                    <input class="withdraw_input" v-model="money" @input="mone" placeholder="请输入提现金额" type="text">
+                    <div class="withdraw_all" @click="all">全部提现</div>
                 </div>
                 <div class="withdraw_tax">
                     <span class="withdraw_tax_text">手续费</span>
-                    <span class="withdraw_tax_num">0.12</span>
+                    <span class="withdraw_tax_num">{{rate_decimals}}</span>
                 </div>
                 <div class="withdraw_tax">
                     <span class="withdraw_tax_text">实际到账</span>
-                    <span class="withdraw_tax_num">1199.88</span>
+                    <span class="withdraw_tax_num">{{num}}</span>
                 </div>
             </div>
             <div class="withdraw_btn" @click="send">
@@ -60,18 +60,85 @@
 </template>
 
 <script>
+    import { Toast } from 'vant';
     export default {
         name:'withdraw',
         data(){
-            return{
-                
+            return {
+                withdraw:'',
+                tp:1,
+                money:'',
+                rate_decimals:'',
+                num:''
             }
         },
+        mounted(){
+            this.initalize();
+        },
         methods:{
+            initalize(){
+                let _this = this;
+                this.$axios.post('user/withdrawal',{
+                    token:localStorage.getItem('token')
+                })
+                .then(function(res){
+                    console.log(res);
+                    if(res.data.status == 1){
+                        _this.withdraw = res.data.data;
+                    }else{
+                        Toast(res.data.msg)
+                    }
+                })
+                .catch(function(error){
+                    console.log(error);
+                })
+            },
+            withdraw_bank(){
+                this.$router.push('withdraw_bank')
+            },
+            type(flag){
+                this.tp = flag;
+            },
+            mone(e){
+                this.money = e.target.value.replace(/\D/gi,"")
+                if(Number(e.target.value)>Number(this.withdraw.money)){
+                    this.money = parseInt(this.withdraw.money)
+                }
+                if(Number(e.target.value)<0){
+                    this.money = 0
+                }
+                this.rate_decimals = Math.floor((this.money*this.withdraw.rate_decimals)*100)/100;
+                this.num = this.money-this.rate_decimals;
+            },
+            all(){
+                this.money = this.withdraw.money
+            },
             send(){
-                this.$router.push({name:'balance'})
+                if(!this.money){
+                    Toast('请输入提现金额')
+                    return false;
+                }
+                let _this = this;
+                this.$axios.post('user/withdraw',{
+                    token:localStorage.getItem('token'),
+                    type:_this.tp,
+                    money:_this.money,
+                    card_id:_this.withdraw.card[0].id
+                })
+                .then(function(res){
+                    console.log(res);
+                    if(res.data.status == 1){
+                        Toast.success('提交成功,等待审核');
+                        _this.$router.push({name:'User'})
+                    }else{
+                        Toast(res.data.msg)
+                    }
+                })
+                .catch(function(error){
+                    console.log(error);
+                })
             }
-        }
+        },
     }
 </script>
 

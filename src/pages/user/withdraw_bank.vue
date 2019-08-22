@@ -9,17 +9,17 @@
         <div class="bank_wrap">
             <div class="bank_inp">
                 <label>
-                    <span class="bank_text">姓名:</span><input class="bank_input" placeholder="请输入姓名" type="text">
+                    <span class="bank_text">姓名:</span><input class="bank_input" v-model="name" placeholder="请输入姓名" type="text">
                 </label>
             </div>
             <div class="bank_inp">
                 <label>
-                    <span class="bank_text">卡号:</span><input class="bank_input" placeholder="请输入卡号" type="text">
+                    <span class="bank_text">卡号:</span><input class="bank_input" v-model="number" placeholder="请输入卡号" type="text">
                 </label>
             </div>
             <div class="bank_inp">
                 <label>
-                    <span class="bank_text">银行:</span><input class="bank_input" placeholder="请输入银行" type="text">
+                    <span class="bank_text">银行:</span><input class="bank_input" v-model="bank" placeholder="请输入银行" type="text">
                 </label>
             </div>
             <div class="bank_btn" @click="send">
@@ -30,16 +30,49 @@
 </template>
 
 <script>
+    import { Toast } from 'vant';
     export default {
         name:'withdraw_bank',
         data(){
             return {
-                
+                name:'',
+                bank:'',
+                number:''
             }
         },
         methods:{
             send(){
-                this.$router.push({name:'withdraw'})
+                if(!this.name){
+                    Toast('请输入真实姓名')
+                    return false;
+                }
+                if(!this.bank){
+                    Toast('请输入银行')
+                    return false;
+                }
+                if(!this.number){
+                    Toast('请输入银行卡号')
+                    return false;
+                }
+                let _this = this;
+                this.$axios.post('user/bind_card',{
+                    token:localStorage.getItem('token'),
+                    name:_this.name,
+                    bank:_this.bank,
+                    number:_this.number
+                })
+                .then(function(res){
+                    console.log(res);
+                    if(res.data.status == 1){
+                        Toast.success('提交成功,等待审核');
+                        _this.$router.push({name:'withdraw'})
+                    }else{
+                        Toast(res.data.msg)
+                    }
+                })
+                .catch(function(error){
+                    console.log(error);
+                })
             }
         }
     }

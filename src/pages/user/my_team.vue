@@ -87,7 +87,7 @@
             initalize(is_direct){
                 let _this = this;
                 this.$axios.post('team/team_list',{
-                    token:1,
+                    token:localStorage.getItem('token'),
                     is_direct:is_direct
                 })
                 .then(function(res){
@@ -118,7 +118,7 @@
                 }
                 let _this = this;
                 this.$axios.post('team/team_rank_list',{
-                    token:1,
+                    token:localStorage.getItem('token'),
                     user_id:user_id
                 })
                 .then(function(res){

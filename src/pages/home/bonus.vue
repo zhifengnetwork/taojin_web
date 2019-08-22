@@ -10,13 +10,13 @@
         </div>
         <div class="bonus_time">
             <div class="bonus_price">
-                <span>542</span>元
+                <span>{{bonus.integral_num}}</span>元
             </div>
             <p class="bonus_text">开奖时间 2019-07-26</p>
             <p class="start_time">
-                <span>12</span>:
-                <span>00</span>:
-                <span>00</span>
+                <span>{{time[0]}}</span>:
+                <span>{{time[1]}}</span>:
+                <span>{{time[2]}}</span>
             </p>
         </div>
         <div class="bonus_rank">
@@ -75,7 +75,18 @@
 
 <script>
     export default {
-        name:'bonus'
+        name:'bonus',
+        data(){
+            return {
+                bonus:'',
+                time:''
+            }
+        },
+        mounted(){
+            this.bonus = JSON.parse(this.$route.query.bonus)
+            this.time = this.bonus.open_time.split(':')
+            console.log(this.time)
+        },
     }
 </script>
 

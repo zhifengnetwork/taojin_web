@@ -7,7 +7,8 @@
 		</TopHeader>
         <div class="bill_tab">
             <ul>
-                <li v-for="(item,index) in tab" :key="index" @click="bill_tab(index)" :class="active==index?'active':''">{{item.text}}</li>
+                <li @click="bill_tab(1)" :class="active==1?'active':''">消费</li>
+                <li @click="bill_tab(2)" :class="active==2?'active':''">赚取</li>
             </ul>
         </div>
         <div class="bill_wrap">
@@ -15,82 +16,69 @@
                 <ul>
                     <li>申请日期</li>
                     <li>金额</li>
-                    <li>手续费</li>
-                    <li>审核状态</li>
+                    <li>类型</li>
                 </ul>
             </div>
-            <div class="bill_content" v-if="active==0">
-                <ul>
-                    <li>
-                       20124545
-                    </li>
-                    <li>120212</li>
-                    <li>- 65.2</li>
-                    <li class="succeed">审核成功</li>
-                </ul>
-                <ul>
-                    <li>
-                       20124545
-                    </li>
-                    <li>120212</li>
-                    <li>- 65.2</li>
-                    <li class="succeed">审核成功</li>
-                </ul>
-                <ul>
-                    <li>
-                       20124545
-                    </li>
-                    <li>120212</li>
-                    <li>- 65.2</li>
-                    <li class="succeed">审核成功</li>
-                </ul>
-            </div>
-            <div class="bill_content" v-if="active!=0">
-                <ul>
-                    <li>
-                        20124545
-                    </li>
-                    <li>120212</li>
-                    <li>65.2</li>
-                    <li class="failure">审核失败</li>
-                </ul>
-                <ul>
-                    <li>
-                        20124545
-                    </li>
-                    <li>120212</li>
-                    <li>65.2</li>
-                    <li class="failure">审核失败</li>
-                </ul>
-                <ul>
-                    <li>
-                        20124545
-                    </li>
-                    <li>120212</li>
-                    <li>65.2</li>
-                    <li class="failure">审核失败</li>
-                </ul>
+            <div class="content_wrap">
+                <div class="bill_content" v-if="active==1">
+                    <ul v-for="(item,index) in bil" :key="index">
+                        <li>
+                        {{item.createtime}}
+                        </li>
+                        <li>{{item.money}}</li>
+                        <li class="succeed">{{item.type_text}}</li>
+                    </ul>
+                </div>
+                <div class="bill_content" v-if="active==2">
+                    <ul v-for="(item,index) in bil" :key="index">
+                        <li>
+                        {{item.createtime}}
+                        </li>
+                        <li>{{item.money}}</li>
+                        <li class="succeed">{{item.type_text}}</li>
+                    </ul>
+                </div>
             </div>
         </div>
     </div>
 </template>
 
 <script>
+    import { Toast } from 'vant';
     export default {
         name:'withdraw_bill',
         data(){
             return{
-                tab:[
-                    {text:'消费'},
-                    {text:'赚取'}
-                ],
-                active:'0'
+                active:'1',
+                bil:''
             }
         },
+        mounted(){
+            this.initalize(1);
+        },
         methods:{
-            bill_tab(index){
-                this.active = index;
-            }
+            bill_tab(tab){
+                this.active = tab;
+                this.initalize(tab);
+            },
+            initalize(is_direct){
+                let _this = this;
+                this.$axios.post('index/balance_list',{
+                    token:localStorage.getItem('token'),
+                    have:is_direct
+                })
+                .then(function(res){
+                    console.log(res);
+                    if(res.data.status == 1){
+                        _this.bil = res.data.data;
+                    }else{
+                        Toast(res.data.msg)
+                    }
+                })
+                .catch(function(error){
+                    console.log(error);
+                })
+            },
         }
     }
 </script>
@@ -139,8 +127,11 @@
 }
 .bill_tabbar li{
     float: left;
-    width: 25%;
+    width: 30%;
     font-weight: bold;
+}
+.bill_tabbar li:nth-of-type(1){
+    width: 40%;
 }
 .bill_wrap{
     margin: 0 auto;
@@ -153,6 +144,11 @@
     -moz-box-sizing: border-box;
     -webkit-box-sizing: border-box;
 }
+.content_wrap{
+    width: 100%;
+    height: 90%;
+    overflow-y: scroll;
+}
 .bill_content{
     width: 100%;
     height: 100px;
@@ -160,8 +156,11 @@
 }
 .bill_content li{
     float: left;
-    width: 25%;
+    width: 30%;
     background: #ffc787;
+}
+.bill_content li:nth-of-type(1){
+    width: 40%;
 }
 .bill_content ul:nth-of-type(2n) li{
     background: #ffbb7e;

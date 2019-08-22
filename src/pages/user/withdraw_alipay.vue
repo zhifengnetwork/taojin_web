@@ -8,12 +8,12 @@
         <div class="alipay_wrap">
             <div class="alipay_inp">
                 <label>
-                    <span class="alipay_text">支付宝账号:</span><input class="alipay_input" placeholder="请输入支付宝账号" type="text">
+                    <span class="alipay_text">支付宝账号:</span><input class="alipay_input" v-model="alipay" placeholder="请输入支付宝账号" type="text">
                 </label>
             </div>
             <div class="alipay_inp">
                 <label>
-                    <span class="alipay_text">真实姓名:</span><input class="alipay_input" placeholder="请输入真实姓名" type="text">
+                    <span class="alipay_text">真实姓名:</span><input class="alipay_input" v-model="name" placeholder="请输入真实姓名" type="text">
                 </label>
             </div>
             <div class="alipay_btn" @click="send">
@@ -24,16 +24,43 @@
 </template>
 
 <script>
+    import { Toast } from 'vant';
     export default {
         name:'withdraw_alipay',
         data(){
             return {
-                
+                alipay:'',
+                name:''
             }
         },
         methods:{
             send(){
-                this.$router.push({name:'withdraw'})
+                if(!this.alipay){
+                    Toast('请输入支付宝账号')
+                    return false;
+                }
+                if(!this.name){
+                    Toast('请输入真实姓名')
+                    return false;
+                }
+                let _this = this;
+                this.$axios.post('user/bind_alipay',{
+                    token:localStorage.getItem('token'),
+                    name:_this.name,
+                    number:_this.alipay
+                })
+                .then(function(res){
+                    console.log(res);
+                    if(res.data.status == 1){
+                        Toast.success('添加成功');
+                        _this.$router.push({name:'withdraw'})
+                    }else{
+                        Toast(res.data.msg)
+                    }
+                })
+                .catch(function(error){
+                    console.log(error);
+                })
             }
         }
     }

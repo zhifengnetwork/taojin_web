@@ -12,17 +12,9 @@
                 <li>中奖ID</li>
                 <li>手机号</li>
             </ul>
-            <ul class="prize_item">
-                <li>2019.07.27 18:05:23</li>
-                <li>134×××××786</li>
-            </ul>
-            <ul class="prize_item">
-                <li>2019.07.27 18:05:23</li>
-                <li>134×××××786</li>
-            </ul>
-            <ul class="prize_item">
-                <li>2019.07.27 18:05:23</li>
-                <li>134×××××786</li>
+            <ul class="prize_item" v-for="(item,index) in prize" :key="index">
+                <li>{{item.rank_time}}</li>
+                <li>{{item.phone}}</li>
             </ul>
         </div>
     </div>

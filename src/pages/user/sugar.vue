@@ -17,7 +17,7 @@
             </div>
             <div class="option_item">
                 <router-link to="sugar_record">
-                    赠送记录
+                    糖果明细
                 </router-link>
             </div>
         </div>

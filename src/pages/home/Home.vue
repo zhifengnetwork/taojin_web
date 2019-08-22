@@ -9,7 +9,7 @@
     </van-notice-bar>
 
     <div class="mine_info">
-      <p>220<span>元</span></p>
+      <p>{{home.integral_num}}<span>元</span></p>
     </div>
 
     <div class="mine_btns">
@@ -19,17 +19,17 @@
           </router-link>
         </span>
         <span class="mine_btn">
-          <router-link to="bonus">
+          <router-link :to="{name:'bonus',query:{'bonus':JSON.stringify(home)}}">
             矿池
           </router-link>
         </span>
     </div>
     
-    <div class="left_icon">
+    <div class="left_icon" @click="remov">
       <img src="static/images/home_iconL.png">
       <p>渔场</p>
     </div>
-    <div class="right_icon">
+    <div class="right_icon" @click="remov">
       <img src="static/images/home_iconR.png">
       <p>养殖场</p>
     </div>
@@ -46,8 +46,8 @@
     </div>
     <div class="buyitem_mask" v-show="buyitem">
       <div class="buyitem">
-        <img class="buyitem_img" src="static/images/buyitem_img.png">
-        <div class="buyitem_price">￥20</div>
+        <img class="buyitem_img" :src="itemInfo.logo">
+        <div class="buyitem_price">￥{{itemInfo.money}}</div>
         <div class="buyitem_num">
           <span @click="minus">-</span>
           <input v-model="buyitem_num" type="text">
@@ -88,7 +88,9 @@
     data(){
       return{
         buyitem: false,
-        buyitem_num: 1
+        buyitem_num: 1,
+        home: '',
+        itemInfo: ''
       }
     },
     mounted(){
@@ -96,6 +98,15 @@
       this.$axios.post('index/index')
       .then(function(res){
           console.log(res);
+          _this.home = res.data.data;
+      })
+      .catch(function(error){
+          console.log(error);
+      })
+      this.$axios.post('ranking/goods_details')
+      .then(function(res){
+          console.log(res);
+          _this.itemInfo = res.data.data;
       })
       .catch(function(error){
           console.log(error);
@@ -114,6 +125,9 @@
       },
       add(){
         this.buyitem_num++;
+      },
+      remov(){
+          Toast('暂未开通');
       },
       buyItem(){
         let _this = this;

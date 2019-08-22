@@ -29,12 +29,7 @@
         <div class="currency_option">
             <div class="option_item">
                 <router-link to="#">
-                    赠送记录<van-icon name="arrow"/>
-                </router-link>
-            </div>
-            <div class="option_item">
-                <router-link to="#">
-                    兑换记录<van-icon name="arrow"/>
+                    交易明细<van-icon name="arrow"/>
                 </router-link>
             </div>
         </div>
