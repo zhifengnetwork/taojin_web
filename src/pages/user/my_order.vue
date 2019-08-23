@@ -71,7 +71,7 @@
                     console.log(res);
                     if(res.data.status == 1){
                         Toast.success('删除成功');
-                        _this.$router.push('User');
+                        location.reload()
                     }else{
                         Toast(res.data.msg)
                     }

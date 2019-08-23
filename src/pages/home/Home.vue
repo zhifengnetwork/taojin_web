@@ -33,7 +33,16 @@
       <img src="static/images/home_iconR.png">
       <p>养殖场</p>
     </div>
-
+    
+    <div class="give" v-if="home.is_give==1" @click="give_mask">
+      <img class="give_img" src="static/images/sugar.png">
+    </div>
+    <div class="give_mask" v-if="give">
+      <div class="give_content">
+        <div class="give_text">恭喜你获得了 {{give_num.num}}<img src="static/images/sugar.png"></div>
+        <div class="give_btn" @click="give_mask">确定</div>
+      </div>
+    </div>
     <!-- 动图 -->
     <div class="cart">
       <img src="static/images/cart.png">
@@ -89,7 +98,9 @@
         home: '',
         itemInfo: '',
         mask:true,
-        maskInfo:''
+        maskInfo:'',
+        give:false,
+        give_num:''
       }
     },
     mounted(){
@@ -157,6 +168,28 @@
       },
       mask_off(){
         this.mask = !this.mask;
+      },
+      give_mask(){
+        if(!this.give){
+          let _this = this;
+          this.$axios.post('index/receive_give',{
+              token:localStorage.getItem('token')
+          })
+          .then(function(res){
+              console.log(res);
+              if(res.data.status == 1){
+                _this.give_num = res.data.data;
+              }else{
+                Toast(res.data.msg)
+              }
+          })
+          .catch(function(error){
+              console.log(error);
+          })
+        }else{
+          location.reload()
+        }
+        this.give = !this.give;
       }
     },
   }
@@ -291,6 +324,65 @@
 .cart img,.eagle_left img,.eagle_right img{
   width:100%;
   height:100%;
+}
+.give{
+  position: absolute;
+  top: 520px;
+  right: 24px;
+  width: 80px;
+  height: 60px;
+  animation: give 1s infinite 0.5s;
+}
+@keyframes give{
+  0%{transform: scale(1);}
+  50%{transform: scale(1.2);}
+  100%{transform: scale(1);}
+}
+.give_img{
+  width: 100%;
+  height: 100%;
+}
+.give_mask{
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0,0,0,0.5);
+  z-index: 20;
+}
+.give_content{
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
+  width: 500px;
+  height: 300px;
+  background: #fdcf79;
+  border: 4px solid #8c3800;
+  border-radius: 20px;
+}
+.give_text{
+  line-height: 200px;
+  font-size: 40px;
+}
+.give_text img{
+  margin-left: 20px;
+  width: 80px;
+  height: 60px;
+  vertical-align: middle;
+}
+.give_btn{
+    margin: 0 auto 0;
+    width: 140px;
+    height: 65px;
+    line-height: 65px;
+    color: #fff;
+    font-size: 28px;
+    background: url('../../../static/images/sugar_btn.png') no-repeat;
+    background-size: contain;
 }
 .mask{
   position: fixed;

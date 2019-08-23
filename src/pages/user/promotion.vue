@@ -6,19 +6,19 @@
             <img slot="backBtn" src="static/images/head_back.png">
         </TopHeader>
         <div class="promotion_imgWrap">
-            <img class="promotion_img" src="">
+            <img class="promotion_img" :src="user_info.avatar">
         </div>
         <div class="promotion_code">
-            <p class="promotion_text">我是<span>123</span></p>
-            <p class="promotion_text">ID<span>231546</span></p>
+            <p class="promotion_text">我是<span>{{user_info.nick_name}}</span></p>
+            <p class="promotion_text">ID<span>{{user_info.id}}</span></p>
             <div class="code">
                 <img class="code_img" src="">
             </div>
             <p>长按二维码保存</p>
         </div>
         <div class="promotion_link">
-            <p>http://hdhfkgjdkjoejdgjdjgdjgkjkd.com</p>
-            <div class="link_btn">
+            <p>{{url}}</p>
+            <div class="link_btn" @click="copyUrl">
                 复制地址
             </div>
         </div>
@@ -26,8 +26,50 @@
 </template>
 
 <script>
+    import { Toast } from 'vant';
     export default {
         name:'promotion',
+        data(){
+            return {
+                user_info:'',
+                url:''
+            }
+        },
+        mounted(){
+            this.user_info = JSON.parse(this.$route.query.user_info)
+            this.initalize();
+        },
+        methods:{
+            initalize(){
+                let _this = this;
+                this.$axios.post('team/share',{
+                    token:localStorage.getItem('token'),
+                    page:_this.pages
+                })
+                .then(function(res){
+                    console.log(res);
+                    if(res.data.status == 1){
+                        _this.url = res.data.data.url;
+                    }else{
+                        Toast(res.data.msg)
+                    }
+                })
+                .catch(function(error){
+                    console.log(error);
+                })
+            },
+            copyUrl(){
+                const input = document.createElement('input')
+                document.body.appendChild(input)
+                input.setAttribute('value',this.url)
+                input.select()
+                if(document.execCommand('copy')) {
+                    document.execCommand('copy')
+                }
+                document.body.removeChild(input)
+                Toast('复制成功')
+            }
+        }
     }
 </script>
 
@@ -60,9 +102,9 @@
     margin: auto;
     width: 200px;
     height: 200px;
+    border: 8px solid #fff;
     border-radius: 50%;
     overflow: hidden;
-    background: skyblue;
 }
 .promotion_img{
     width: 100%;
@@ -83,14 +125,18 @@
     background: red;
 }
 .promotion_link{
-    margin-top: 80px;
+    margin: 80px auto 0;
+    width: 80%;
+
 }
 .link_btn{
     margin: 60px auto 0;
     width: 400px;
     height: 80px;
     line-height: 80px;
-    border-radius: 100px;
-    background: red;
+    color: #fff;
+    font-size: 28px;
+    background: url('../../../static/images/sugar_btn.png') no-repeat;
+    background-size: 100% 80px;
 }
 </style>
