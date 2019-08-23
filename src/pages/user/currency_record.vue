@@ -1,16 +1,16 @@
 <template>
     <div class="height-88 public_bg">
         <!-- 头部组件 back-url=>反回路径，默认返回上一页 title=>标题内容 fixed=>是否固定在顶部 rgb=>背景色 col=>字体颜色 -->
-		<TopHeader back-url="" custom-title="赠送记录" :custom-fixed="true" custom-rgb custom-col>
+		<TopHeader back-url="" custom-title="交易记录" :custom-fixed="true" custom-rgb custom-col>
 			<!-- 返回按钮 -->
 			<img slot="backBtn" src="static/images/head_back.png">
 		</TopHeader>
         <div class="record" @scroll="page">
             <div class="record_item" v-for="(item,index) in record" :key="index">
                 <p class="item_id">{{item.type_text}}</p>
-                <p class="item_time">{{item.createtime}}</p>
+                <p class="item_time">{{item.add_time}}</p>
                 <div class="item_num">
-                    <span>{{item.integral}}</span>
+                    <span>{{item.currency}}</span>
                 </div>
             </div>
         </div>
@@ -20,7 +20,7 @@
 <script>
     import { Toast } from 'vant';
     export default {
-        name:'sugar_record',
+        name:'currency_record',
         data(){
             return {
                 record:[],
@@ -33,7 +33,7 @@
         methods:{
             initalize(){
                 let _this = this;
-                this.$axios.post('index/integral_list',{
+                this.$axios.post('index/currency_list',{
                     token:localStorage.getItem('token'),
                     page:_this.pages
                 })
@@ -100,7 +100,7 @@
     text-indent: 0;
     text-align: center;
     color: #fff;
-    background: url('../../../static/images/sugar_record.png')no-repeat;
-    background-size: contain;
+    background: url('../../../static/images/balance_money.png')no-repeat;
+    background-size: 100% 60px;
 }
 </style>

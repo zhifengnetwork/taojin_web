@@ -1,26 +1,29 @@
 <template>
-    <div class="height-88">
+    <div class="height-88 register">
         <!-- 头部组件 back-url=>反回路径，默认返回上一页 title=>标题内容 fixed=>是否固定在顶部 rgb=>背景色 col=>字体颜色 -->
-		<TopHeader back-url="" custom-title="注册" :custom-fixed="true" custom-rgb custom-col>
+		<TopHeader back-url="" custom-title=" " :custom-fixed="true" custom-rgb custom-col>
 			<!-- 返回按钮 -->
 			<img slot="backBtn" src="static/images/head_back.png">
-            
 		</TopHeader>
         <label class="register_inp">
-            <span class="register_title">账号:</span><input class="register_input" placeholder="请输入手机号" v-model="mobile" type="number">
+            <span class="register_title"><img class="register_img" src="static/images/login_ph.png"></span><input class="register_input" placeholder="请输入手机号" v-model="mobile" type="number">
+            <div class="register_errWrap" @click="err">
+                <img class="register_err" src="static/images/login_err.png">
+            </div>
         </label>
         <label class="register_inp">
-            <span class="register_title">密码:</span><input class="register_input" placeholder="请输入密码" v-model="psd1" type="password">
+            <span class="register_title"><img class="register_img" src="static/images/login_pwd.png"></span><input class="register_input" placeholder="请输入密码" v-model="psd1" type="password">
         </label>
         <label class="register_inp">
-            <span class="register_title">确认密码:</span><input class="register_input" placeholder="请再次输入密码" v-model="psd2" type="password">
+            <span class="register_title"><img class="register_img" src="static/images/login_pwd.png"></span><input class="register_input" placeholder="请再次输入密码" v-model="psd2" type="password">
         </label>
         <label class="register_inp">
-            <span class="register_title">验证码:</span><input class="register_input" placeholder="请输入验证码" v-model="code" type="text">
-            <span :class="flag?'codeActive':'code'" @click="getCode">{{codeText}}</span>
+            <span class="register_title"><img class="register_img" src="static/images/login_code.png"></span><input class="register_input" placeholder="请输入验证码" v-model="code" type="text">
+            <span :class="flag?'code':'codeActive'" @click="getCode">{{codeText}}</span>
         </label>
-        <van-checkbox v-model="checked" checked-color="#fb946a">我已阅读并同意
-            <router-link class="serve" to="#">服务条款</router-link>
+        <van-checkbox v-model="checked" checked-color="#af683b">
+            我已阅读并同意
+            <span class="serve">《服务条款》</span>
         </van-checkbox>
         <div class="register_btn" @click="register" :class="checked?'active':''">
             注册
@@ -44,6 +47,9 @@
             }
         },
         methods:{
+            err(){
+                this.mobile = '';
+            },
             register(){
                 if(!this.checked){
                     return false;
@@ -141,24 +147,66 @@
 
 <style lang="scss" scoped>
 .height-88{
-    padding-left: 24px;
-    padding-right: 24px;
+    padding: 0 86px;
+}
+.register{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    color: #4a1901;
+    background: url('../../../static/images/login_bg.png');
+    background-size: contain;
 }
 .register_inp{
+    position: relative;
     display: block;
-    margin: 40px auto;
+    margin: 20px auto;
     width: 100%;
-    height: 100px;
-    line-height: 100px;
+    height: 80px;
+    line-height: 80px;
     text-align: left;
-    background: #eee;
-    border-radius: 25px;
+    border-bottom: 1px solid #a65421;
+}
+.register_inp:nth-of-type(1){
+    margin-top: 400px;
+}
+.register_errWrap{
+    float: right;
+    width: 50px;
+    height: 100%;
+}
+.register_err{
+    position: absolute;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    width: 30px;
+    height: 30px;
 }
 .register_title{
+    position: relative;
     display: inline-block;
-    width: 25%;
-    letter-spacing: 5px;
+    width: 10%;
+    height: 100%;
     text-align: center;
+    vertical-align: middle;
+}
+.register_img{
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    width: 30px;
+    height: 46px;
+}
+.register_img:nth-of-type(2),.register_img:nth-of-type(3){
+    width: 36px;
+    height: 36px;
 }
 .register_input{
     display: inline-block;
@@ -167,34 +215,40 @@
 .register_inp:nth-last-of-type(1) .register_input{
     width: 40%;
 }
-.codeActive{
+.code{
+    margin-top: 10px;
     float: right;
     display: block;
     width: 30%;
+    height: 60px;
+    line-height: 60px;
     text-align: center;
-    color:#fff;
-    background: #66ccff;
+    color:#51210c;
+    background: #ffbb7e;
     border-radius: 20px;
 }
-.code{
+.codeActive{
+    margin-top: 10px;
     float: right;
     display: block;
     width: 30%;
+    height: 60px;
+    line-height: 60px;
     text-align: center;
     color:#ccc;
     background: #eee;
     border-radius: 20px;
 }
 .serve{
-    color:#FF0000;
+    color:#af683b;
 }
 .register_btn{
     margin-top: 50px;
     width: 100%;
-    height: 100px;
+    height: 90px;
     letter-spacing: 50px;
     text-indent: 50px;
-    line-height: 100px;
+    line-height: 90px;
     text-align: center;
     font-size: 36px;
     color: #ccc;
@@ -203,7 +257,7 @@
 }
 .active{
     color: #fff;
-    background: -webkit-gradient(linear, left top, right top, from(#f9a775), to(#fb946a));
-    background: linear-gradient(to right, #f9a775, #fb946a);
+    background: url('../../../static/images/login_btn.png');
+    background-size: contain;
 }
 </style>

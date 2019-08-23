@@ -167,7 +167,7 @@ export default new Router({
     },
 
 
-    // 货币
+    // 货币currency_record
     {
       path: '/currency',
       name: 'currency',
@@ -190,6 +190,12 @@ export default new Router({
       path: '/currency_sell',
       name: 'currency_sell',
       component: () => import('@/pages/user/currency_sell'),
+    },
+    // 货币-明细
+    {
+      path: '/currency_record',
+      name: 'currency_record',
+      component: () => import('@/pages/user/currency_record'),
     },
     // 中奖记录
     {

@@ -28,7 +28,7 @@
         </div>
         <div class="currency_option">
             <div class="option_item">
-                <router-link to="#">
+                <router-link to="currency_record">
                     交易明细<van-icon name="arrow"/>
                 </router-link>
             </div>

@@ -5,7 +5,7 @@
       background="#a8dbff"
       left-icon="static/images/notice.png"
     >
-      通知内容6666666666666666666666666666666666666
+      {{home.notice}}
     </van-notice-bar>
 
     <div class="mine_info">
@@ -59,22 +59,19 @@
         </div>
       </div>
     </div>
-    <div class="mask">
+    <div class="mask" v-if="mask">
       <div class="mask_content">
-        <h3 class="content_title">中奖名单</h3>
         <div class="list_title">
-            <span>ID</span>
+            <span>中奖时间</span>
             <span>手机号码</span>
         </div>
         <div class="list_content">
-          <div class="list_info">
-              <span>2019.07.27 18:05:23</span>
-              <span>134×××××786</span>
+          <div class="list_info" v-for="(item,index) in maskInfo" :key="index">
+              <span>{{item.rank_time}}</span>
+              <span>{{item.phone}}</span>
           </div>
         </div>
-      </div>
-      <div class="mask_off">
-        X
+        <div class="mask_off" @click="mask_off"></div>
       </div>
     </div>
     <Navigate></Navigate>
@@ -90,7 +87,9 @@
         buyitem: false,
         buyitem_num: 1,
         home: '',
-        itemInfo: ''
+        itemInfo: '',
+        mask:true,
+        maskInfo:''
       }
     },
     mounted(){
@@ -107,6 +106,14 @@
       .then(function(res){
           console.log(res);
           _this.itemInfo = res.data.data;
+      })
+      .catch(function(error){
+          console.log(error);
+      })
+      this.$axios.post('index/reward_list')
+      .then(function(res){
+          console.log(res);
+          _this.maskInfo = res.data.data;
       })
       .catch(function(error){
           console.log(error);
@@ -147,6 +154,9 @@
         .catch(function(error){
             console.log(error);
         })
+      },
+      mask_off(){
+        this.mask = !this.mask;
       }
     },
   }
@@ -283,7 +293,6 @@
   height:100%;
 }
 .mask{
-  display: none;
   position: fixed;
   top: 0;
   left: 0;
@@ -300,37 +309,45 @@
   bottom: 0;
   margin: auto;
   width: 702px;
-  height: 700px;
+  height: 900px;
   overflow: hidden;
   border-radius: 50px;
-  background: #fff;
+  background: url('../../../static/images/home_mask.png')no-repeat;
+  background-size: contain;
 }
 .content_title{
   line-height: 100px;
   border-bottom: 1px solid #ccc;
 }
 .list_content{
-  height: 500px;
+  margin: 0 auto;
+  width: 78%;
+  height: 480px;
   overflow-y: scroll;
+}
+.list_title{
+  margin: 260px auto 0;
+  width: 78%;
+}
+.list_info{
+  margin: 0 auto;
 }
 .list_title span,.list_info span{
   display: inline-block;
-  width: 48%;
+  width: 49%;
   line-height: 100px;
 }
 .mask_off{
   position: absolute;
-  top: 80vh;
-  left: 0;
-  right: 0;
+  top: 170px;
+  right: 80px;
   margin: auto;
-  width: 120px;
-  height: 120px;
-  line-height: 120px;
+  width: 40px;
+  height: 40px;
   color: #fff;
   font-size: 80px;
-  border:1px solid #fff;
-  border-radius: 50%;
+  background: url('../../../static/images/mask_back.png')no-repeat;
+  background-size: contain;
 }
 .buyitem_mask{
   position: absolute;

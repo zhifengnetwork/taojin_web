@@ -15,13 +15,15 @@
                     <li>审核状态</li>
                 </ul>
             </div>
-            <div class="record_info">
-                <ul v-for="(item,index) in record" :key="index">
-                    <li>{{item.create_time}}</li>
-                    <li>{{item.money}}</li>
-                    <li>{{item.fee}}</li>
-                    <li :class="item.status_text=='申请中'?failure:succeed">{{item.status_text}}</li>
-                </ul>
+            <div class="info_wrap" @scroll="page">
+                <div class="record_info">
+                    <ul v-for="(item,index) in record" :key="index">
+                        <li>{{item.create_time}}</li>
+                        <li>{{item.money}}</li>
+                        <li>{{item.fee}}</li>
+                        <li :class="item.status_text=='申请中'?failure:succeed">{{item.status_text}}</li>
+                    </ul>
+                </div>
             </div>
         </div>
     </div>
@@ -33,7 +35,8 @@
         name:'withdraw_record',
         data(){
             return {
-                record:''
+                record:[],
+                pages:1
             }
         },
         mounted(){
@@ -43,12 +46,15 @@
             initalize(){
                 let _this = this;
                 this.$axios.post('user/withdraw_list',{
-                    token:localStorage.getItem('token')
+                    token:localStorage.getItem('token'),
+                    page:_this.page
                 })
                 .then(function(res){
                     console.log(res);
                     if(res.data.status == 1){
-                        _this.record = res.data.data;
+                        for(let i=0;i<res.data.data.length;i++){
+                            _this.record.push(res.data.data[i]);
+                        }
                     }else{
                         Toast(res.data.msg)
                     }
@@ -56,6 +62,12 @@
                 .catch(function(error){
                     console.log(error);
                 })
+            },
+            page(e){
+                if(e.target.scrollTop+e.target.offsetHeight==e.target.scrollHeight){
+                    this.pages++;
+                    this.initalize();
+                }
             }
         }
     }
@@ -77,6 +89,11 @@
   color: #4a1901;
   background: #ffda9e;
   background-size: contain;
+}
+.info_wrap{
+    width: 100%;
+    height: 91%;
+    overflow-y: scroll;
 }
 .record{
     margin: 20px auto;

@@ -1,16 +1,18 @@
 <template>
-    <div class="height-88">
+    <div class="height-88 login">
         <!-- 头部组件 back-url=>反回路径，默认返回上一页 title=>标题内容 fixed=>是否固定在顶部 rgb=>背景色 col=>字体颜色 -->
-		<TopHeader back-url="" custom-title="登录" :custom-fixed="true" custom-rgb custom-col>
+		<TopHeader back-url="" custom-title=" " :custom-fixed="true" custom-rgb custom-col>
 			<!-- 返回按钮 -->
 			<!-- <img slot="backBtn" src="static/images/head_back.png"> -->
-            
 		</TopHeader>
         <label class="login_inp">
-            <span class="login_title">账号:</span><input class="login_input" placeholder="请输入手机号" v-model="mobile" type="number">
+            <span class="login_title"><img class="login_img" src="static/images/login_ph.png"></span><input class="login_input" placeholder="请输入手机号" v-model="mobile" type="number">
+            <div class="login_errWrap" @click="err">
+                <img class="login_err" src="static/images/login_err.png">
+            </div>
         </label>
         <label class="login_inp">
-            <span class="login_title">密码:</span><input class="login_input" placeholder="请输入密码" v-model="psd" type="password">
+            <span class="login_title"><img class="login_img" src="static/images/login_pwd.png"></span><input class="login_input" placeholder="请输入密码" v-model="psd" type="password">
         </label>
         <div class="login_btn" @click="login">
             登录
@@ -33,6 +35,9 @@
             }
         },
         methods:{
+            err(){
+                this.mobile = '';
+            },
             login(){
                 if(!this.mobile){
                     Toast.fail('请填写手机号!');
@@ -74,28 +79,71 @@
 
 <style lang="scss" scoped>
 .height-88{
-    padding-left: 24px;
-    padding-right: 24px;
+    padding: 0 86px;
+}
+.login{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    color: #4a1901;
+    background: url('../../../static/images/login_bg.png');
+    background-size: contain;
 }
 .login_inp{
+    position: relative;
     display: block;
     margin: 36px auto;
     width: 100%;
     height: 80px;
     line-height: 80px;
     text-align: left;
-    background: #eee;
-    border-radius: 10px;
+    border-bottom: 2px solid #a65421;
+}
+.login_inp:nth-of-type(1){
+    margin-top: 400px;
+}
+.login_errWrap{
+    float: right;
+    width: 50px;
+    height: 100%;
+}
+.login_err{
+    position: absolute;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    width: 30px;
+    height: 30px;
 }
 .login_title{
+    position: relative;
     display: inline-block;
-    width: 25%;
-    letter-spacing: 20px;
+    width: 10%;
+    height: 100%;
     text-align: center;
+    vertical-align: middle;
+}
+.login_img{
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    width: 30px;
+    height: 46px;
+}
+.login_img:nth-of-type(2){
+    width: 36px;
+    height: 36px;
 }
 .login_input{
     display: inline-block;
-    width: 70%;
+    margin-left: 20px;
+    width: 75%;
 }
 .serve{
     color:#FF0000;
@@ -103,16 +151,15 @@
 .login_btn{
     margin-top: 36px;
     width: 100%;
-    height: 80px;
+    height: 90px;
     letter-spacing: 50px;
     text-indent: 50px;
-    line-height: 80px;
+    line-height: 90px;
     text-align: center;
     font-size: 30px;
     color: #fff;
-    background: -webkit-gradient(linear, left top, right top, from(#f9a775), to(#fb946a));
-    background: linear-gradient(to right, #f9a775, #fb946a);
-    border-radius: 10px;
+    background: url('../../../static/images/login_btn.png')no-repeat;
+    background-size: contain;
 }
 .login_link{
     width: 100%;
@@ -125,10 +172,10 @@
 .link{
     width: auto;
     color: #151515;
-    text-decoration: underline;
 }
 .link:nth-of-type(1){
     float: left;
+    color: #af693c;
 }
 .link:nth-of-type(2){
     float: right;

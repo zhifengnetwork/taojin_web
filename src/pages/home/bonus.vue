@@ -12,7 +12,7 @@
             <div class="bonus_price">
                 <span>{{bonus.integral_num}}</span>元
             </div>
-            <p class="bonus_text">开奖时间 2019-07-26</p>
+            <p class="bonus_text">开奖时间 {{bonus.data_time}}</p>
             <p class="start_time">
                 <span>{{time[0]}}</span>:
                 <span>{{time[1]}}</span>:

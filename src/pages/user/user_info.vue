@@ -54,7 +54,7 @@
                     </router-link>
                 </div>
             </div>
-            <div class="quit">
+            <div class="quit" @click="login">
                 退出登录
             </div>
         </div>
@@ -74,6 +74,9 @@
             this.user_info = JSON.parse(this.$route.query.user_info)
         },
         methods:{
+            login(){
+                this.$router.push('Login');
+            },
             upLoad(e){
                 if (!e.target.files[0].size) return;
                 let _this = this;

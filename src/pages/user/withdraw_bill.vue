@@ -14,23 +14,23 @@
         <div class="bill_wrap">
             <div class="bill_tabbar">
                 <ul>
-                    <li>申请日期</li>
+                    <li>日期</li>
                     <li>金额</li>
                     <li>类型</li>
                 </ul>
             </div>
-            <div class="content_wrap">
+            <div class="content_wrap" @scroll="page">
                 <div class="bill_content" v-if="active==1">
                     <ul v-for="(item,index) in bil" :key="index">
                         <li>
                         {{item.createtime}}
                         </li>
                         <li>{{item.money}}</li>
-                        <li class="succeed">{{item.type_text}}</li>
+                        <li class="failure">{{item.type_text}}</li>
                     </ul>
                 </div>
                 <div class="bill_content" v-if="active==2">
-                    <ul v-for="(item,index) in bil" :key="index">
+                    <ul v-for="(item,index) in bll" :key="index">
                         <li>
                         {{item.createtime}}
                         </li>
@@ -50,7 +50,9 @@
         data(){
             return{
                 active:'1',
-                bil:''
+                bil:[],
+                bll:[],
+                pages:1
             }
         },
         mounted(){
@@ -59,18 +61,29 @@
         methods:{
             bill_tab(tab){
                 this.active = tab;
-                this.initalize(tab);
+                this.pages = 1;
+                this.bil = [];
+                this.bll = [];
+                this.initalize();
             },
-            initalize(is_direct){
+            initalize(){
                 let _this = this;
                 this.$axios.post('index/balance_list',{
                     token:localStorage.getItem('token'),
-                    have:is_direct
+                    have:_this.active,
+                    page:_this.pages
                 })
                 .then(function(res){
                     console.log(res);
                     if(res.data.status == 1){
-                        _this.bil = res.data.data;
+                        for(let i=0;i<res.data.data.length;i++){
+                            if(_this.active==1){
+                                _this.bil.push(res.data.data[i]);
+                                console.log(_this.bil)
+                            }else{
+                                _this.bll.push(res.data.data[i]);
+                            }
+                        }
                     }else{
                         Toast(res.data.msg)
                     }
@@ -79,6 +92,12 @@
                     console.log(error);
                 })
             },
+            page(e){
+                if(e.target.scrollTop+e.target.offsetHeight==e.target.scrollHeight){
+                    this.pages++;
+                    this.initalize();
+                }
+            }
         }
     }
 </script>
@@ -151,8 +170,8 @@
 }
 .bill_content{
     width: 100%;
-    height: 100px;
-    line-height: 100px;
+    height: 120px;
+    line-height: 120px;
 }
 .bill_content li{
     float: left;

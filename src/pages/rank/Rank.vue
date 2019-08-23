@@ -3,7 +3,7 @@
     <!-- 头部组件 back-url=>反回路径，默认返回上一页 title=>标题内容 fixed=>是否固定在顶部 rgb=>背景色 col=>字体颜色 -->
 		<TopHeader custom-title="排位" :custom-fixed="true"></TopHeader>
     <div class="notice">
-      <p><span>{{rank_info.count}}</span>人</p>
+      <p><span>{{count}}</span>人</p>
       <p>出局ID总数</p>
     </div>
     <div class="rank_list">
@@ -12,8 +12,8 @@
         <li>时间</li>
         <li>备注</li>
       </ul>
-      <div class="item_content">
-        <ul class="rank_item" v-for="(item,index) in rank_info.rank_list" :key="index">
+      <div class="item_content" @scroll="page">
+        <ul class="rank_item" v-for="(item,index) in rank_info" :key="index">
           <li>{{item.rank}}</li>
           <li>{{item.rank_time}}</li>
           <li>前面还有{{item.num}}位</li>
@@ -30,29 +30,42 @@
     name:'Rank',
     data(){
       return{
-        rank_info:''
+        rank_info:[],
+        count:'',
+        pages:1
       }
     },
     mounted(){
-      let _this = this;
-      this.$axios.post('ranking/my_ranking',{
-          token:localStorage.getItem('token'),
-          page:1
-      })
-      .then(function(res){
-          console.log(res);
-          if(res.data.status == 1){
-            _this.rank_info = res.data.data
-          }else{
-            Toast(res.data.msg)
-          }
-      })
-      .catch(function(error){
-          console.log(error);
-      })
+      this.initalize();
     },
     methods:{
-      
+      initalize(){
+        let _this = this;
+        this.$axios.post('ranking/my_ranking',{
+            token:localStorage.getItem('token'),
+            page:_this.pages
+        })
+        .then(function(res){
+            console.log(res);
+            if(res.data.status == 1){
+              _this.count = res.data.data.count;
+              for(let i=0;i<res.data.data.rank_list.length;i++){
+                _this.rank_info.push(res.data.data.rank_list[i]);
+              }
+            }else{
+              Toast(res.data.msg)
+            }
+        })
+        .catch(function(error){
+            console.log(error);
+        })
+      },
+      page(e){
+        if(e.target.scrollTop+e.target.offsetHeight==e.target.scrollHeight){
+          this.pages++;
+          this.initalize();
+        }
+      }
     },
   }
 </script>
