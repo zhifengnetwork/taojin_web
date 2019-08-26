@@ -87,7 +87,6 @@
   height: 100vh;
   color: #4a1901;
   background: #ffda9e;
-  background-size: contain;
 }
 .bank_wrap{
   margin: 40px auto;

@@ -67,7 +67,7 @@
   height: 100vh;
   color: #4a1901;
   background: url('../../../static/images/public_bg.png') no-repeat;
-  background-size: contain;
+  background-size: cover;
 }
 .deal_wrap{
   height: 85vh;

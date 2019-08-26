@@ -113,7 +113,7 @@
     height: 100vh;
     color: #4a1901;
     background: url("../../../static/images/bonus.png") no-repeat;
-    background-size: contain;
+    background-size: cover;
 }
 .bonus_title{
     margin: 0 auto;

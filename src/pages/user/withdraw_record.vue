@@ -88,7 +88,6 @@
   height: 100vh;
   color: #4a1901;
   background: #ffda9e;
-  background-size: contain;
 }
 .info_wrap{
     width: 100%;

@@ -27,7 +27,7 @@
     
     <div class="left_icon" @click="remov">
       <img src="static/images/home_iconL.png">
-      <p>渔场</p>
+      <p>种植场</p>
     </div>
     <div class="right_icon" @click="remov">
       <img src="static/images/home_iconR.png">
