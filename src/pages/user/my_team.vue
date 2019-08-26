@@ -145,7 +145,7 @@
     width: 100vw;
     height: 100vh;
     color: #4a1901;
-    background: url('../../../static/images/my_team_bg.png');
+    background: url('../../../static/images/my_team_bg.png') no-repeat;
     background-size: contain;
 }
 .active{

@@ -78,7 +78,7 @@
   width: 100vw;
   height: 100vh;
   color: #4a1901;
-  background: url('../../../static/images/public_bg.png');
+  background: url('../../../static/images/public_bg.png') no-repeat;
   background-size: contain;
 }
 .rank_list{
@@ -118,7 +118,7 @@
   box-sizing: border-box;
   -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;
-  background: url('../../../static/images/rank_notice.png');
+  background: url('../../../static/images/rank_notice.png') no-repeat;
   background-size: contain;
 }
 .notice span{

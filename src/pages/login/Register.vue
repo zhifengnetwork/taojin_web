@@ -41,10 +41,14 @@
                 psd1:'',
                 psd2:'',
                 code:'',
+                yq_code:'',
                 codeText:'获取验证码',
                 flag:true,
                 checked:false
             }
+        },
+        mounted(){
+            this.yq_code = this.$route.query.yq_code;
         },
         methods:{
             err(){
@@ -84,7 +88,8 @@
                     phone:_this.mobile,
                     pwd:_this.psd1,
                     pwd2:_this.psd2,
-                    code:_this.code
+                    code:_this.code,
+                    yq_code:_this.yq_code
                 })
                 .then(function(res){
                     console.log(res);
@@ -156,7 +161,7 @@
     width: 100vw;
     height: 100vh;
     color: #4a1901;
-    background: url('../../../static/images/login_bg.png');
+    background: url('../../../static/images/login_bg.png') no-repeat;
     background-size: contain;
 }
 .register_inp{
@@ -257,7 +262,7 @@
 }
 .active{
     color: #fff;
-    background: url('../../../static/images/login_btn.png');
+    background: url('../../../static/images/login_btn.png') no-repeat;
     background-size: contain;
 }
 </style>

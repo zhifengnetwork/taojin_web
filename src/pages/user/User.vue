@@ -84,7 +84,7 @@
   width: 100vw;
   height: 100vh;
   color: #4a1901;
-  background: url('../../../static/images/user_bg.png');
+  background: url('../../../static/images/user_bg.png') no-repeat;
   background-size: contain;
 }
 .userInfo{
@@ -92,7 +92,7 @@
   margin: 128px auto 40px;
   width: 702px;
   height: 170px;
-  background: url('../../../static/images/user/userInfo_content.png');
+  background: url('../../../static/images/user/userInfo_content.png') no-repeat;
   background-size: contain;
 }
 .userInfo_picture{
@@ -143,7 +143,7 @@
   line-height: 54px;
   border-top-left-radius: 50px;
   border-bottom-left-radius: 50px;
-  background: url('../../../static/images/user/userInfo_tag.png');
+  background: url('../../../static/images/user/userInfo_tag.png') no-repeat;
   background-size: contain;
 }
 

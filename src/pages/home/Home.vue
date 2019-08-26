@@ -19,7 +19,7 @@
           </router-link>
         </span>
         <span class="mine_btn">
-          <router-link :to="{name:'bonus',query:{'bonus':JSON.stringify(home)}}">
+          <router-link :to="{name:'bonus',query:{'bonus':JSON.stringify(home),'price':itemInfo.money}}">
             矿池
           </router-link>
         </span>
@@ -203,7 +203,7 @@
   color: #632904;
   width: 100vw;
   height: 100vh;
-  background: url("../../../static/images/home_bg.png");
+  background: url("../../../static/images/home_bg.png") no-repeat;
   background-size: cover;
 }
 .notice{
@@ -257,7 +257,7 @@
   line-height: 50px;
   font-size: 32px;
   font-weight: bold;
-  background: url('../../../static/images/home_btn.png');
+  background: url('../../../static/images/home_btn.png') no-repeat;
   background-size: contain;
 }
 .mine_btn a{
@@ -458,7 +458,7 @@
   margin:auto;
   width:500px;
   height:600px;
-  background: url('../../../static/images/buyitem.png');
+  background: url('../../../static/images/buyitem.png') no-repeat;
   background-size: contain;
 }
 .buyitem_img{

@@ -1,23 +1,23 @@
 <template>
-    <div class="height-88">
+    <div class="height-88 reset">
         <!-- 头部组件 back-url=>反回路径，默认返回上一页 title=>标题内容 fixed=>是否固定在顶部 rgb=>背景色 col=>字体颜色 -->
-		<TopHeader back-url="" custom-title="找回密码" :custom-fixed="true" custom-rgb custom-col>
+		<TopHeader back-url="" custom-title=" " :custom-fixed="true" custom-rgb custom-col>
 			<!-- 返回按钮 -->
 			<img slot="backBtn" src="static/images/head_back.png">
             
 		</TopHeader>
         <label class="reset_inp">
-            <span class="reset_title">账号:</span><input class="reset_input" placeholder="请输入手机号" v-model="mobile" type="number">
+            <span class="reset_title"><img class="reset_img" src="static/images/login_ph.png"></span><input class="reset_input" placeholder="请输入手机号" v-model="mobile" type="number">
         </label>
         <label class="reset_inp">
-            <span class="reset_title">密码:</span><input class="reset_input" placeholder="请输入密码" v-model="psd1" type="password">
+            <span class="reset_title"><img class="reset_img" src="static/images/login_pwd.png"></span><input class="reset_input" placeholder="请输入密码" v-model="psd1" type="password">
         </label>
         <label class="reset_inp">
-            <span class="reset_title">确认密码:</span><input class="reset_input" placeholder="请再次输入密码" v-model="psd2" type="password">
+            <span class="reset_title"><img class="reset_img" src="static/images/login_pwd.png"></span><input class="reset_input" placeholder="请再次输入密码" v-model="psd2" type="password">
         </label>
         <label class="reset_inp">
-            <span class="reset_title">验证码:</span><input class="reset_input" placeholder="请输入验证码" v-model="code" type="text">
-            <span :class="flag?'codeActive':'code'" @click="getCode">{{codeText}}</span>
+            <span class="reset_title"><img class="reset_img" src="static/images/login_code.png"></span><input class="reset_input" placeholder="请输入验证码" v-model="code" type="text">
+            <span :class="flag?'code':'codeActive'" @click="getCode">{{codeText}}</span>
         </label>
         <div class="reset_btn" @click="reset">
             找回
@@ -136,24 +136,66 @@
 
 <style lang="scss" scoped>
 .height-88{
-    padding-left: 24px;
-    padding-right: 24px;
+    padding: 0 86px;
+}
+.reset{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    color: #4a1901;
+    background: url('../../../static/images/login_bg.png') no-repeat;
+    background-size: contain;
 }
 .reset_inp{
+    position: relative;
     display: block;
-    margin: 40px auto;
+    margin: 20px auto;
     width: 100%;
-    height: 100px;
-    line-height: 100px;
+    height: 80px;
+    line-height: 80px;
     text-align: left;
-    background: #eee;
-    border-radius: 25px;
+    border-bottom: 1px solid #a65421;
+}
+.reset_inp:nth-of-type(1){
+    margin-top: 400px;
+}
+.reset_errWrap{
+    float: right;
+    width: 50px;
+    height: 100%;
+}
+.reset_err{
+    position: absolute;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    width: 30px;
+    height: 30px;
 }
 .reset_title{
+    position: relative;
     display: inline-block;
-    width: 25%;
-    letter-spacing: 5px;
+    width: 10%;
+    height: 100%;
     text-align: center;
+    vertical-align: middle;
+}
+.reset_img{
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    width: 30px;
+    height: 46px;
+}
+.reset_img:nth-of-type(2),.reset_img:nth-of-type(3){
+    width: 36px;
+    height: 36px;
 }
 .reset_input{
     display: inline-block;
@@ -162,26 +204,32 @@
 .reset_inp:nth-last-of-type(1) .reset_input{
     width: 40%;
 }
-.codeActive{
+.code{
+    margin-top: 10px;
     float: right;
     display: block;
     width: 30%;
+    height: 60px;
+    line-height: 60px;
     text-align: center;
-    color:#fff;
-    background: #66ccff;
+    color:#51210c;
+    background: #ffbb7e;
     border-radius: 20px;
 }
-.code{
+.codeActive{
+    margin-top: 10px;
     float: right;
     display: block;
     width: 30%;
+    height: 60px;
+    line-height: 60px;
     text-align: center;
     color:#ccc;
     background: #eee;
     border-radius: 20px;
 }
 .serve{
-    color:#FF0000;
+    color:#af683b;
 }
 .reset_btn{
     margin-top: 50px;
@@ -193,8 +241,7 @@
     text-align: center;
     font-size: 36px;
     color: #fff;
-    background: -webkit-gradient(linear, left top, right top, from(#f9a775), to(#fb946a));
-    background: linear-gradient(to right, #f9a775, #fb946a);
-    border-radius: 50px;
+    background: url('../../../static/images/login_btn.png') no-repeat;
+    background-size: contain;
 }
 </style>

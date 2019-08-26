@@ -12,7 +12,7 @@
             <p class="promotion_text">我是<span>{{user_info.nick_name}}</span></p>
             <p class="promotion_text">ID<span>{{user_info.id}}</span></p>
             <div class="code">
-                <img class="code_img" src="">
+                <div id="qrcode" ref="qrcode"></div>
             </div>
             <p>长按二维码保存</p>
         </div>
@@ -27,6 +27,8 @@
 
 <script>
     import { Toast } from 'vant';
+    // 二维码
+    import QRCode from 'qrcodejs2'
     export default {
         name:'promotion',
         data(){
@@ -50,6 +52,7 @@
                     console.log(res);
                     if(res.data.status == 1){
                         _this.url = res.data.data.url;
+                        _this.qrcode();
                     }else{
                         Toast(res.data.msg)
                     }
@@ -68,6 +71,14 @@
                 }
                 document.body.removeChild(input)
                 Toast('复制成功')
+            },
+            qrcode () {
+                let _this = this;
+                let qrcode = new QRCode('qrcode',{
+                    width: 120, // 设置宽度，单位像素
+                    height: 120, // 设置高度，单位像素
+                    text: _this.url // 设置二维码内容或跳转地址
+                })
             }
         }
     }
@@ -81,7 +92,7 @@
   width: 100vw;
   height: 100vh;
   color: #4a1901;
-  background: url('../../../static/images/promotion_bg.png');
+  background: url('../../../static/images/promotion_bg.png') no-repeat;
   background-size: contain;
 }
 .promotion_code{
@@ -122,7 +133,6 @@
     margin: 100px auto 20px;
     width: 248px;
     height: 248px;
-    background: red;
 }
 .promotion_link{
     margin: 80px auto 0;

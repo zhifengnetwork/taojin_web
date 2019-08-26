@@ -19,74 +19,87 @@
                 <span>{{time[2]}}</span>
             </p>
         </div>
-        <div class="bonus_rank">
-            <div class="rank_title">
-                排行榜
+        <div class="time_slot">
+            <div class="slot_title">
+                购买时间段
             </div>
-            <div class="rank_list">
-                <ul class="list_title">
-                    <li>排序</li>
-                    <li>ID</li>
-                    <li>用户名称</li>
-                    <li>数量</li>
-                    <li>金额</li>
-                </ul>
-                <div class="rank_item">
-                    <ul class="list_item">
-                        <li>1</li>
-                        <li>20190725 14:25:32</li>
-                        <li>二小姐</li>
-                        <li>45</li>
-                        <li>766</li>
-                    </ul>
-                    <ul class="list_item">
-                        <li>2</li>
-                        <li>20190725 14:25:32</li>
-                        <li>二小姐</li>
-                        <li>45</li>
-                        <li>766</li>
-                    </ul>
-                    <ul class="list_item">
-                        <li>3</li>
-                        <li>20190725 14:25:32</li>
-                        <li>二小姐</li>
-                        <li>45</li>
-                        <li>766</li>
-                    </ul>
-                    <ul class="list_item">
-                        <li>4</li>
-                        <li>20190725 14:25:32</li>
-                        <li>二小姐</li>
-                        <li>45</li>
-                        <li>766</li>
-                    </ul>
-                    <ul class="list_item">
-                        <li>4</li>
-                        <li>20190725 14:25:32</li>
-                        <li>二小姐</li>
-                        <li>45</li>
-                        <li>766</li>
-                    </ul>
-                </div>
+            <div class="slot_item" :class="active==index?'active':''" v-for="(item,index) in slot_item" :key="index" @click="slot_type(index)">
+                {{item}}
+            </div>
+            <div class="slot_price">
+                共计 <span v-if="active==0">{{item_price*60*1}}</span>
+                <span v-if="active==1">{{item_price*60*2}}</span>
+                <span v-if="active==2">{{item_price*60*4}}</span>
+                <span v-if="active==3">{{item_price*60*6}}</span>
+                <span v-if="active==4">{{item_price*60*24-item_price}}</span>
+            </div>
+            <div class="slot_btn" @click="send">
+                确认购买
             </div>
         </div>
     </div>
 </template>
 
 <script>
+    import { Toast } from 'vant';
     export default {
         name:'bonus',
         data(){
             return {
                 bonus:'',
-                time:''
+                time:'',
+                item_price:'',
+                active:0,
+                slot_item:['1小时','2小时','4小时','6小时','24小时']
             }
         },
         mounted(){
-            this.bonus = JSON.parse(this.$route.query.bonus)
-            this.time = this.bonus.open_time.split(':')
-            console.log(this.time)
+            this.bonus = JSON.parse(this.$route.query.bonus);
+            this.item_price = this.$route.query.price;
+            this.time = this.bonus.open_time.split(':');
+            console.log(this.item_price)
         },
+        methods:{
+            slot_type(index){
+                this.active = index;
+            },
+            send(){
+                let type = null;
+                switch(this.active){
+                    case 0:
+                        type = 1;
+                        break;
+                    case 1:
+                        type = 2;
+                        break;
+                    case 2:
+                        type = 4;
+                        break;
+                    case 3:
+                        type = 6;
+                        break;
+                    case 4:
+                        type = 24;
+                        break;
+                }
+                let _this = this;
+                this.$axios.post('ranking/order_time_slot',{
+                    token:localStorage.getItem('token'),
+                    type:type
+                })
+                .then(function(res){
+                    console.log(res);
+                    if(res.data.status == 1){
+                        Toast.success('购买成功');
+                    }else{
+                        Toast(res.data.msg)
+                    }
+                })
+                .catch(function(error){
+                    console.log(error);
+                })
+            }
+        }
     }
 </script>
 
@@ -98,7 +111,7 @@
     width: 100vw;
     height: 100vh;
     color: #4a1901;
-    background: url("../../../static/images/bonus.png");
+    background: url("../../../static/images/bonus.png") no-repeat;
     background-size: contain;
 }
 .bonus_title{
@@ -140,83 +153,63 @@
 .bonus_price span{
     font-size: 60px;
 }
-
-.bonus_rank{
-    margin-top: 20px;
-}
-.rank_title{
+.time_slot{
     position: relative;
-    line-height: 120px;
-    font-size: 36px;
-}
-.rank_title::before{
-    content:'';
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 280px;
-    margin: auto;
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-    background: #8e8e8e;
-}
-.rank_title::after{
-    content:'';
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    right: 280px;
-    margin: auto;
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-    background: #8e8e8e;
-}
-.rank_list{
-    padding: 0 24px;
-}
-.rank_item{
-    width: 100%;
-    height: 480px;
-    overflow-y: scroll;
-    box-sizing: border-box;
+    margin:100px auto 0;
+    width:702px;
+    height:610px;
+    padding-top:20px;
+    border:4px solid #c17b2a;
+    background:#ffe4b8;
+    border-radius:10px;
+    box-sizing:border-box;
     -moz-box-sizing: border-box;
     -webkit-box-sizing: border-box;
 }
-.list_title li,.list_item li{
-    float: left;
-    width: 15%;
-    line-height: 80px;
+.slot_title{
+    position: absolute;
+    left:0;
+    right:0;
+    top:-66px;
+    margin:auto;
+    width:200px;
+    height:66px;
+    line-height: 66px;
+    color:#4a1901;
+    border:4px solid #c17b2a;
+    background:#ffe4b8;
+    border-radius:10px;
+    box-sizing:border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
 }
-.list_item li{
-    line-height: 120px;
-    border-bottom: 1px solid #bb862d;
-    
+.slot_item{
+    margin:10px auto;
+    width:650px;
+    height:70px;
+    line-height: 70px;
+    color:#151515;
+    border-top: 2px solid #d7d6d5;
+    border-left: 2px solid #d7d6d5;
+    background: #ffffff;
 }
-.list_title li:nth-of-type(1),.list_item li:nth-of-type(1){
-    width: 10%;
+.active{
+    color: #4a1901;
+    border-color: #d79a54;
+    background: #ffb764;
 }
-.list_title li:nth-of-type(2),.list_item li:nth-of-type(2){
-    width: 40%;
+.slot_price{
+    color: #f20909;
+    font-size: 36px;
 }
-.list_title li:nth-of-type(3),.list_item li:nth-of-type(3){
-    width: 20%;
-}
-.list_item:nth-of-type(1) :nth-child(1){
-    background: url('../../../static/images/one.png')no-repeat;
-}
-.list_item:nth-of-type(2) :nth-child(1){
-    background: url('../../../static/images/tow.png')no-repeat;
-}
-.list_item:nth-of-type(3) :nth-child(1){
-    background: url('../../../static/images/three.png')no-repeat;
-}
-.list_item:nth-of-type(1) :nth-child(1),.list_item:nth-of-type(2) :nth-child(1),.list_item:nth-of-type(3) :nth-child(1){
+.slot_btn{
+    margin: 20px auto 0;
+    width: 140px;
+    height: 65px;
+    line-height: 65px;
     color: #fff;
-    background-size: 50px;
-    background-position-x: 5px;
-    background-position-y: 35px;
+    font-size: 28px;
+    background: url('../../../static/images/sugar_btn.png') no-repeat;
+    background-size: contain;
 }
-
 </style>
