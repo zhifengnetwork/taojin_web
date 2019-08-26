@@ -71,11 +71,12 @@
             }
         },
         mounted(){
-            this.user_info = JSON.parse(this.$route.query.user_info)
+            this.user_info = JSON.parse(this.$route.query.user_info);
         },
         methods:{
             login(){
                 this.$router.push('Login');
+                localStorage.removeItem('token')
             },
             upLoad(e){
                 if (!e.target.files[0].size) return;

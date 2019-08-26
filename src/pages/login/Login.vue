@@ -63,6 +63,7 @@
                         Toast.success('登录成功');
                         // _this.$store.state.token = res.data.data.token;
                         window.localStorage.setItem("token",res.data.data.token);
+            			window.localStorage.setItem("reg","reg");
                         _this.$router.push('/Home')
                     }else{
                         Toast.fail(res.data.msg);

@@ -8,6 +8,11 @@
 export default {
   name: "App",
   beforeMount() {
+      var reg = window.localStorage.getItem("reg");
+      if ( reg == "" || reg == null || reg == "null" || reg == undefined)  
+      {
+        return false
+      } 
       var huoqutoken = window.localStorage.getItem("token");
       if ( huoqutoken == "" || huoqutoken == null || huoqutoken == "null" || huoqutoken == undefined)  
       {

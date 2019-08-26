@@ -91,6 +91,7 @@
                     console.log(res);
                     if(res.data.status == 1){
                         Toast.success('购买成功');
+                        _this.$router.push('Home');
                     }else{
                         Toast(res.data.msg)
                     }

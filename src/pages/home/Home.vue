@@ -105,14 +105,7 @@
     },
     mounted(){
       let _this = this;
-      this.$axios.post('index/index')
-      .then(function(res){
-          console.log(res);
-          _this.home = res.data.data;
-      })
-      .catch(function(error){
-          console.log(error);
-      })
+      this.initalize();
       this.$axios.post('ranking/goods_details')
       .then(function(res){
           console.log(res);
@@ -131,6 +124,17 @@
       })
     },
     methods:{
+      initalize(){
+        let _this = this;
+        this.$axios.post('index/index')
+        .then(function(res){
+            console.log(res);
+            _this.home = res.data.data;
+        })
+        .catch(function(error){
+            console.log(error);
+        })
+      },
       buyMask(){
         this.buyitem = !this.buyitem;
       },
@@ -157,6 +161,7 @@
             console.log(res);
             if(res.data.status == 1){
               Toast.success('购买成功');
+              _this.initalize();
               _this.buyitem = false;
             }else{
               Toast(res.data.msg)

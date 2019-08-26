@@ -70,15 +70,18 @@ axios.interceptors.response.use(
 
 		if(error.response.status == 401){
 			
-			Dialog.alert({
-				message: error.response.data['msg']
-			}).then(() => {
-				window.localStorage.removeItem("token");
-				window.location.href = document.location.protocol+'//'+window.location.host;
-				// router.replace({  	
-				// 	path: '/index',
-				// })
-			})
+			window.localStorage.removeItem("token");
+			window.localStorage.setItem("reg","reg");
+			window.location.href = document.location.protocol+'//'+window.location.host;
+			// Dialog.alert({
+			// 	message: error.response.data['msg']
+			// }).then(() => {
+			// 	window.localStorage.removeItem("token");
+			// 	window.location.href = document.location.protocol+'//'+window.location.host;
+			// 	router.replace({  	
+			// 		path: '/index',
+			// 	})
+			// })
 
 		}else{
 
