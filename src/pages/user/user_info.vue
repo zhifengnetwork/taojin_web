@@ -69,7 +69,7 @@
             }
         },
         mounted(){
-            this.user_info = JSON.parse(this.$route.query.user_info);
+            this.user_info = JSON.parse(localStorage.getItem('user_info'));
         },
         methods:{
             login(){

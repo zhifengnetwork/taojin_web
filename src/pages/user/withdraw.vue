@@ -111,7 +111,9 @@
                 this.num = this.money-this.rate_decimals;
             },
             all(){
-                this.money = this.withdraw.money
+                this.money = this.withdraw.money;
+                this.rate_decimals = Math.floor((this.money*this.withdraw.rate_decimals)*100)/100;
+                this.num = this.money-this.rate_decimals;
             },
             send(){
                 if(!this.money){

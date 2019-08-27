@@ -237,7 +237,7 @@
     margin-top: 10px;
     float: right;
     display: block;
-    width: 30%;
+    width: 35%;
     height: 60px;
     line-height: 60px;
     text-align: center;

@@ -4,7 +4,7 @@
       <!-- 用户信息 -->
       <div class="userInfo_content">
         <div class="userInfo_picture">
-          <router-link :to="{path:'user_info',query:{'user_info':JSON.stringify(user_info)}}">
+          <router-link to="user_info">
             <img class="userInfo_img" :src="user_info.avatar">
           </router-link>
         </div>
@@ -20,7 +20,7 @@
     <!-- 列表项 -->
     <div class="user_option">
       <div class="option_item" v-for="(item,index) in option_item" :key="index">
-        <router-link :to="{path:item.pages,query:{'user_info':JSON.stringify(user_info)}}">
+        <router-link :to="item.pages">
           <img class="option_img" :src="item.img">
           <p>{{item.text}}</p>
         </router-link>
@@ -61,7 +61,8 @@
       .then(function(res){
           console.log(res);
           if(res.data.status == 1){
-            _this.user_info = res.data.data
+            _this.user_info = res.data.data;
+            window.localStorage.setItem("user_info",JSON.stringify(res.data.data));
           }else{
             Toast(res.data.msg)
           }

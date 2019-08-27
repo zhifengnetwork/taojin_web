@@ -8,6 +8,9 @@
 		</TopHeader>
         <label class="reset_inp">
             <span class="reset_title"><img class="reset_img" src="static/images/login_ph.png"></span><input class="reset_input" placeholder="请输入手机号" v-model="mobile" type="number">
+            <div class="reset_errWrap" @click="err">
+                <img class="reset_err" src="static/images/login_err.png">
+            </div>
         </label>
         <label class="reset_inp">
             <span class="reset_title"><img class="reset_img" src="static/images/login_pwd.png"></span><input class="reset_input" placeholder="请输入密码" v-model="psd1" type="password">
@@ -40,6 +43,9 @@
             }
         },
         methods:{
+            err(){
+                this.mobile = '';
+            },
             reset(){
                 if(!this.mobile){
                     Toast.fail('请填写手机号!');
@@ -204,6 +210,20 @@
 .reset_inp:nth-last-of-type(1) .reset_input{
     width: 40%;
 }
+.reset_errWrap{
+    float: right;
+    width: 50px;
+    height: 100%;
+}
+.reset_err{
+    position: absolute;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    width: 30px;
+    height: 30px;
+}
 .code{
     margin-top: 10px;
     float: right;
@@ -220,7 +240,7 @@
     margin-top: 10px;
     float: right;
     display: block;
-    width: 30%;
+    width: 35%;
     height: 60px;
     line-height: 60px;
     text-align: center;

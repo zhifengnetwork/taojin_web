@@ -41,7 +41,7 @@
             qrcode: QRCode
         },
         mounted(){
-            this.user_info = JSON.parse(this.$route.query.user_info)
+            this.user_info = JSON.parse(localStorage.getItem('user_info'));
             this.initalize();
         },
         methods:{
@@ -78,8 +78,8 @@
             qrcode () {
                 let _this = this;
                 let qrcode = new QRCode('qrcode',{
-                    width: 120, // 设置宽度，单位像素
-                    height: 120, // 设置高度，单位像素
+                    width: 128, // 设置宽度，单位像素
+                    height: 128, // 设置高度，单位像素
                     text: _this.url // 设置二维码内容或跳转地址
                 })
             }
@@ -137,8 +137,6 @@
     margin: 100px auto 20px;
     width: 248px;
     height: 248px;
-    padding: 20px;
-    background: #fdc342;
 }
 .promotion_link{
     margin: 80px auto 0;
