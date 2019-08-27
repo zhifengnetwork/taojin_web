@@ -60,7 +60,7 @@
         <div class="buyitem_price">￥{{itemInfo.money}}</div>
         <div class="buyitem_num">
           <span @click="minus">-</span>
-          <input v-model="buyitem_num" type="text">
+          <input v-model="buyitem_num" @input="num" type="text">
           <span @click="add">+</span>
         </div>
         <div class="buyitem_btn" @click="buyItem">购买</div>
@@ -174,6 +174,11 @@
       },
       mask_off(){
         this.$store.state.prize = false;
+      },
+      num(e){
+        if(Number(e.target.value)<0){
+            this.buyitem_num = 1;
+        }
       },
       give_mask(){
         if(!this.give){
