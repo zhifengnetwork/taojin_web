@@ -176,6 +176,7 @@
         this.$store.state.prize = false;
       },
       num(e){
+        this.buyitem_num = e.target.value.replace(/\D/gi,"")
         if(Number(e.target.value)<0){
             this.buyitem_num = 1;
         }
