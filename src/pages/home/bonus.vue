@@ -68,6 +68,7 @@
                 let type = null;
                 if(!this.flag){
                     Toast('交易进行中,请稍等!')
+                    return false;
                 }
                 this.flag = false;
                 switch(this.active){
