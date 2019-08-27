@@ -50,7 +50,8 @@
                 time:'',
                 item_price:'',
                 active:0,
-                slot_item:['1小时','2小时','4小时','6小时','24小时']
+                slot_item:['1小时','2小时','4小时','6小时','24小时'],
+                flag:true
             }
         },
         mounted(){
@@ -65,6 +66,10 @@
             },
             send(){
                 let type = null;
+                if(!this.flag){
+                    Toast('交易进行中,请稍等!')
+                }
+                this.flag = false;
                 switch(this.active){
                     case 0:
                         type = 1;
@@ -91,6 +96,7 @@
                     console.log(res);
                     if(res.data.status == 1){
                         Toast.success('购买成功');
+                        _this.flag = true;
                         _this.$router.push('Home');
                     }else{
                         Toast(res.data.msg)
