@@ -109,8 +109,8 @@
     position: fixed;
     left: 0;
     top: 0;
-    width: 100vw;
-    height: 100vh;
+    width: 100%;
+    height: 100%;
     color: #4a1901;
     background: url("../../../static/images/bonus.png") no-repeat;
     background-size: cover;

@@ -142,8 +142,8 @@
     position: fixed;
     top: 0;
     left: 0;
-    width: 100vw;
-    height: 100vh;
+    width: 100%;
+    height: 100%;
     color: #4a1901;
     background: url('../../../static/images/my_team_bg.png') no-repeat;
     background-size: cover;
@@ -230,8 +230,8 @@
     position: fixed;
     top: 0;
     left: 0;
-    width: 100vw;
-    height: 100vh;
+    width: 100%;
+    height: 100%;
     background: rgba(0,0,0,.5);
     z-index: 30;
 }

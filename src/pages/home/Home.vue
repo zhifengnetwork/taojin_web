@@ -44,7 +44,7 @@
       </div>
     </div>
     <!-- 动图 -->
-    <div class="cart">
+    <!-- <div class="cart">
       <img src="static/images/cart.png">
     </div>
     <div class="eagle_left">
@@ -52,7 +52,8 @@
     </div>
     <div class="eagle_right">
       <img src="static/images/eagle_right.png">
-    </div>
+    </div> -->
+    <!-- 购买道具弹窗 -->
     <div class="buyitem_mask" v-show="buyitem">
       <div class="buyitem">
         <img class="buyitem_img" :src="itemInfo.logo">
@@ -68,6 +69,7 @@
         </div>
       </div>
     </div>
+    <!-- 中奖弹窗 -->
     <div class="mask" v-if="this.$store.state.prize">
       <div class="mask_content">
         <div class="list_title">
@@ -205,9 +207,9 @@
   left: 0;
   top: 0;
   color: #632904;
-  width: 100vw;
-  height: 100vh;
-  background: url("../../../static/images/home_bg.png") no-repeat;
+  width: 100%;
+  height: 100%;
+  background: url("../../../static/images/home_bg.gif") no-repeat;
   background-size: cover;
 }
 .notice{
@@ -350,8 +352,8 @@
   position: fixed;
   top: 0;
   left: 0;
-  width: 100vw;
-  height: 100vh;
+  width: 100%;
+  height: 100%;
   background: rgba(0,0,0,0.5);
   z-index: 20;
 }
@@ -392,8 +394,8 @@
   position: fixed;
   top: 0;
   left: 0;
-  width: 100vw;
-  height: 100vh;
+  width: 100%;
+  height: 100%;
   background: rgba(0,0,0,0.8);
   z-index: 20;
 }
@@ -449,8 +451,8 @@
   position: absolute;
   top:0;
   left:0;
-  width:100vw;
-  height:100vh;
+  width:100%;
+  height:100%;
   background:rgba(0,0,0,.5);
   z-index: 20;
 }
