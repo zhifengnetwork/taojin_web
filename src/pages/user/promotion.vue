@@ -14,10 +14,10 @@
             <div class="code">
                 <div id="qrcode" ref="qrcode"></div>
             </div>
-            <p>长按二维码保存</p>
+            <p class="promotion_tips">长按二维码保存</p>
         </div>
         <div class="promotion_link">
-            <p>{{url}}</p>
+            <p class="promotion_tips">{{url}}</p>
             <div class="link_btn" @click="copyUrl">
                 复制地址
             </div>
@@ -36,6 +36,9 @@
                 user_info:'',
                 url:''
             }
+        },
+        components: {
+            qrcode: QRCode
         },
         mounted(){
             this.user_info = JSON.parse(this.$route.query.user_info)
@@ -125,6 +128,7 @@
     font-size: 30px;
     line-height: 60px;
     color: #ff8441;
+    user-select: none;
 }
 .promotion_text span{
     margin: 0 20px;
@@ -133,11 +137,16 @@
     margin: 100px auto 20px;
     width: 248px;
     height: 248px;
+    padding: 20px;
+    background: #fdc342;
 }
 .promotion_link{
     margin: 80px auto 0;
     width: 80%;
 
+}
+.promotion_tips{
+    user-select: none;
 }
 .link_btn{
     margin: 60px auto 0;
@@ -146,6 +155,7 @@
     line-height: 80px;
     color: #fff;
     font-size: 28px;
+    user-select: none;
     background: url('../../../static/images/sugar_btn.png') no-repeat;
     background-size: 100% 80px;
 }

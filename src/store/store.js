@@ -8,7 +8,7 @@ const store =  new Vuex.Store({
     //strict:true,//严格模式
     // 状态(一般保存数据)
     state:{
-         token:sessionStorage.getItem('token')
+          prize:true,
     },
 
     // mutations 类似事件

@@ -27,15 +27,13 @@
                     </router-link>
                 </div>
                 <div class="option_item">
-                    <router-link to="#">
-                        手机号绑定
-                        <div class="info_phone">
-                            {{user_info.phone}}
-                        </div>
-                        <div class="option_icon">
-                            <van-icon color="#fff" name="arrow"/>
-                        </div>
-                    </router-link>
+                    手机号绑定
+                    <div class="info_phone">
+                        {{user_info.phone}}
+                    </div>
+                    <div class="option_icon">
+                        <van-icon color="#fff" name="arrow"/>
+                    </div>
                 </div>
                 <div class="option_item">
                     <router-link to="user_amendPwd">

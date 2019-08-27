@@ -68,7 +68,7 @@
         </div>
       </div>
     </div>
-    <div class="mask" v-if="mask">
+    <div class="mask" v-if="this.$store.state.prize">
       <div class="mask_content">
         <div class="list_title">
             <span>中奖时间</span>
@@ -97,7 +97,6 @@
         buyitem_num: 1,
         home: '',
         itemInfo: '',
-        mask:true,
         maskInfo:'',
         give:false,
         give_num:''
@@ -172,7 +171,7 @@
         })
       },
       mask_off(){
-        this.mask = !this.mask;
+        this.$store.state.prize = false;
       },
       give_mask(){
         if(!this.give){

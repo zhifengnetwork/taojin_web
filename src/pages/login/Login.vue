@@ -64,7 +64,8 @@
                         // _this.$store.state.token = res.data.data.token;
                         window.localStorage.setItem("token",res.data.data.token);
             			window.localStorage.setItem("reg","reg");
-                        _this.$router.push('/Home')
+                        _this.$router.push('/Home');
+                        _this.$store.state.prize = true;
                     }else{
                         Toast.fail(res.data.msg);
                     }
@@ -86,8 +87,8 @@
     position: fixed;
     top: 0;
     left: 0;
-    width: 100vw;
-    height: 100vh;
+    width: 100%;
+    height: 100%;
     color: #4a1901;
     background: url('../../../static/images/login_bg.png') no-repeat;
     background-size: cover;
