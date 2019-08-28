@@ -5,6 +5,7 @@ import App from './App'
 import router from './router'
 import TopHeader from "@/pages/common/header/TopHeader"
 import Navigate from "@/pages/common/footer/Navigate"
+import Null from "@/pages/common/null/Null"
 
 
 // 导入vant所有组件
@@ -28,6 +29,7 @@ Vue.config.productionTip = false
 
 Vue.component('TopHeader',TopHeader);
 Vue.component('Navigate',Navigate);
+Vue.component('Null',Null);
 /* eslint-disable no-new */
 new Vue({
   el: '#app',

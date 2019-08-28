@@ -9,6 +9,7 @@
         <p class="list_text">挂单数量:{{item.currency_num}}</p>
         <p class="list_text">挂单时间:{{item.add_time}}</p>
       </div>
+      <Null text="挂卖" v-if="deal_info==''"></Null>
     </div>
     <Navigate></Navigate>
   </div>
