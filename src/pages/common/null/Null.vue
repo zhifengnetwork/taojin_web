@@ -1,7 +1,7 @@
 <template>
     <div class="null">
         <img class="null_img" src="static/images/cart.png">
-        <div class="null_text">暂未{{text}}数据哦~</div>
+        <div class="null_text">暂无{{text}}数据哦~</div>
     </div>
 </template>
 
