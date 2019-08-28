@@ -13,7 +13,7 @@
           <p>注册时间: {{user_info.add_time}}</p>
         </div>
         <div class="userInfo_tag">
-          矿工
+          {{user_info.level}}
         </div>
       </div>
     </div>
