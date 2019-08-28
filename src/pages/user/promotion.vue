@@ -12,7 +12,8 @@
             <p class="promotion_text">我是<span>{{user_info.nick_name}}</span></p>
             <p class="promotion_text">ID<span>{{user_info.id}}</span></p>
             <div class="code">
-                <div id="qrcode" ref="qrcode"></div>
+                <img class="code_img" :src="code">
+                <div style="display:none;" id="qrcode" ref="qrcode"></div>
             </div>
             <p class="promotion_tips">长按二维码保存</p>
         </div>
@@ -34,7 +35,8 @@
         data(){
             return {
                 user_info:'',
-                url:''
+                url:'',
+                code:''
             }
         },
         components: {
@@ -82,6 +84,14 @@
                     height: 128, // 设置高度，单位像素
                     text: _this.url // 设置二维码内容或跳转地址
                 })
+                this.qrimg(qrcode);
+            },
+            qrimg (){
+                var canvas = document.getElementsByTagName('canvas')[0];
+                var img = new Image();
+                img.src = canvas.toDataURL('image/png');
+                this.code = img.src;
+                console.log(img.src)
             }
         }
     }
@@ -137,6 +147,10 @@
     margin: 100px auto 20px;
     width: 248px;
     height: 248px;
+}
+.code_img{
+    width:100%;
+    height:100%;
 }
 .promotion_link{
     margin: 80px auto 0;

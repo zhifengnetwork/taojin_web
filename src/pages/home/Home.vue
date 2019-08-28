@@ -4,8 +4,8 @@
       color="#642903"
       background="#a8dbff"
       left-icon="static/images/notice.png"
+      :text="home.notice"
     >
-      {{home.notice}}
     </van-notice-bar>
 
     <div class="mine_info">
@@ -70,7 +70,7 @@
       </div>
     </div>
     <!-- 中奖弹窗 -->
-    <div class="mask" v-if="this.$store.state.prize">
+    <div class="mask" v-if="this.$store.state.prize&&maskInfo!=''">
       <div class="mask_content">
         <div class="list_title">
             <span>中奖时间</span>
