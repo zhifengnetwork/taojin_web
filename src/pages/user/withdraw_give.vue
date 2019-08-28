@@ -5,10 +5,10 @@
 			<!-- 返回按钮 -->
 			<img slot="backBtn" src="static/images/head_back.png">
 		</TopHeader>
-        <div class="sugar_container">
-            <div class="sugar_num">
-                <img class="sugar_img" src="static/images/sugar.png">
-                <span>{{sugar}}</span>
+        <div class="withdraw_container">
+            <div class="withdraw_num">
+                <img class="withdraw_img" src="static/images/withdraw_money.png">
+                <span>{{money}}</span>
             </div>
             <div class="give_inp">
                 <label>
@@ -22,7 +22,7 @@
             </div> -->
             <div class="give_inp">
                 <label>
-                    <span>糖<i class="give_i"></i>果</span><input v-model="integral" class="give_input" type="text">
+                    <span>余<i class="give_i"></i>额</span><input v-model="integral" class="give_input" type="text">
                 </label>
             </div>
             <div class="give_btn" @click="give_send">
@@ -35,10 +35,10 @@
 <script>
     import { Toast } from 'vant';
     export default {
-        name:'sugar_give',
+        name:'withdraw_give',
         data(){
             return {
-                sugar:'',
+                money:'',
                 ID:'',
                 mobile:'',
                 integral:''
@@ -46,7 +46,7 @@
         },
         mounted(){
             this.user_info = JSON.parse(localStorage.getItem('user_info'));
-            this.sugar = this.user_info.integral;
+            this.money = this.user_info.balance;
         },
         methods:{
             give_send(){
@@ -63,10 +63,10 @@
                     return false;
                 }
                 let _this = this;
-                this.$axios.post('users/give_integral',{
+                this.$axios.post('users/give_balance',{
                     token:localStorage.getItem('token'),
                     u_id:_this.ID,
-                    integral:_this.integral
+                    money:_this.integral
                 })
                 .then(function(res){
                     console.log(res);
@@ -86,7 +86,7 @@
 </script>
 
 <style lang="scss" scoped>
-.sugar_container{
+.withdraw_container{
     margin: 20px auto;
     width: 702px;
     height: 710px;
@@ -97,7 +97,7 @@
     -moz-box-sizing: border-box;
     -webkit-box-sizing: border-box;
 }
-.sugar_num{
+.withdraw_num{
     margin: 40px 0;
     color: #fff;
     font-size: 32px;
@@ -109,10 +109,10 @@
             1px 0 5px #622804,
             0 -1px 5px #622804;
 }
-.sugar_img{
+.withdraw_img{
     margin-right: 15px;
-    width: 110px;
-    height: 70px;
+    width: 80px;
+    height: 80px;
 }
 .give_inp{
     margin: 40px auto;

@@ -120,6 +120,12 @@ export default new Router({
       name: 'withdraw',
       component: () => import('@/pages/user/withdraw'),
     },
+    // 提现-转赠
+    {
+      path: '/withdraw_give',
+      name: 'withdraw_give',
+      component: () => import('@/pages/user/withdraw_give'),
+    },
     // 添加支付宝账号
     {
       path: '/withdraw_alipay',

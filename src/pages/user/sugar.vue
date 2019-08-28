@@ -11,7 +11,7 @@
         </div>
         <div class="sugar_option">
             <div class="option_item">
-                <router-link :to="{path:'sugar_give',query:{sugar:user_info.integral}}">
+                <router-link to="sugar_give">
                     赠送
                 </router-link>
             </div>

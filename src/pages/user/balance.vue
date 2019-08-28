@@ -21,6 +21,11 @@
                     提现
                 </router-link>
             </div>
+            <div class="balance_btn">
+                <router-link to="withdraw_give">
+                    赠送
+                </router-link>
+            </div>
         </div>
         <div class="balance_option">
             <div class="option_item" v-for="(item,index) in option_item" :key="index">
@@ -94,6 +99,7 @@
     background-size: contain;
 }
 .balance_btn{
+    margin: 0 40px;
     display: inline-block;
     width: 140px;
     height: 66px;

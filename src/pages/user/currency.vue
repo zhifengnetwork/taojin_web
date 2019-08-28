@@ -11,17 +11,17 @@
         </div>
         <div class="currency_btn">
             <div class="btn_item">
-                <router-link :to="{path:'currency_convert',query:{'user_info':JSON.stringify(user_info)}}">
+                <router-link to="currency_convert">
                     兑换
                 </router-link>
             </div>
             <div class="btn_item">
-                <router-link :to="{path:'currency_give',query:{'user_info':JSON.stringify(user_info)}}">
+                <router-link to="currency_give">
                     赠送
                 </router-link>
             </div>
             <div class="btn_item">
-                <router-link :to="{path:'currency_sell',query:{'user_info':JSON.stringify(user_info)}}">
+                <router-link to="currency_sell">
                     挂卖
                 </router-link>
             </div>
