@@ -19,7 +19,7 @@
           </router-link>
         </span>
         <span class="mine_btn">
-          <router-link :to="{name:'bonus',query:{'bonus':JSON.stringify(home),'price':itemInfo.money}}">
+          <router-link to="bonus">
             矿池
           </router-link>
         </span>
@@ -56,8 +56,8 @@
     <!-- 购买道具弹窗 -->
     <div class="buyitem_mask" v-show="buyitem">
       <div class="buyitem">
-        <img class="buyitem_img" :src="itemInfo.logo">
-        <div class="buyitem_price">￥{{itemInfo.money}}</div>
+        <img class="buyitem_img" :src="home.logo">
+        <div class="buyitem_price">￥{{home.money}}</div>
         <div class="buyitem_num">
           <span @click="minus">-</span>
           <input v-model="buyitem_num" @input="num" type="text">
@@ -98,7 +98,6 @@
         buyitem: false,
         buyitem_num: 1,
         home: '',
-        itemInfo: '',
         maskInfo:'',
         give:false,
         give_num:''
@@ -107,14 +106,6 @@
     mounted(){
       let _this = this;
       this.initalize();
-      this.$axios.post('ranking/goods_details')
-      .then(function(res){
-          console.log(res);
-          _this.itemInfo = res.data.data;
-      })
-      .catch(function(error){
-          console.log(error);
-      })
       this.$axios.post('index/reward_list')
       .then(function(res){
           console.log(res);

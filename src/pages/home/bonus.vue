@@ -55,12 +55,22 @@
             }
         },
         mounted(){
-            this.bonus = JSON.parse(this.$route.query.bonus);
-            this.item_price = this.$route.query.price;
-            this.time = this.bonus.open_time.split(':');
-            console.log(this.item_price)
+            this.initalize();
         },
         methods:{
+            initalize(){
+                let _this = this;
+                this.$axios.post('index/index')
+                .then(function(res){
+                    console.log(res);
+                    _this.bonus = res.data.data;
+                    _this.time = res.data.data.open_time.split(':');
+                    _this.item_price = res.data.data.money;
+                })
+                .catch(function(error){
+                    console.log(error);
+                })
+            },
             slot_type(index){
                 this.active = index;
             },
