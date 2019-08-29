@@ -21,7 +21,7 @@
         </div>
         <div class="time_slot">
             <div class="slot_title">
-                购买时间段
+                购买时间
             </div>
             <div class="slot_item" :class="active==index?'active':''" v-for="(item,index) in slot_item" :key="index" @click="slot_type(index)">
                 {{item}}
