@@ -18,6 +18,7 @@
           <li>{{item.rank_time}}</li>
           <li>前面还有{{item.num}}位</li>
         </ul>
+        <Null style="margin-top:-120px;" text="排位" v-if="flag"></Null>
       </div>
     </div>
     <Navigate></Navigate>
@@ -32,7 +33,8 @@
       return{
         rank_info:[],
         count:'',
-        pages:1
+        pages:1,
+        flag:false
       }
     },
     mounted(){
@@ -51,6 +53,9 @@
               _this.count = res.data.data.count;
               for(let i=0;i<res.data.data.rank_list.length;i++){
                 _this.rank_info.push(res.data.data.rank_list[i]);
+              }
+              if(res.data.data.rank_list==''){
+                _this.flag = true;
               }
             }else{
               Toast(res.data.msg)

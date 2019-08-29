@@ -16,6 +16,7 @@
                 <li>{{item.rank_time}}</li>
                 <li>{{item.phone}}</li>
             </ul>
+            <Null style="margin-top:-120px;" text="中奖" v-if="flag"></Null>
         </div>
     </div>
 </template>
@@ -26,7 +27,8 @@
         name:'prize',
         data(){
             return {
-                prize:''
+                prize:'',
+                flag:false
             }
         },
         mounted(){
@@ -42,6 +44,9 @@
                     console.log(res);
                     if(res.data.status == 1){
                         _this.prize = res.data.data;
+                        if(res.data.data==''){
+                            _this.flag = true;
+                        }
                     }else{
                         Toast(res.data.msg)
                     }

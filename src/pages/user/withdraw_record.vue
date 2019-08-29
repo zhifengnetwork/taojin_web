@@ -21,9 +21,10 @@
                         <li>{{item.create_time}}</li>
                         <li>{{item.money}}</li>
                         <li>{{item.fee}}</li>
-                        <li :class="item.status_text=='申请中'?failure:succeed">{{item.status_text}}</li>
+                        <li :class="item.status_text=='申请中'?'failure':'succeed'">{{item.status_text}}</li>
                     </ul>
                 </div>
+                <Null text="提现" v-if="flag"></Null>
             </div>
         </div>
     </div>
@@ -36,7 +37,8 @@
         data(){
             return {
                 record:[],
-                pages:1
+                pages:1,
+                flag:false
             }
         },
         mounted(){
@@ -54,6 +56,9 @@
                     if(res.data.status == 1){
                         for(let i=0;i<res.data.data.length;i++){
                             _this.record.push(res.data.data[i]);
+                        }
+                        if(res.data.data==''){
+                            _this.flag = true;
                         }
                     }else{
                         Toast(res.data.msg)

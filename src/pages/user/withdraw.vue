@@ -120,12 +120,20 @@
                     Toast('请输入提现金额')
                     return false;
                 }
+                if(this.tp==2&&this.withdraw.card==''){
+                    Toast('请绑定银行卡')
+                    return false;
+                }
                 let _this = this;
+                let card = null;
+                if(this.tp==2){
+                    card = _this.withdraw.card[0].id||'';
+                }
                 this.$axios.post('user/withdraw',{
                     token:localStorage.getItem('token'),
                     type:_this.tp,
                     money:_this.money,
-                    card_id:_this.withdraw.card[0].id
+                    card_id:card
                 })
                 .then(function(res){
                     console.log(res);

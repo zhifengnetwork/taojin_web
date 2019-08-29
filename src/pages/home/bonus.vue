@@ -110,6 +110,7 @@
                         _this.flag = true;
                         _this.$router.push('Home');
                     }else{
+                        _this.flag = true;
                         Toast(res.data.msg)
                     }
                 })

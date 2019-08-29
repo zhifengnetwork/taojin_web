@@ -13,6 +13,7 @@
                     <span>{{item.currency}}</span>
                 </div>
             </div>
+            <Null text="交易" v-if="flag"></Null>
         </div>
     </div>
 </template>
@@ -24,7 +25,8 @@
         data(){
             return {
                 record:[],
-                pages:1
+                pages:1,
+                flag:false
             }
         },
         mounted(){
@@ -42,6 +44,9 @@
                     if(res.data.status == 1){
                         for(let i=0;i<res.data.data.length;i++){
                             _this.record.push(res.data.data[i]);
+                        }
+                        if(res.data.data==''){
+                            _this.flag = true;
                         }
                     }else{
                         Toast(res.data.msg)

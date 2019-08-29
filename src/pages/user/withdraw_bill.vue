@@ -28,6 +28,7 @@
                         <li>{{item.money}}</li>
                         <li class="failure">{{item.type_text}}</li>
                     </ul>
+                    <Null text="消费" v-if="flag"></Null>
                 </div>
                 <div class="bill_content" v-if="active==2">
                     <ul v-for="(item,index) in bll" :key="index">
@@ -37,6 +38,7 @@
                         <li>{{item.money}}</li>
                         <li class="succeed">{{item.type_text}}</li>
                     </ul>
+                    <Null text="赚取" v-if="flag"></Null>
                 </div>
             </div>
         </div>
@@ -52,7 +54,8 @@
                 active:'1',
                 bil:[],
                 bll:[],
-                pages:1
+                pages:1,
+                flag:false
             }
         },
         mounted(){
@@ -64,6 +67,7 @@
                 this.pages = 1;
                 this.bil = [];
                 this.bll = [];
+                this.flag = false;
                 this.initalize();
             },
             initalize(){
@@ -83,6 +87,9 @@
                             }else{
                                 _this.bll.push(res.data.data[i]);
                             }
+                        }
+                        if(res.data.data==''){
+                            _this.flag = true;
                         }
                     }else{
                         Toast(res.data.msg)

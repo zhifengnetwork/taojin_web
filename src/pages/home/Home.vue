@@ -100,7 +100,8 @@
         home: '',
         maskInfo:'',
         give:false,
-        give_num:''
+        give_num:'',
+        flag:true
       }
     },
     mounted(){
@@ -145,6 +146,11 @@
       },
       buyItem(){
         let _this = this;
+        if(!_this.flag){
+          Toast('交易中,请稍等');
+          return false;
+        }
+        _this.flag = false;
         this.$axios.post('ranking/buy_gold_shovel',{
             token:localStorage.getItem('token'),
             num:_this.buyitem_num
@@ -155,7 +161,9 @@
               Toast.success('购买成功');
               _this.initalize();
               _this.buyitem = false;
+              _this.flag = true;
             }else{
+              _this.flag = true;
               Toast(res.data.msg)
             }
         })

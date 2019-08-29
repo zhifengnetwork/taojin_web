@@ -27,6 +27,7 @@
                         查看
                     </div>
                 </div>
+                <Null style="margin-top:-120px;" text="团队" v-if="flag"></Null>
             </div>
             <div class="team_content" v-if="active!=0">
                 <div class="team_item" v-for="(item,index) in team.data" :key="index">
@@ -44,6 +45,7 @@
                         查看
                     </div>
                 </div>
+                <Null style="margin-top:-120px;" text="团队" v-if="flag"></Null>
             </div>
             <div class="team_mask" v-show="show">
                 <div class="mask_content">
@@ -58,6 +60,7 @@
                         <span>订单号:{{item.id}}</span>
                         <span>金额:{{item.money}}</span>
                     </div>
+                    <Null style="margin-top:-120px;" text="订单" v-if="flag1"></Null>
                 </div>
             </div>
         </div>
@@ -77,7 +80,9 @@
                 active:'0',
                 show:false,
                 team:'',
-                team_order:''
+                team_order:'',
+                flag:false,
+                flag1:false
             }
         },
         mounted(){
@@ -99,6 +104,9 @@
                         }else{
                             _this.tab[is_direct].text = '其他会员('+res.data.data.count+')' 
                         }
+                        if(res.data.data.data==''){
+                            _this.flag = true;
+                        }
                     }else{
                         Toast(res.data.msg)
                     }
@@ -109,6 +117,7 @@
             },
             team_tab(index){
                 this.active = index;
+                this.flag = false;
                 this.initalize(index);
             },
             mask_show(user_id){
@@ -125,6 +134,9 @@
                     console.log(res);
                     if(res.data.status == 1){
                         _this.team_order = res.data.data;
+                        if(res.data.data==''){
+                            _this.flag1 = true;
+                        }
                     }else{
                         Toast(res.data.msg)
                     }

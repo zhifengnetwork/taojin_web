@@ -21,6 +21,7 @@
                     </div>
                 </div>
             </div>
+            <Null text="订单" v-if="flag"></Null>
         </div>
     </div>
 </template>
@@ -33,7 +34,8 @@
             return {
                 order:[],
                 goods:'',
-                pages:1
+                pages:1,
+                flag:false
             }
         },
         mounted(){
@@ -52,6 +54,9 @@
                         _this.goods = res.data.data.goods;
                         for(let i=0;i<res.data.data.ranking.length;i++){
                             _this.order.push(res.data.data.ranking[i]);
+                        }
+                        if(res.data.data.ranking==''){
+                            _this.flag = true;
                         }
                     }else{
                         Toast(res.data.msg)
