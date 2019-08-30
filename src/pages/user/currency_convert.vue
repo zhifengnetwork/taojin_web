@@ -25,6 +25,11 @@
                     <span>兑换币</span><input v-model="num" class="info_input" type="text">
                 </label>
             </div>
+            <div class="info_inp">
+                <label>
+                    <span>支付密码</span><input v-model="paypwd" class="info_input" type="password">
+                </label>
+            </div>
             <div class="info_text">
                 注:10糖果+1金沙可兑换1个币
             </div>
@@ -42,7 +47,8 @@
         data(){
             return {
                 user_info:'',
-                num:''
+                num:'',
+                paypwd:''
             }
         },
         mounted(){
@@ -54,10 +60,15 @@
                     Toast('请输入兑换数量')
                     return false;
                 }
+                if(!this.paypwd){
+                    Toast('请输入支付密码')
+                    return false;
+                }
                 let _this = this;
                 this.$axios.post('users/exchange_currency',{
                     token:localStorage.getItem('token'),
-                    currency:_this.num
+                    currency:_this.num,
+                    paypwd:_this.paypwd
                 })
                 .then(function(res){
                     console.log(res);
@@ -80,7 +91,7 @@
 .convert_info{
     margin: 20px auto;
     width: 702px;
-    height: 508px;
+    height: 620px;
     background: #ffc787;
     border: 4px solid #c17b2a;
     border-radius: 20px;

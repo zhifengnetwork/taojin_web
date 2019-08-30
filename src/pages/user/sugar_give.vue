@@ -12,17 +12,17 @@
             </div>
             <div class="give_inp">
                 <label>
-                    <span>收款&nbsp;&nbsp;ID</span><input v-model="ID" class="give_input" type="text">
+                    <span>赠送账号</span><input v-model="phone" placeholder="请输入手机号" class="give_input" type="text">
                 </label>
             </div>
-            <!-- <div class="give_inp">
-                <label>
-                    <span>手机号码</span><input v-model="mobile" class="give_input" type="text">
-                </label>
-            </div> -->
             <div class="give_inp">
                 <label>
                     <span>糖<i class="give_i"></i>果</span><input v-model="integral" class="give_input" type="text">
+                </label>
+            </div>
+            <div class="give_inp">
+                <label>
+                    <span>支付密码</span><input v-model="paypwd" class="give_input" type="password">
                 </label>
             </div>
             <div class="give_btn" @click="give_send">
@@ -39,9 +39,10 @@
         data(){
             return {
                 sugar:'',
-                ID:'',
+                phone:'',
                 mobile:'',
-                integral:''
+                integral:'',
+                paypwd:''
             }
         },
         mounted(){
@@ -50,23 +51,24 @@
         },
         methods:{
             give_send(){
-                if(!this.ID){
-                    Toast('请输入赠送ID')
+                if(!this.phone){
+                    Toast('请输入赠送账号')
                     return false;
                 }
-                // if(!this.mobile){
-                //     Toast('请输入赠送号码')
-                //     return false;
-                // }
                 if(!this.integral){
                     Toast('请输入赠送数量')
+                    return false;
+                }
+                if(!this.paypwd){
+                    Toast('请输入支付密码')
                     return false;
                 }
                 let _this = this;
                 this.$axios.post('users/give_integral',{
                     token:localStorage.getItem('token'),
-                    u_id:_this.ID,
-                    integral:_this.integral
+                    phone:_this.phone,
+                    integral:_this.integral,
+                    paypwd:_this.paypwd
                 })
                 .then(function(res){
                     console.log(res);
@@ -86,6 +88,9 @@
 </script>
 
 <style lang="scss" scoped>
+input::-webkit-input-placeholder{
+    color: #e5e5e5;
+}
 .sugar_container{
     margin: 20px auto;
     width: 702px;

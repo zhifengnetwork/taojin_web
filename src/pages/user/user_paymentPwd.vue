@@ -66,11 +66,16 @@
                     Toast('请输入验证码')
                     return false;
                 }
+                if(this.pwd1!=this.pwd2){
+                    Toast('输入密码不一致')
+                    return false;
+                }
                 let _this = this;
                 this.$axios.post('user/paypwd',{
                     token:localStorage.getItem('token'),
-                    password1:_this.pwd1,
-                    password2:_this.pwd1,
+                    phone:_this.mobile,
+                    pwd:_this.pwd1,
+                    pwd1:_this.pwd2,
                     code:_this.code,
                 })
                 .then(function(res){

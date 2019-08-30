@@ -14,12 +14,17 @@
             </div>
             <div class="info_inp">
                 <label>
-                    <span>收款ID</span><input v-model="ID" class="info_input" type="text">
+                    <span>赠送账号</span><input v-model="phone" placeholder="请输入手机号" class="info_input" type="text">
                 </label>
             </div>
             <div class="info_inp">
                 <label>
                     <span>币</span><input v-model="currency" class="info_input" type="text">
+                </label>
+            </div>
+            <div class="info_inp">
+                <label>
+                    <span>支付密码</span><input v-model="paypwd" class="info_input" type="password">
                 </label>
             </div>
             <div class="info_btn" @click="send">
@@ -36,8 +41,9 @@
         data(){
             return {
                 user_info:'',
-                ID:'',
-                currency:''
+                phone:'',
+                currency:'',
+                paypwd:''
             }
         },
         mounted(){
@@ -45,19 +51,24 @@
         },
         methods:{
             send(){
-                if(!this.ID){
-                    Toast('请输入赠送ID')
+                if(!this.phone){
+                    Toast('请输入赠送账号')
                     return false;
                 }
                 if(!this.currency){
                     Toast('请输入赠送数量')
                     return false;
                 }
+                if(!this.paypwd){
+                    Toast('请输入支付密码')
+                    return false;
+                }
                 let _this = this;
                 this.$axios.post('users/give_currency',{
                     token:localStorage.getItem('token'),
-                    u_id:_this.ID,
-                    currency:_this.currency
+                    phone:_this.phone,
+                    currency:_this.currency,
+                    paypwd:_this.paypwd
                 })
                 .then(function(res){
                     console.log(res);
@@ -77,10 +88,13 @@
 </script>
 
 <style lang="scss" scoped>
+input::-webkit-input-placeholder{
+    color: #e5e5e5;
+}
 .give_info{
     margin: 20px auto;
     width: 702px;
-    height: 590px;
+    height: 650px;
     background: #ffc787;
     border: 4px solid #c17b2a;
     border-radius: 20px;

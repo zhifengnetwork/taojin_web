@@ -17,6 +17,11 @@
                     <span>出售</span><input v-model="currency" class="info_input" type="text">
                 </label>
             </div>
+            <div class="info_inp">
+                <label>
+                    <span>支付密码</span><input v-model="paypwd" class="info_input" type="password">
+                </label>
+            </div>
             <div class="info_btn" @click="send">
                 确定出售
             </div>
@@ -31,7 +36,8 @@
         data(){
             return {
                 user_info:'',
-                currency:''
+                currency:'',
+                paypwd:''
             }
         },
         mounted(){
@@ -43,11 +49,16 @@
                     Toast('请输入赠送数量')
                     return false;
                 }
+                if(!this.paypwd){
+                    Toast('请输入支付密码')
+                    return false;
+                }
                 let _this = this;
                 this.$axios.post('users/auction',{
                     token:localStorage.getItem('token'),
                     u_id:_this.ID,
-                    currency:_this.currency
+                    currency:_this.currency,
+                    paypwd:_this.paypwd
                 })
                 .then(function(res){
                     console.log(res);
@@ -70,7 +81,7 @@
 .sell_info{
     margin: 20px auto;
     width: 702px;
-    height: 470px;
+    height: 600px;
     background: #ffc787;
     border: 4px solid #c17b2a;
     border-radius: 20px;

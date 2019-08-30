@@ -43,6 +43,9 @@
                     <input class="withdraw_input" v-model="money" @input="mone" placeholder="请输入提现金额" type="text">
                     <div class="withdraw_all" @click="all">全部提现</div>
                 </div>
+                <div class="withdraw_inp">
+                    <input class="withdraw_input" v-model="paypwd" placeholder="请输入支付密码" type="password">
+                </div>
                 <div class="withdraw_tax">
                     <span class="withdraw_tax_text">手续费</span>
                     <span class="withdraw_tax_num">{{rate_decimals}}</span>
@@ -69,7 +72,8 @@
                 tp:1,
                 money:'',
                 rate_decimals:'',
-                num:''
+                num:'',
+                paypwd:''
             }
         },
         mounted(){
@@ -120,6 +124,10 @@
                     Toast('请输入提现金额')
                     return false;
                 }
+                if(!this.paypwd){
+                    Toast('请输入支付密码')
+                    return false;
+                }
                 if(this.tp==2&&this.withdraw.card==''){
                     Toast('请绑定银行卡')
                     return false;
@@ -133,7 +141,8 @@
                     token:localStorage.getItem('token'),
                     type:_this.tp,
                     money:_this.money,
-                    card_id:card
+                    card_id:card,
+                    paypwd:_this.paypwd
                 })
                 .then(function(res){
                     console.log(res);

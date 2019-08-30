@@ -8,10 +8,10 @@
 		</TopHeader>
         <div class="item_wrap" @scroll="page">
             <div class="order_item" v-for="(item,index) in order" :key="index">
-                <h3 class="order_title">订单号 {{item.id}}</h3>
+                <h3 class="order_title">订单号 {{item.id}}<span class="order_time">下单时间 {{item.rank_time}}</span></h3>
                 <div class="order_content">
                     <div class="order_imgWrap">
-                        <img class="order_img" :src="goods.logo" alt="">
+                        <img class="order_img" :src="goods.logo">
                     </div>
                     <div class="order_info">
                         <p class="order_text">{{goods.name}} <span>￥{{goods.money}}</span></p>
@@ -125,6 +125,10 @@
     line-height: 80px;
     font-weight: normal;
     border-bottom: 1px solid #8c3800;
+}
+.order_time{
+    float:right;
+    margin-right:40px;
 }
 .order_imgWrap{
     float: left;

@@ -9,7 +9,7 @@
           </router-link>
         </div>
         <div class="userInfo_text">
-          <p class="userInfo_name">{{user_info.nick_name}}<span class="userInfo_id">ID:{{user_info.id}}</span></p>
+          <p class="userInfo_name">{{user_info.nick_name}}<span class="userInfo_id">手机号:{{user_info.phone}}</span></p>
           <p>注册时间: {{user_info.add_time}}</p>
         </div>
         <div class="userInfo_tag">
@@ -42,7 +42,7 @@
           
         ],
         option_item:[
-          {text:'余额',img:'static/images/user/balance.png',pages:'balance'},
+          {text:'资产',img:'static/images/user/balance.png',pages:'balance'},
           {text:'糖果',img:'static/images/user/sugar.png',pages:'sugar'},
           {text:'币',img:'static/images/user/currency.png',pages:'currency'},
           {text:'我的订单',img:'static/images/user/my_order.png',pages:'my_order'},
