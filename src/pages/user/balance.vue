@@ -7,6 +7,12 @@
 		</TopHeader>
         <div class="balance_content">
             <div class="balance_info">
+                <div class="balance_info_item balance_recharge">
+                    <p><span>{{user_info.recharge_balance}}</span></p>
+                    <p>充值余额</p>
+                </div>
+            </div>
+            <div class="balance_info">
                 <div class="balance_info_item">
                     <p><span>{{user_info.balance}}</span></p>
                     <p>可提现余额</p>
@@ -74,7 +80,7 @@
 .balance_content{
     margin: 20px auto;
     width: 702px;
-    height: 340px;
+    height: 520px;
     background: #eeb057;
     border: 4px solid #a65421;
     border-radius: 20px;
@@ -84,10 +90,13 @@
 }
 .balance_info_item{
     float: left;
-    margin: 20px auto;
+    margin: 10px auto;
     width: 50%;
-    height: 180px;
     line-height: 50px;
+}
+.balance_recharge{
+    padding-top: 20px;
+    width: 100%;
 }
 .balance_info_item p:nth-of-type(1) span{
     display: block;
@@ -100,7 +109,7 @@
     background-size: contain;
 }
 .balance_btn{
-    margin: 0 40px;
+    margin: 20px 40px;
     display: inline-block;
     width: 140px;
     height: 66px;

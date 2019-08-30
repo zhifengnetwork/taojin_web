@@ -3,7 +3,7 @@
     <!-- 头部组件 back-url=>反回路径，默认返回上一页 title=>标题内容 fixed=>是否固定在顶部 rgb=>背景色 col=>字体颜色 -->
 		<TopHeader custom-title="排位" :custom-fixed="true"></TopHeader>
     <div class="notice">
-      <p><span>{{count}}</span>人</p>
+      <p><span>{{count}}</span></p>
       <p>出局ID总数</p>
     </div>
     <div class="rank_list">

@@ -9,7 +9,7 @@
     </van-notice-bar>
 
     <div class="mine_info">
-      <p>{{home.integral_num}}<span>元</span></p>
+      <p>{{home.integral_num}}<span><img class="mine_img" src="static/images/home_m.png"></span></p>
     </div>
 
     <div class="mine_btns">
@@ -252,6 +252,11 @@
                 0 1px 5px #622804,
                 1px 0 5px #622804,
                 0 -1px 5px #622804;
+}
+.mine_img{
+  margin-left: 10px;
+  width: 52px;
+  height: 52px;
 }
 .mine_info span{
   margin-left: 10px;

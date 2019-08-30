@@ -23,6 +23,9 @@
             <div class="slot_title">
                 购买时间
             </div>
+            <div class="state_time" @click="state_time">
+                选择开始时间&nbsp;&nbsp;{{currentTime}} - {{(Number(endTime[0])+Number(num))%24}}:{{endTime[1]}}
+            </div>
             <div class="slot_item" :class="active==index?'active':''" v-for="(item,index) in slot_item" :key="index" @click="slot_type(index)">
                 {{item}}
             </div>
@@ -36,6 +39,14 @@
             <div class="slot_btn" @click="send">
                 确认购买
             </div>
+        </div>
+        <div class="state_mask" v-if="time_mask">
+            <van-datetime-picker class="mask_item"
+                v-model="currentTime"
+                type="time"
+                @confirm="state_time"
+                @cancel="state_time"
+            />
         </div>
     </div>
 </template>
@@ -51,10 +62,17 @@
                 item_price:'',
                 active:0,
                 slot_item:['1小时','2小时','4小时','6小时','24小时'],
-                flag:true
+                flag:true,
+                time_mask:false,
+                currentTime:'',
+                endTime:'',
+                num:'1'
             }
         },
         mounted(){
+            var ti = new Date();
+            this.currentTime = ti.getHours()+':'+ti.getMinutes();
+            this.endTime = this.currentTime.split(':');
             this.initalize();
         },
         methods:{
@@ -73,6 +91,27 @@
             },
             slot_type(index){
                 this.active = index;
+                switch(this.active){
+                    case 0:
+                        this.num = 1;
+                        break;
+                    case 1:
+                        this.num = 2;
+                        break;
+                    case 2:
+                        this.num = 4;
+                        break;
+                    case 3:
+                        this.num = 6;
+                        break;
+                    case 4:
+                        this.num = 24;
+                        break;
+                }
+            },
+            state_time(){
+                this.time_mask = !this.time_mask;
+                this.endTime = this.currentTime.split(':');
             },
             send(){
                 let type = null;
@@ -101,7 +140,8 @@
                 let _this = this;
                 this.$axios.post('ranking/order_time_slot',{
                     token:localStorage.getItem('token'),
-                    type:type
+                    type:type,
+                    state_time:_this.currentTime
                 })
                 .then(function(res){
                     console.log(res);
@@ -173,11 +213,33 @@
 .bonus_price span{
     font-size: 60px;
 }
+.state_time{
+    text-align: left;
+    margin-left: 24px;
+    height: 80px;
+    line-height: 80px;
+}
+.state_mask{
+    position: fixed;
+    left: 0;
+    top:0;
+    right: 0;
+    bottom:0;
+    margin:auto;
+    width:100%;
+    height:100%;
+    background: rgba(0, 0, 0, 0.5);
+}
+.mask_item{
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+}
 .time_slot{
     position: relative;
-    margin:100px auto 0;
+    margin:100px auto 20px;
     width:702px;
-    height:610px;
+    height:700px;
     padding-top:20px;
     border:4px solid #c17b2a;
     background:#ffe4b8;
