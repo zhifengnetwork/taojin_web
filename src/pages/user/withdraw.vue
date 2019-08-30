@@ -21,17 +21,17 @@
                     <span class="type_btn" @click="withdraw_bank">+添加银行卡</span>
                 </div>
             </div>
-            <div class="alipay">
+            <div class="alipay" v-if="tp==1">
                 <router-link to="withdraw_alipay">
-                    输入支付宝账号
+                    {{withdraw.alipay.number||'输入支付宝账号'}}
                     <div class="alipay_icon">
                         <van-icon name="arrow"/>
                     </div>
                 </router-link>
             </div>
-            <div class="alipay">
+            <div class="alipay" v-if="tp==2">
                 <router-link to="withdraw_bank">
-                    输入银行卡号
+                    {{withdraw.card[0].number||'输入银行卡号'}}
                     <div class="alipay_icon">
                         <van-icon name="arrow"/>
                     </div>
@@ -113,7 +113,7 @@
             all(){
                 this.money = this.withdraw.money;
                 this.rate_decimals = Math.floor((this.money*this.withdraw.rate_decimals)*100)/100;
-                this.num = this.money-this.rate_decimals;
+                this.num =  Math.floor(this.money*100-this.rate_decimals*100)/100;
             },
             send(){
                 if(!this.money){
