@@ -17,7 +17,7 @@
                 <div class="type_title">选择提现方式</div>
                 <div class="type_btns">
                     <img class="type_img" :class="tp==1?'active':''" @click="type(1)" src="static/images/alipay.png">
-                    <img class="type_img" v-if="withdraw.card" :class="tp==2?'active':''" @click="type(2)" src="static/images/bank.png">
+                    <img class="type_img" v-if="withdraw.card!=''" :class="tp==2?'active':''" @click="type(2)" src="static/images/bank.png">
                     <span class="type_btn" @click="withdraw_bank">+添加银行卡</span>
                 </div>
             </div>
