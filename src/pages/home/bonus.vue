@@ -130,6 +130,7 @@
     width: 100%;
     height: 100%;
     color: #4a1901;
+	overflow-y: scroll;
     background: url("../../../static/images/bonus.png") no-repeat;
     background-size: cover;
 }

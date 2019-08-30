@@ -214,6 +214,7 @@
   color: #632904;
   width: 100%;
   height: 100%;
+	overflow-y: scroll;
   background: url("../../../static/images/home_bg.gif") no-repeat;
   background-size: cover;
 }

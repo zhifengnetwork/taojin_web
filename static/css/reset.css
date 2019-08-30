@@ -100,7 +100,8 @@ input, select {
 .public_bg{
 	width: 100vw;
     height: 100vh;
-    color: #4a1901;
+	color: #4a1901;
+	overflow-y: scroll;
     background: -moz-linear-gradient(top, #fdd287 0%, #eaa050 100%);  
     background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#fdd287), color-stop(100%,#eaa050));  
     background: -webkit-linear-gradient(top, #fdd287 0%,#eaa050 100%);  

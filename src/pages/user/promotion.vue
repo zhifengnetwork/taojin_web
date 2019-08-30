@@ -105,6 +105,7 @@
   width: 100%;
   height: 100%;
   color: #4a1901;
+  overflow-y: scroll;
   background: url('../../../static/images/promotion_bg.png') no-repeat;
   background-size: cover;
 }
