@@ -3,22 +3,42 @@
     <!-- 头部组件 back-url=>反回路径，默认返回上一页 title=>标题内容 fixed=>是否固定在顶部 rgb=>背景色 col=>字体颜色 -->
 		<TopHeader custom-title="排位" :custom-fixed="true"></TopHeader>
     <div class="notice">
+      迟出早出,迟早都出~
       <p><span>{{count}}</span></p>
       <p>出局ID总数</p>
     </div>
+    <div class="give_btn" @click="listT(0)">
+        未出局
+    </div>
+    <div class="give_btn" @click="listT(1)">
+        已出局
+    </div>
     <div class="rank_list">
-      <ul class="rank_title clearfix">
+      <ul class="rank_title clearfix" v-if="type==0">
         <li>排名</li>
         <li>时间</li>
         <li>备注</li>
       </ul>
-      <div class="item_content" @scroll="page">
+      <ul class="rank_title clearfix" v-if="type==1">
+        <li>ID</li>
+        <li>出局时间</li>
+        <li>出局说明</li>
+      </ul>
+      <div class="item_content" @scroll="page" v-if="type==0">
         <ul class="rank_item" v-for="(item,index) in rank_info" :key="index">
           <li>{{item.rank}}</li>
           <li>{{item.rank_time}}</li>
           <li>前面还有{{item.num}}位</li>
         </ul>
-        <Null style="margin-top:-120px;" text="排位" v-if="flag"></Null>
+        <Null style="margin-top:-80px;" text="排位" v-if="flag"></Null>
+      </div>
+      <div class="item_content" @scroll="page" v-if="type==1">
+        <ul class="rank_item" v-for="(item,index) in rank_info" :key="index">
+          <li>{{item.id}}</li>
+          <li>{{item.out_time}}</li>
+          <li>{{item.out_type_text}}</li>
+        </ul>
+        <Null style="margin-top:-80px;" text="排位" v-if="flag"></Null>
       </div>
     </div>
     <Navigate></Navigate>
@@ -34,17 +54,25 @@
         rank_info:[],
         count:'',
         pages:1,
-        flag:false
+        flag:false,
+        type:0
       }
     },
     mounted(){
       this.initalize();
     },
     methods:{
+      listT(type){
+        this.type = type;
+        this.rank_info = [];
+        this.pages = 0;
+        this.initalize();
+      },
       initalize(){
         let _this = this;
         this.$axios.post('ranking/my_ranking',{
             token:localStorage.getItem('token'),
+            type:_this.type,
             page:_this.pages
         })
         .then(function(res){
@@ -88,7 +116,7 @@
   background-size: cover;
 }
 .rank_list{
-  margin: 40px auto 88px;
+  margin: 40px auto 120px;
   width: 702px;
   height: 800px;
   border-radius: 20px;
@@ -117,7 +145,7 @@
   width: 702px;
   height: 234px;
   line-height: 50px;
-  padding-top: 60px;
+  padding-top: 20px;
   color: #4a1901;
   font-size: 30px;
   text-indent: 30px;
@@ -130,5 +158,16 @@
 .notice span{
   font-size: 36px;
   margin-right: 15px;
+}
+.give_btn{
+    display: inline-block;
+    margin: 40px 50px 0;
+    width: 140px;
+    height: 65px;
+    line-height: 65px;
+    color: #fff;
+    font-size: 28px;
+    background: url('../../../static/images/sugar_btn.png') no-repeat;
+    background-size: contain;
 }
 </style>

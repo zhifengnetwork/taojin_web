@@ -15,12 +15,12 @@
     <div class="mine_btns">
         <span class="mine_btn" @click="buyMask">
           <router-link to="#">
-            购买道具
+            实时参与
           </router-link>
         </span>
         <span class="mine_btn">
           <router-link to="bonus">
-            矿池
+            购买时间段
           </router-link>
         </span>
     </div>
@@ -269,9 +269,9 @@
 .mine_btn{
   margin: 60vh 50px 0;
   display: inline-block;
-  width: 156px;
-  height: 60px;
-  line-height: 50px;
+  width: 180px;
+  height: 100px;
+  line-height: 60px;
   font-size: 32px;
   font-weight: bold;
   background: url('../../../static/images/home_btn.png') no-repeat;
