@@ -12,7 +12,7 @@
             <div class="bonus_price">
                 <span>{{bonus.integral_num}}</span>元
             </div>
-            <p class="bonus_text">开奖时间 {{bonus.data_time}}</p>
+            <p class="bonus_text">开奖时间 {{bonus.data_time}} {{bonus.open_time}}</p>
             <p class="start_time">
                 <span><span v-if="parseInt(time/3600)<10">0</span>{{parseInt(time/3600)}}</span>:
                 <span><span v-if="parseInt(time%3600/60)<10">0</span>{{parseInt(time%3600/60)}}</span>:
