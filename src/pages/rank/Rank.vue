@@ -4,7 +4,7 @@
 		<TopHeader custom-title="排位" :custom-fixed="true"></TopHeader>
     <div class="notice">
       迟出早出,迟早都出~
-      <p><span>{{count}}</span></p>
+      <p><span>{{count}}</span>铲</p>
       <p>出局ID总数</p>
     </div>
     <div class="give_btn" @click="listT(0)">
