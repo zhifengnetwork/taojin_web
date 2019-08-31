@@ -11,8 +11,8 @@
             </ul>
         </div>
         <div class="team_wrap">
-            <div class="team_content" v-if="active==0">
-                <div class="team_item" v-for="(item,index) in team.data" :key="index">
+            <div class="team_content" v-if="active==0" @scroll="page">
+                <div class="team_item" v-for="(item,index) in team" :key="index">
                     <div class="team_name">
                         {{item.nick_name}}
                     </div>
@@ -29,8 +29,8 @@
                 </div>
                 <Null style="margin-top:-120px;" text="团队" v-if="flag"></Null>
             </div>
-            <div class="team_content" v-if="active!=0">
-                <div class="team_item" v-for="(item,index) in team.data" :key="index">
+            <div class="team_content" v-if="active!=0" @scroll="page">
+                <div class="team_item" v-for="(item,index) in team" :key="index">
                     <div class="team_name">
                         {{item.nick_name}}
                     </div>
@@ -48,7 +48,7 @@
                 <Null style="margin-top:-120px;" text="团队" v-if="flag"></Null>
             </div>
             <div class="team_mask" v-show="show">
-                <div class="mask_content">
+                <div class="mask_content" @scroll="page1">
                     <div class="mask_title">
                         查看订单
                         <div class="mask_imgWrap" @click="mask_show">
@@ -79,10 +79,13 @@
                 ],
                 active:'0',
                 show:false,
-                team:'',
-                team_order:'',
+                team:[],
+                team_order:[],
                 flag:false,
-                flag1:false
+                flag1:false,
+                pages:1,
+                pages1:1,
+                user_id:''
             }
         },
         mounted(){
@@ -93,12 +96,15 @@
                 let _this = this;
                 this.$axios.post('team/team_list',{
                     token:localStorage.getItem('token'),
-                    is_direct:is_direct
+                    is_direct:is_direct,
+                    page:_this.pages
                 })
                 .then(function(res){
                     console.log(res);
                     if(res.data.status == 1){
-                        _this.team = res.data.data;
+                        for(let i=0;i<res.data.data.data.length;i++){
+                            _this.team.push(res.data.data.data[i]);
+                        }
                         if(is_direct==0){
                             _this.tab[is_direct].text = '直推会员('+res.data.data.count+')' 
                         }else{
@@ -118,22 +124,32 @@
             team_tab(index){
                 this.active = index;
                 this.flag = false;
+                this.pages = 1;
+                this.team = [];
                 this.initalize(index);
             },
-            mask_show(user_id){
-                this.show = !this.show;
+            mask_show(user_id,page){
+                if(!page){
+                    this.show = !this.show;
+                    this.pages1 = 1;
+                    this.team_order = [];
+                }
+                this.user_id = user_id;
                 if(!this.show){
                     return false;
                 }
                 let _this = this;
                 this.$axios.post('team/team_rank_list',{
                     token:localStorage.getItem('token'),
-                    user_id:user_id
+                    user_id:user_id,
+                    page:_this.pages1
                 })
                 .then(function(res){
                     console.log(res);
                     if(res.data.status == 1){
-                        _this.team_order = res.data.data;
+                        for(let i=0;i<res.data.data.length;i++){
+                            _this.team_order.push(res.data.data[i]);
+                        }
                         if(res.data.data==''){
                             _this.flag1 = true;
                         }
@@ -144,6 +160,18 @@
                 .catch(function(error){
                     console.log(error);
                 })
+            },
+            page(e){
+                if(e.target.scrollTop+e.target.offsetHeight==e.target.scrollHeight){
+                    this.pages++;
+                    this.initalize();
+                }
+            },
+            page1(e){
+                if(e.target.scrollTop+e.target.offsetHeight==e.target.scrollHeight){
+                    this.pages1++;
+                    this.mask_show(this.user_id,true);
+                }
             }
         }
     }

@@ -14,9 +14,9 @@
             </div>
             <p class="bonus_text">开奖时间 {{bonus.data_time}}</p>
             <p class="start_time">
-                <span>{{time[0]}}</span>:
-                <span>{{time[1]}}</span>:
-                <span>{{time[2]}}</span>
+                <span><span v-if="parseInt(time/3600)<10">0</span>{{parseInt(time/3600)}}</span>:
+                <span><span v-if="parseInt(time%3600/60)<10">0</span>{{parseInt(time%3600/60)}}</span>:
+                <span><span v-if="parseInt(time%3600%60)<10">0</span>{{parseInt(time%3600%60)}}</span>
             </p>
         </div>
         <div class="time_slot">
@@ -82,8 +82,11 @@
                 .then(function(res){
                     console.log(res);
                     _this.bonus = res.data.data;
-                    _this.time = res.data.data.open_time.split(':');
+                    _this.time = Number(res.data.data.surplus_time);
                     _this.item_price = res.data.data.money;
+                    setInterval(function(){
+                        _this.time--;
+                    },1000)
                 })
                 .catch(function(error){
                     console.log(error);
@@ -196,7 +199,7 @@
     font-size: 32px;
     color: #fff;
 }
-.start_time span{
+.start_time>span{
     display: inline-block;
     margin: 0 20px;
     width: 50px;

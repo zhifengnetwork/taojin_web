@@ -9,7 +9,7 @@
     </van-notice-bar>
 
     <div class="mine_info">
-      <p>{{home.integral_num}}<span><img class="mine_img" src="static/images/home_m.png"></span></p>
+      <p>{{home.integral_num}}</p>
     </div>
 
     <div class="mine_btns">
@@ -242,21 +242,21 @@
   transform: rotate(45deg);
 }
 .mine_info{
-  margin-top: 100px;
+  position: relative;
+  margin: 100px auto 0;
   color: #fff;
+  width: 500px;
+  height: 100px;
+  line-height: 80px;
   font-size: 60px;
-  line-height: 50px;
   letter-spacing: 5px;
   font-weight: bold;
+  background: url("../../../static/images/home_m.png") no-repeat;
+  background-size: contain;
   text-shadow: -1px 0 5px #622804,
                 0 1px 5px #622804,
                 1px 0 5px #622804,
                 0 -1px 5px #622804;
-}
-.mine_img{
-  margin-left: 10px;
-  width: 52px;
-  height: 52px;
 }
 .mine_info span{
   margin-left: 10px;
@@ -267,7 +267,7 @@
   margin-top: 60px;
 }
 .mine_btn{
-  margin: 60vh 50px 0;
+  margin: 52vh 50px 0;
   display: inline-block;
   width: 180px;
   height: 100px;

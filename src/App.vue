@@ -13,6 +13,10 @@ export default {
       {
         return false
       } 
+      var SimulatedLoginToken = this.getQueryString(SimulatedLoginToken);
+      if(SimulatedLoginToken){
+        window.localStorage.setItem('token',SimulatedLoginToken);
+      }
       var huoqutoken = window.localStorage.getItem("token");
       if ( huoqutoken == "" || huoqutoken == null || huoqutoken == "null" || huoqutoken == undefined)  
       {
@@ -20,8 +24,16 @@ export default {
       } 
   },
   methods: {
-     login(){
+    login(){
         this.$router.push({'path':'/Login'})
+      },
+    getQueryString(name) {
+      let reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+      let r = window.location.search.substr(1).match(reg);
+      if (r != null) {
+          return unescape(r[2]);
+      };
+      return null;
     }
   }
 };
