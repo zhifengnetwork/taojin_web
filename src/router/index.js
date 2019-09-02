@@ -126,6 +126,12 @@ export default new Router({
       name: 'balance_lock',
       component: () => import('@/pages/user/balance_lock'),
     },
+    // 充值明细
+    {
+      path: '/balance_detailed',
+      name: 'balance_detailed',
+      component: () => import('@/pages/user/balance_detailed'),
+    },
     // 提现-转赠
     {
       path: '/withdraw_give',

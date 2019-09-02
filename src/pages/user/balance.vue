@@ -52,7 +52,8 @@
                 option_item:[
                     {text:'提现明细',pages:'withdraw_record'},
                     {text:'账单明细',pages:'withdraw_bill'},
-                    {text:'出局明细',pages:'balance_lock'}
+                    {text:'出局明细',pages:'balance_lock'},
+                    {text:'提现明细',pages:'balance_detailed'},
                 ],
                 user_info:''
             }

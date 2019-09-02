@@ -6,8 +6,16 @@
 			<img slot="backBtn" src="static/images/head_back.png">
 		</TopHeader>
         <div class="currency">
-            <img class="currency_img" src="static/images/currency.png">
-            <span>{{user_info.currency}}</span>
+            <div class="currency_wrap">
+                <img class="currency_img" src="static/images/currency.png">
+                <span>{{user_info.currency}}</span>
+                <p>币</p>
+            </div>
+            <div class="currency_wrap">
+                <img class="currency_img" src="static/images/user/currency.png">
+                <span>{{user_info.lock_currency}}</span>
+                <p>冻结币</p>
+            </div>
         </div>
         <div class="currency_btn">
             <div class="btn_item">
@@ -33,6 +41,12 @@
                 </router-link>
             </div>
         </div>
+        <div class="currency_option">
+            <div class="option_item">
+                <span>昨日币值{{user_info.yesterday_money}}</span>
+                <span>今日币值{{user_info.currency_money}}</span>
+            </div>
+        </div>
     </div>
 </template>
 
@@ -45,7 +59,26 @@
             }
         },
         mounted(){
-            this.user_info = JSON.parse(localStorage.getItem('user_info'));
+            this.initalize();
+        },
+        methods:{
+            initalize(){
+                let _this = this;
+                this.$axios.post('index/currency_detailed',{
+                    token:localStorage.getItem('token')
+                })
+                .then(function(res){
+                    console.log(res);
+                    if(res.data.status == 1){
+                        _this.user_info = res.data.data;
+                    }else{
+                        Toast(res.data.msg)
+                    }
+                })
+                .catch(function(error){
+                    console.log(error);
+                })
+            },
         },
     }
 </script>
@@ -55,7 +88,7 @@
     margin: 20px auto;
     width: 702px;
     height: 220px;
-    line-height: 220px;
+    line-height: 60px;
     color: #fff;
     background: #ffc787;
     border:4px solid #c17b2a;
@@ -80,6 +113,11 @@
     margin: 40px;
     height: 65px;
 }
+.currency_wrap{
+    float: left;
+    margin-top: 40px;
+    width: 50%;
+}
 .btn_item{
     float: left;
     margin: 0 40px;
@@ -99,7 +137,8 @@
   height: 80px;
   line-height: 72px;
   text-align: left;
-  text-indent: 30px;
+  padding: 0 30px;
+  color: #fff;
   background: #be7d43;
   border-radius: 20px;
   border: 4px solid #a65421;
@@ -113,5 +152,11 @@
 .van-icon{
   text-indent: 0;
   vertical-align: text-top;
+}
+.option_item>span:nth-of-type(1){
+    float:left;
+}
+.option_item>span:nth-of-type(2){
+    float:right;
 }
 </style>
