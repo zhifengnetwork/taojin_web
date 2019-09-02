@@ -43,8 +43,12 @@
         </div>
         <div class="currency_option">
             <div class="option_item">
-                <span>昨日币值{{user_info.yesterday_money}}</span>
-                <span>今日币值{{user_info.currency_money}}</span>
+                <span>昨日币值 {{user_info.yesterday_money}}</span>
+            </div>
+        </div>
+         <div class="currency_option">
+            <div class="option_item">
+                <span>今日币值 {{user_info.currency_money}}</span>
             </div>
         </div>
     </div>
@@ -152,11 +156,5 @@
 .van-icon{
   text-indent: 0;
   vertical-align: text-top;
-}
-.option_item>span:nth-of-type(1){
-    float:left;
-}
-.option_item>span:nth-of-type(2){
-    float:right;
 }
 </style>
