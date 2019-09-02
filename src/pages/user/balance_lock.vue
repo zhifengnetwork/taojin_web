@@ -1,29 +1,27 @@
 <template>
-   <div class="height-88 withdraw_record">
+   <div class="height-88 balance_lock">
         <!-- 头部组件 back-url=>反回路径，默认返回上一页 title=>标题内容 fixed=>是否固定在顶部 rgb=>背景色 col=>字体颜色 -->
-		<TopHeader back-url="" custom-title="提现明细" :custom-fixed="true" custom-rgb custom-col>
+		<TopHeader back-url="" custom-title="出局明细" :custom-fixed="true" custom-rgb custom-col>
 			<!-- 返回按钮 -->
 			<img slot="backBtn" src="static/images/head_back.png">
 		</TopHeader>
         <div class="record">
             <div class="record_title">
                 <ul>
-                    <li>申请日期</li>
+                    <li>ID</li>
                     <li>金额</li>
-                    <li>手续费</li>
-                    <li>审核状态</li>
+                    <li>备注</li>
                 </ul>
             </div>
             <div class="info_wrap" @scroll="page">
                 <div class="record_info">
                     <ul v-for="(item,index) in record" :key="index">
-                        <li>{{item.create_time}}</li>
+                        <li>{{item.user_id}}</li>
                         <li>{{item.money}}</li>
-                        <li>{{item.fee}}</li>
-                        <li :class="item.status_text=='申请中'?'failure':'succeed'">{{item.status_text}}</li>
+                        <li :class="item.status_text=='申请中'?'failure':'succeed'">{{item.intro}}</li>
                     </ul>
                 </div>
-                <Null text="提现" v-if="flag"></Null>
+                <Null text="出局" v-if="flag"></Null>
             </div>
         </div>
     </div>
@@ -32,7 +30,7 @@
 <script>
     import { Toast } from 'vant';
     export default {
-        name:'withdraw_record',
+        name:'balance_lock',
         data(){
             return {
                 record:[],
@@ -46,7 +44,7 @@
         methods:{
             initalize(){
                 let _this = this;
-                this.$axios.post('user/withdraw_list',{
+                this.$axios.post('index/get_lock_balance',{
                     token:localStorage.getItem('token'),
                     page:_this.page
                 })
@@ -84,7 +82,7 @@
 .succeed{
     color: #009720;
 }
-.withdraw_record{
+.balance_lock{
   position: fixed;
   top: 0;
   left: 0;
@@ -117,7 +115,7 @@
 .record_title li{
     display: block;
     float: left;
-    width: 25%;
+    width: 33%;
 }
 .record_info{
     width: 100%;
@@ -126,7 +124,7 @@
 .record_info li{
     display: block;
     float: left;
-    width: 25%;
+    width: 33%;
     background: #ffc787;
 }
 .record_info ul:nth-of-type(2n) li{

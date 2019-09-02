@@ -120,6 +120,12 @@ export default new Router({
       name: 'withdraw',
       component: () => import('@/pages/user/withdraw'),
     },
+    // 出局明细
+    {
+      path: '/balance_lock',
+      name: 'balance_lock',
+      component: () => import('@/pages/user/balance_lock'),
+    },
     // 提现-转赠
     {
       path: '/withdraw_give',
@@ -173,7 +179,7 @@ export default new Router({
     },
 
 
-    // 货币currency_record
+    // 货币
     {
       path: '/currency',
       name: 'currency',
