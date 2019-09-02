@@ -132,11 +132,14 @@
 }
 .rank_title li,.rank_item li{
   float: left;
-  width: 30%;
+  width: 20%;
   line-height: 100px;
   border-bottom: 1px solid #c17b2a;
 }
 .rank_title li:nth-of-type(2),.rank_item li:nth-of-type(2){
+  width: 40%;
+}
+.rank_title li:nth-of-type(3),.rank_item li:nth-of-type(3){
   width: 40%;
 }
 .item_content{
@@ -165,13 +168,13 @@
 }
 .give_btn{
     display: inline-block;
-    margin: 40px 50px 0;
-    width: 140px;
+    margin: 40px 20px 0;
+    width: 300px;
     height: 65px;
     line-height: 65px;
     color: #fff;
     font-size: 28px;
     background: url('../../../static/images/sugar_btn.png') no-repeat;
-    background-size: contain;
+    background-size: 100% 100%;
 }
 </style>
