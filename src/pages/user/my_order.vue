@@ -8,7 +8,7 @@
 		</TopHeader>
         <div class="item_wrap" @scroll="page">
             <div class="order_item" v-for="(item,index) in order" :key="index">
-                <h3 class="order_title">订单号 {{item.id}}<span class="order_time">下单时间 {{item.rank_time}}</span></h3>
+                <h3 class="order_title">订单号 {{item.order_no}}</h3>
                 <div class="order_content">
                     <div class="order_imgWrap">
                         <img class="order_img" :src="goods.logo">
