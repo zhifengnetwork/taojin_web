@@ -15,11 +15,11 @@
             <div class="balance_info">
                 <div class="balance_info_item">
                     <p><span>{{user_info.balance}}</span></p>
-                    <p>可提现余额</p>
+                    <p>可提现金沙</p>
                 </div>
                 <div class="balance_info_item">
                     <p><span>{{user_info.lock_balance}}</span></p>
-                    <p>出局余额</p>
+                    <p>出局金沙</p>
                 </div>
             </div>
             <div class="balance_btn">

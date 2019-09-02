@@ -11,6 +11,7 @@
         <div class="userInfo_text">
           <p class="userInfo_name">{{user_info.nick_name}}<span class="userInfo_id">手机号:{{user_info.phone}}</span></p>
           <p>注册时间: {{user_info.add_time}}</p>
+          <p>推荐人: {{user_info.p_1_phone}}</p>
         </div>
         <div class="userInfo_tag">
           {{user_info.level}}
@@ -93,9 +94,9 @@
   position: relative;
   margin: 128px auto 40px;
   width: 702px;
-  height: 170px;
+  height: 200px;
   background: url('../../../static/images/user/userInfo_content.png') no-repeat;
-  background-size: contain;
+  background-size: cover;
 }
 .userInfo_picture{
   position: relative;
