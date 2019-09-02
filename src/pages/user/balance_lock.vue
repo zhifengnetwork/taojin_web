@@ -16,7 +16,7 @@
             <div class="info_wrap" @scroll="page">
                 <div class="record_info">
                     <ul v-for="(item,index) in record" :key="index">
-                        <li>{{item.user_id}}</li>
+                        <li>{{item.id}}</li>
                         <li>{{item.money}}</li>
                         <li :class="item.status_text=='申请中'?'failure':'succeed'">{{item.intro}}</li>
                     </ul>

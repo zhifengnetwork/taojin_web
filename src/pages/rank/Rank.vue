@@ -8,10 +8,10 @@
       <p>出局ID总数</p>
     </div>
     <div class="give_btn" @click="listT(0)">
-        未出局
+        未出局({{user_no_count}})
     </div>
     <div class="give_btn" @click="listT(1)">
-        已出局
+        已出局({{user_out_count}})
     </div>
     <div class="rank_list">
       <ul class="rank_title clearfix" v-if="type==0">
@@ -53,6 +53,8 @@
       return{
         rank_info:[],
         count:'',
+        user_no_count:'',
+        user_out_count:'',
         pages:1,
         flag:false,
         type:0
@@ -79,6 +81,8 @@
             console.log(res);
             if(res.data.status == 1){
               _this.count = res.data.data.count;
+              _this.user_no_count = res.data.data.user_no_count;
+              _this.user_out_count = res.data.data.user_out_count;
               for(let i=0;i<res.data.data.rank_list.length;i++){
                 _this.rank_info.push(res.data.data.rank_list[i]);
               }
