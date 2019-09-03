@@ -5,7 +5,7 @@
     <div class="deal_wrap" @scroll="page">
       <div class="deal_list" v-for="(item,index) in deal_info" :key="index">
         <p class="list_text">ID:{{item.id}}<span>￥{{item.all_money}}</span></p>
-        <p class="list_text">抢单人:平台</p>
+        <p class="list_text">抢单人:5GCC</p>
         <p class="list_text">挂单数量:{{item.currency_num}}</p>
         <p class="list_text">挂单时间:{{item.add_time}}</p>
       </div>
