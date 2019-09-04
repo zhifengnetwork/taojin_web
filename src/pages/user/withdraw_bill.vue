@@ -26,7 +26,7 @@
                         {{item.createtime}}
                         </li>
                         <li>{{item.money}}</li>
-                        <li class="failure">{{item.type_text}}</li>
+                        <li class="failure" @click="mask(item.type,index)">{{item.type_text}}</li>
                     </ul>
                     <Null text="消费" v-if="flag"></Null>
                 </div>
@@ -36,10 +36,16 @@
                         {{item.createtime}}
                         </li>
                         <li>{{item.money}}</li>
-                        <li class="succeed">{{item.type_text}}</li>
+                        <li class="succeed" @click="mask(item.type,index)">{{item.type_text}}</li>
                     </ul>
                     <Null text="赚取" v-if="flag"></Null>
                 </div>
+            </div>
+        </div>
+        <div class="give_mask" v-if="isShow">
+            <div class="give_content">
+                <div class="give_text">{{maskInfo.phone}}</div>
+                <div class="give_btn" @click="mask('2')">确定</div>
             </div>
         </div>
     </div>
@@ -55,7 +61,9 @@
                 bil:[],
                 bll:[],
                 pages:1,
-                flag:false
+                flag:false,
+                isShow:false,
+                maskInfo:''
             }
         },
         mounted(){
@@ -103,6 +111,15 @@
                 if(e.target.scrollTop+e.target.offsetHeight==e.target.scrollHeight){
                     this.pages++;
                     this.initalize();
+                }
+            },
+            mask(type,index){
+                console.log(type,index)
+                if(type=='2'||type=='5'){
+                    this.isShow = !this.isShow;
+                    if(index>=0){
+                        this.maskInfo = this.bil[index]||this.bll[index];
+                    }
                 }
             }
         }
@@ -189,5 +206,41 @@
 }
 .bill_content ul:nth-of-type(2n) li{
     background: #ffbb7e;
+}
+.give_mask{
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.5);
+  z-index: 20;
+}
+.give_content{
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
+  width: 500px;
+  height: 300px;
+  background: #fdcf79;
+  border: 4px solid #8c3800;
+  border-radius: 20px;
+}
+.give_text{
+  line-height: 200px;
+  font-size: 40px;
+}
+.give_btn{
+    margin: 0 auto 0;
+    width: 140px;
+    height: 65px;
+    line-height: 65px;
+    color: #fff;
+    font-size: 28px;
+    background: url('../../../static/images/sugar_btn.png') no-repeat;
+    background-size: contain;
 }
 </style>
