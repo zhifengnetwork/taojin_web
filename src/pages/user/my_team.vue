@@ -11,7 +11,7 @@
             </ul>
         </div>
         <div class="team_wrap">
-            <div class="team_content" v-if="active==0" @scroll="page">
+            <div class="team_content" v-if="active==0">
                 <div class="team_item" v-for="(item,index) in team" :key="index">
                     <div class="team_name">
                         {{item.nick_name}}
@@ -29,7 +29,7 @@
                 </div>
                 <Null style="margin-top:-120px;" text="团队" v-if="flag"></Null>
             </div>
-            <div class="team_content" v-if="active!=0" @scroll="page">
+            <div class="team_content" v-if="active!=0">
                 <div class="team_item" v-for="(item,index) in team" :key="index">
                     <div class="team_name">
                         {{item.nick_name}}
@@ -48,17 +48,19 @@
                 <Null style="margin-top:-120px;" text="团队" v-if="flag"></Null>
             </div>
             <div class="team_mask" v-show="show">
-                <div class="mask_content" @scroll="page1">
+                <div class="mask_content">
                     <div class="mask_title">
                         查看订单
                         <div class="mask_imgWrap" @click="mask_show">
                             <img class="mask_img" src="static/images/team_back.png">
                         </div>
                     </div>
-                    <div class="mask_item" v-for="(item,index) in team_order" :key="index">
-                        <span>下单时间:{{item.add_time}}</span>
-                        <span>订单号:{{item.id}}</span>
-                        <span>金额:{{item.money}}</span>
+                    <div class="item_wrap" @scroll="page">
+                        <div class="mask_item" v-for="(item,index) in team_order" :key="index">
+                            <span>下单时间:<br />{{item.add_time}}</span>
+                            <span>订单号:{{item.id}}</span>
+                            <span>金额:{{item.money}}</span>
+                        </div>
                     </div>
                     <Null style="margin-top:-120px;" text="订单" v-if="flag1"></Null>
                 </div>
@@ -79,12 +81,11 @@
                 ],
                 active:'0',
                 show:false,
-                team:[],
+                team:'',
                 team_order:[],
                 flag:false,
                 flag1:false,
                 pages:1,
-                pages1:1,
                 user_id:''
             }
         },
@@ -102,9 +103,7 @@
                 .then(function(res){
                     console.log(res);
                     if(res.data.status == 1){
-                        for(let i=0;i<res.data.data.data.length;i++){
-                            _this.team.push(res.data.data.data[i]);
-                        }
+                        _this.team = res.data.data.data;
                         if(is_direct==0){
                             _this.tab[is_direct].text = '直推会员('+res.data.data.count+')' 
                         }else{
@@ -125,13 +124,13 @@
                 this.active = index;
                 this.flag = false;
                 this.pages = 1;
-                this.team = [];
+                this.team = '';
                 this.initalize(index);
             },
             mask_show(user_id,page){
                 if(!page){
                     this.show = !this.show;
-                    this.pages1 = 1;
+                    this.pages = 1;
                     this.team_order = [];
                 }
                 this.user_id = user_id;
@@ -142,7 +141,7 @@
                 this.$axios.post('team/team_rank_list',{
                     token:localStorage.getItem('token'),
                     user_id:user_id,
-                    page:_this.pages1
+                    page:_this.pages
                 })
                 .then(function(res){
                     console.log(res);
@@ -162,14 +161,8 @@
                 })
             },
             page(e){
-                if(e.target.scrollTop+e.target.offsetHeight==e.target.scrollHeight){
+                if(e.target.scrollTop+e.target.offsetHeight>=e.target.scrollHeight-5){
                     this.pages++;
-                    this.initalize();
-                }
-            },
-            page1(e){
-                if(e.target.scrollTop+e.target.offsetHeight==e.target.scrollHeight){
-                    this.pages1++;
                     this.mask_show(this.user_id,true);
                 }
             }
@@ -308,15 +301,25 @@
     width: 40px;
     height: 40px;
 }
+.item_wrap{
+    width:100%;
+    height:90%;
+    overflow-y:scroll;
+}
 .mask_item{
-    line-height: 85px;
+    line-height: 110px;
+    height: 110px;
     background: #ffeccf;
 }
 .mask_item:nth-of-type(2n){
     background: #ffdab5;
 }
 .mask_item span{
-    display: inline-block;
+    float:left;
     width:32%;
+    height: 100%;
+}
+.mask_item span:nth-of-type(1){
+    line-height: 55px;
 }
 </style>

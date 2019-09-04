@@ -57,7 +57,7 @@
                 })
             },
             page(e){
-                if(e.target.scrollTop+e.target.offsetHeight==e.target.scrollHeight-5){
+                if(e.target.scrollTop+e.target.offsetHeight>=e.target.scrollHeight-5-5){
                     this.pages++;
                     this.initalize();
                 }
