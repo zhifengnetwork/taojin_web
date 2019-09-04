@@ -12,10 +12,12 @@
                 <li>中奖ID</li>
                 <li>手机号</li>
             </ul>
-            <ul class="prize_item" v-for="(item,index) in prize" :key="index">
-                <li>{{item.rank_time}}</li>
-                <li>{{item.phone}}</li>
-            </ul>
+            <div class="item_wrap">
+                <ul class="prize_item" v-for="(item,index) in prize" :key="index">
+                    <li>{{item.rank_time}}</li>
+                    <li>{{item.phone}}</li>
+                </ul>
+            </div>
             <Null style="margin-top:-120px;" text="中奖" v-if="flag"></Null>
         </div>
     </div>
@@ -33,6 +35,10 @@
         },
         mounted(){
             this.initalize();
+            Toast.loading({
+                mask: true,
+                message: '加载中...'
+            });
         },
         methods:{
             initalize(){
@@ -86,6 +92,11 @@
     width: 50%;
     font-size: 30px;
     line-height: 100px;
+}
+.item_wrap{
+    width:100%;
+    height:90%;
+    overflow-y: scroll;
 }
 .prize_item li{
     float: left;

@@ -247,7 +247,9 @@
   color: #fff;
   width: 500px;
   height: 100px;
-  line-height: 80px;
+  text-align: left;
+  text-indent: 100px;
+  line-height: 90px;
   font-size: 60px;
   letter-spacing: 5px;
   font-weight: bold;
