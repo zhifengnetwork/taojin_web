@@ -36,10 +36,6 @@
         },
         mounted(){
             this.initalize();
-            Toast.loading({
-                mask: true,
-                message: '加载中...'
-            });
         },
         methods:{
             initalize(){
