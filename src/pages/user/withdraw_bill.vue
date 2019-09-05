@@ -96,7 +96,7 @@
                                 _this.bll.push(res.data.data[i]);
                             }
                         }
-                        if(res.data.data==''){
+                        if(res.data.data==''&&_this.pages==1){
                             _this.flag = true;
                         }
                     }else{

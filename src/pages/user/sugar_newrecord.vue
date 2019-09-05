@@ -1,30 +1,19 @@
 <template>
-   <div class="height-88 withdraw_record">
+    <div class="height-88 public_bg">
         <!-- 头部组件 back-url=>反回路径，默认返回上一页 title=>标题内容 fixed=>是否固定在顶部 rgb=>背景色 col=>字体颜色 -->
-		<TopHeader back-url="" custom-title="提现明细" :custom-fixed="true" custom-rgb custom-col>
+		<TopHeader back-url="" custom-title="糖果明细" :custom-fixed="true" custom-rgb custom-col>
 			<!-- 返回按钮 -->
 			<img slot="backBtn" src="static/images/head_back.png">
 		</TopHeader>
-        <div class="record">
-            <div class="record_title">
-                <ul>
-                    <li>申请日期</li>
-                    <li>金额</li>
-                    <li>手续费</li>
-                    <li>审核状态</li>
-                </ul>
-            </div>
-            <div class="info_wrap" @scroll="page">
-                <div class="record_info">
-                    <ul v-for="(item,index) in record" :key="index">
-                        <li>{{item.create_time}}</li>
-                        <li>{{item.money}}</li>
-                        <li>{{item.fee}}</li>
-                        <li :class="item.status_text=='申请中'?'failure':'succeed'">{{item.status_text}}</li>
-                    </ul>
+        <div class="record" @scroll="page">
+            <div class="record_item" v-for="(item,index) in record" :key="index">
+                <p class="item_id">{{item.type_text}}</p>
+                <p class="item_time">{{item.add_time}}</p>
+                <div class="item_num">
+                    <span>{{item.num}}</span>
                 </div>
-                <Null text="提现" v-if="flag"></Null>
             </div>
+            <Null text="糖果" v-if="flag"></Null>
         </div>
     </div>
 </template>
@@ -32,7 +21,7 @@
 <script>
     import { Toast } from 'vant';
     export default {
-        name:'withdraw_record',
+        name:'sugar_record',
         data(){
             return {
                 record:[],
@@ -46,9 +35,9 @@
         methods:{
             initalize(){
                 let _this = this;
-                this.$axios.post('user/withdraw_list',{
+                this.$axios.post('index/give_detailed',{
                     token:localStorage.getItem('token'),
-                    page:_this.page
+                    page:_this.pages
                 })
                 .then(function(res){
                     console.log(res);
@@ -68,7 +57,7 @@
                 })
             },
             page(e){
-                if(e.target.scrollTop+e.target.offsetHeight>=e.target.scrollHeight-5){
+                if(e.target.scrollTop+e.target.offsetHeight>=e.target.scrollHeight-5-5){
                     this.pages++;
                     this.initalize();
                 }
@@ -78,58 +67,45 @@
 </script>
 
 <style lang="scss" scoped>
-.failure{
-    color: #972700;
-}
-.succeed{
-    color: #009720;
-}
-.withdraw_record{
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  color: #4a1901;
-  background: #ffda9e;
-}
-.info_wrap{
-    width: 100%;
-    height: 91%;
-    overflow-y: scroll;
-}
 .record{
     margin: 20px auto;
     width: 702px;
     height: 1180px;
+    overflow-y: scroll;
     border: 4px solid #c17b2a;
     border-radius: 20px;
-    background: #ffe4b8;
+    background: #ffc787;
     box-sizing: border-box;
     -moz-box-sizing: border-box;
     -webkit-box-sizing: border-box;
 }
-.record_title{
-    width: 100%;
-    height: 100px;
-    line-height: 100px;
+.record_item{
+    position: relative;
+    margin: 10px auto;
+    width: 680px;
+    height: 126px;
+    line-height: 50px;
+    text-align: left;
+    text-indent: 60px;
+    background: #b38a5b;
 }
-.record_title li{
-    display: block;
-    float: left;
-    width: 25%;
+.item_id{
+    padding-top: 10px;
+    color: #fff;
 }
-.record_info{
-    width: 100%;
-    line-height: 100px;
-}
-.record_info li{
-    display: block;
-    float: left;
-    width: 25%;
-    background: #ffc787;
-}
-.record_info ul:nth-of-type(2n) li{
-    background: #ffbb7e;
+.item_num{
+    position: absolute;
+    right: 36px;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    width: 150px;
+    height: 60px;
+    line-height: 70px;
+    text-indent: 0;
+    text-align: center;
+    color: #fff;
+    background: url('../../../static/images/sugar_record.png')no-repeat;
+    background-size: contain;
 }
 </style>

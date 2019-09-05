@@ -86,7 +86,7 @@
               for(let i=0;i<res.data.data.rank_list.length;i++){
                 _this.rank_info.push(res.data.data.rank_list[i]);
               }
-              if(res.data.data.rank_list==''){
+              if(res.data.data.rank_list==''&&_this.pages==1){
                 _this.flag = true;
               }
             }else{

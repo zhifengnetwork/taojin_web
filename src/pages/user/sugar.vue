@@ -17,6 +17,11 @@
             </div>
             <div class="option_item">
                 <router-link to="sugar_record">
+                    赠送纪录
+                </router-link>
+            </div>
+            <div class="option_item">
+                <router-link to="sugar_newrecord">
                     糖果明细
                 </router-link>
             </div>
@@ -73,7 +78,7 @@
 }
 .option_item{
   display: inline-block;
-  margin-left: 140px;
+  margin-left: 50px;
   width: 140px;
   height: 66px;
   line-height: 66px;

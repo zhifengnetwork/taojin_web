@@ -198,7 +198,7 @@
               console.log(error);
           })
         }else{
-          location.reload()
+
         }
         this.give = !this.give;
       }

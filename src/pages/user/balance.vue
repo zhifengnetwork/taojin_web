@@ -105,7 +105,7 @@
     margin: 20px auto;
     width: 320px;
     height: 72px;
-    font-size: 40px;
+    font-size: 28px;
     line-height: 72px;
     background: url('../../../static/images/balance_money.png')no-repeat;
     background-size: contain;

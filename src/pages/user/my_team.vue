@@ -20,9 +20,9 @@
                         <img class="team_img" src="static/images/team_mobile.png">
                         <span>{{item.phone}}</span>
                     </div>
-                    <div class="team_id">
+                    <!-- <div class="team_id">
                         ID:{{item.id}}
-                    </div>
+                    </div> -->
                     <div class="team_btn" @click="mask_show(item.id)">
                         查看
                     </div>
@@ -38,9 +38,9 @@
                         <img class="team_img" src="static/images/team_mobile.png">
                         <span>{{item.phone}}</span>
                     </div>
-                    <div class="team_id">
+                    <!-- <div class="team_id">
                         ID:{{item.id}}
-                    </div>
+                    </div> -->
                     <div class="team_btn" @click="mask_show(item.id)">
                         查看
                     </div>
@@ -109,7 +109,7 @@
                         }else{
                             _this.tab[is_direct].text = '其他会员('+res.data.data.count+')' 
                         }
-                        if(res.data.data.data==''){
+                        if(res.data.data.data==''&&_this.pages==1){
                             _this.flag = true;
                         }
                     }else{
@@ -149,7 +149,7 @@
                         for(let i=0;i<res.data.data.length;i++){
                             _this.team_order.push(res.data.data[i]);
                         }
-                        if(res.data.data==''){
+                        if(res.data.data==''&&_this.pages==1){
                             _this.flag1 = true;
                         }
                     }else{
@@ -234,9 +234,9 @@
     color: #8d4928;
 }
 .team_mobile{
-    float: right;
-    margin-top: 18px;
-    margin-right: 34px;
+    padding-top: 70px;
+    text-align: left;
+    text-indent: 20px;
 }
 .team_img{
     width: 40px;

@@ -55,7 +55,7 @@
                         for(let i=0;i<res.data.data.ranking.length;i++){
                             _this.order.push(res.data.data.ranking[i]);
                         }
-                        if(res.data.data.ranking==''){
+                        if(res.data.data.ranking==''&&_this.pages==1){
                             _this.flag = true;
                         }
                     }else{

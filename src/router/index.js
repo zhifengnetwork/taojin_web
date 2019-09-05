@@ -183,6 +183,12 @@ export default new Router({
       name: 'sugar_record',
       component: () => import('@/pages/user/sugar_record'),
     },
+    // 糖果明细
+    {
+      path: '/sugar_newrecord',
+      name: 'sugar_newrecord',
+      component: () => import('@/pages/user/sugar_newrecord'),
+    },
 
 
     // 货币
