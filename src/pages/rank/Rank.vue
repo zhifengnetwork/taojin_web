@@ -155,12 +155,11 @@
   padding-top: 20px;
   color: #4a1901;
   font-size: 30px;
-  text-indent: 30px;
   box-sizing: border-box;
   -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;
   background: url('../../../static/images/rank_notice.png') no-repeat;
-  background-size: contain;
+  background-size: 100% 100%;
 }
 .notice span{
   font-size: 36px;

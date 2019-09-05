@@ -76,7 +76,7 @@
             <span>中奖时间</span>
             <span>手机号码</span>
         </div>
-        <div class="list_content">
+        <div class="list_content" @scroll="page">
           <div class="list_info" v-for="(item,index) in maskInfo" :key="index">
               <span>{{item.rank_time}}</span>
               <span>{{item.phone}}</span>
@@ -98,23 +98,17 @@
         buyitem: false,
         buyitem_num: 1,
         home: '',
-        maskInfo:'',
+        maskInfo:[],
         give:false,
         give_num:'',
-        flag:true
+        flag:true,
+        pages:1
       }
     },
     mounted(){
       let _this = this;
       this.initalize();
-      this.$axios.post('index/reward_list')
-      .then(function(res){
-          console.log(res);
-          _this.maskInfo = res.data.data;
-      })
-      .catch(function(error){
-          console.log(error);
-      })
+      this.reward_list();
     },
     methods:{
       initalize(){
@@ -123,6 +117,25 @@
         .then(function(res){
             console.log(res);
             _this.home = res.data.data;
+        })
+        .catch(function(error){
+            console.log(error);
+        })
+      },
+      reward_list(){
+        let _this = this;
+        this.$axios.post('index/reward_list',{
+            token:localStorage.getItem('token'),
+            page:_this.pages
+        })
+        .then(function(res){
+            console.log(res);
+            for(let i=0;i<res.data.data.length;i++){
+                _this.maskInfo.push(res.data.data[i]);
+            }
+            if(res.data.data==''&&_this.pages==1){
+                _this.flag = true;
+            }
         })
         .catch(function(error){
             console.log(error);
@@ -190,6 +203,7 @@
               console.log(res);
               if(res.data.status == 1){
                 _this.give_num = res.data.data;
+                _this.home.is_give = 0;
               }else{
                 Toast(res.data.msg)
               }
@@ -197,11 +211,15 @@
           .catch(function(error){
               console.log(error);
           })
-        }else{
-
         }
         this.give = !this.give;
-      }
+      },
+      page(e){
+          if(e.target.scrollTop+e.target.offsetHeight>=e.target.scrollHeight-5){
+              this.pages++;
+              this.reward_list();
+          }
+      },
     },
   }
 </script>

@@ -48,7 +48,7 @@
                 let _this = this;
                 this.$axios.post('user/withdraw_list',{
                     token:localStorage.getItem('token'),
-                    page:_this.page
+                    page:_this.pages
                 })
                 .then(function(res){
                     console.log(res);
@@ -121,7 +121,7 @@
 }
 .record_info{
     width: 100%;
-    line-height: 100px;
+    line-height: 110px;
 }
 .record_info li{
     display: block;

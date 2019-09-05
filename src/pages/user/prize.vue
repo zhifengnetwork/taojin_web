@@ -12,7 +12,7 @@
                 <li>中奖ID</li>
                 <li>手机号</li>
             </ul>
-            <div class="item_wrap">
+            <div class="item_wrap" @scroll="page">
                 <ul class="prize_item" v-for="(item,index) in prize" :key="index">
                     <li>{{item.rank_time}}</li>
                     <li>{{item.phone}}</li>
@@ -29,8 +29,9 @@
         name:'prize',
         data(){
             return {
-                prize:'',
-                flag:false
+                prize:[],
+                flag:false,
+                pages:1
             }
         },
         mounted(){
@@ -44,13 +45,16 @@
             initalize(){
                 let _this = this;
                 this.$axios.post('index/reward_list',{
-                    token:localStorage.getItem('token')
+                    token:localStorage.getItem('token'),
+                    page:_this.pages
                 })
                 .then(function(res){
                     console.log(res);
                     if(res.data.status == 1){
-                        _this.prize = res.data.data;
-                        if(res.data.data==''){
+                        for(let i=0;i<res.data.data.length;i++){
+                            _this.prize.push(res.data.data[i]);
+                        }
+                        if(res.data.data==''&&_this.pages==1){
                             _this.flag = true;
                         }
                     }else{
@@ -60,7 +64,13 @@
                 .catch(function(error){
                     console.log(error);
                 })
-            }
+            },
+            page(e){
+                if(e.target.scrollTop+e.target.offsetHeight>=e.target.scrollHeight-5){
+                    this.pages++;
+                    this.initalize();
+                }
+            },
         }
     }
 </script>
@@ -101,7 +111,7 @@
 .prize_item li{
     float: left;
     width: 50%;
-    line-height: 60px;
+    line-height: 110px;
     background: #ffc787;
 }
 .prize_item:nth-of-type(2n) li{
