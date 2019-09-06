@@ -10,7 +10,7 @@
         </div>
         <div class="promotion_code">
             <p class="promotion_text">我是<span>{{user_info.nick_name}}</span></p>
-            <p class="promotion_text">ID<span>{{user_info.id}}</span></p>
+            <p class="promotion_text">手机号<span>{{user_info.phone}}</span></p>
             <div class="code">
                 <img class="code_img" :src="code">
                 <div style="display:none;" id="qrcode" ref="qrcode"></div>
