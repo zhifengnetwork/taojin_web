@@ -18,7 +18,7 @@
             登录
         </div>
         <div class="login_link">
-            <router-link class="link" to="/Register">注册</router-link>
+            <!-- <router-link class="link" to="/Register">注册</router-link> -->
             <router-link class="link" to="/Reset">忘记密码</router-link>
         </div>
     </div>

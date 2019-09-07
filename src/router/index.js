@@ -24,6 +24,12 @@ export default new Router({
       name: 'Reset',
       component: () => import('@/pages/login/Reset'),
     },
+    // 下载
+    {
+      path: '/Download',
+      name: 'Download',
+      component: () => import('@/pages/login/Download'),
+    },
 
     // 重定向
     {

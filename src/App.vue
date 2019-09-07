@@ -8,20 +8,26 @@
 export default {
   name: "App",
   beforeMount() {
-      var reg = window.localStorage.getItem("reg");
-      if ( reg == "" || reg == null || reg == "null" || reg == undefined)  
-      {
-        return false
-      } 
-      var SimulatedLoginToken = this.getQueryString(SimulatedLoginToken);
+      var SimulatedLoginToken = this.getQueryString('SimulatedLoginToken');
       if(SimulatedLoginToken){
         window.localStorage.setItem('token',SimulatedLoginToken);
       }
+      
+      var url = window.location.href;
+      if(url.indexOf("Download") != -1 || url.indexOf("download") != -1 || url.indexOf("Register") != -1 || url.indexOf("register") != -1){
+        return false;
+      }
+
+      if(url.indexOf("yq_code") != -1){
+        return false;
+      }
+
       var huoqutoken = window.localStorage.getItem("token");
-      if ( huoqutoken == "" || huoqutoken == null || huoqutoken == "null" || huoqutoken == undefined)  
-      {
+      if ( huoqutoken == "" || huoqutoken == null || huoqutoken == "null" || huoqutoken == undefined){
         this.login();
-      } 
+      }else{
+        this.$router.push('Home')
+      }
   },
   methods: {
     login(){
@@ -34,7 +40,7 @@ export default {
           return unescape(r[2]);
       };
       return null;
-    }
+    },
   }
 };
 </script>

@@ -83,6 +83,7 @@
                     Toast.fail("手机号码有误，请重填");
                     return false; 
                 }
+
                 let _this = this;
                 this.$axios.post('login/register',{
                     phone:_this.mobile,
@@ -95,14 +96,8 @@
                     console.log(res);
                     if(res.data.status == 1){
                         Toast.success('注册成功');
-                        let u = navigator.userAgent;
-                        let isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/);
-                        if (isiOS) {
-                            window.location.href = 'http://dibaqu.com/Bz6R'
-                        } else {
-                            window.location.href = 'http://www.dibaqu.com/EV7r'
-                        }
-                        // _this.$router.push('/Login')
+                        window.location = 'https://www.519991.cn/#/download'
+                        // _this.$router.push('/download')
                     }else{
                         Toast.fail(res.data.msg);
                     }

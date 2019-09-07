@@ -71,8 +71,6 @@ axios.interceptors.response.use(
 		if(error.response.status == 401){
 			
 			window.localStorage.removeItem("token");
-			window.localStorage.setItem("reg","reg");
-			window.location.href = document.location.protocol+'//'+window.location.host;
 			// Dialog.alert({
 			// 	message: error.response.data['msg']
 			// }).then(() => {
