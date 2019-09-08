@@ -4,7 +4,7 @@
       <!-- 用户信息 -->
       <div class="userInfo_content">
         <div class="userInfo_picture">
-          <router-link to="user_info">
+          <router-link to="user_info" replace>
             <img class="userInfo_img" :src="user_info.avatar">
           </router-link>
         </div>

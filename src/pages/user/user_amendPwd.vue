@@ -8,22 +8,22 @@
         <div class="amend">
             <div class="amend_inp">
                 <label>
-                    <span class="amend_text">输入手机号</span><input v-model="mobile" class="amend_input" type="text">
+                    <span class="amend_text">输入手机号</span><input v-model="mobile" @focus="getFocus" class="amend_input" type="text">
                 </label>
             </div>
             <div class="amend_inp">
                 <label>
-                    <span class="amend_text">输入密码</span><input v-model="pwd1" class="amend_input" type="password">
+                    <span class="amend_text">输入密码</span><input v-model="pwd1" @focus="getFocus" class="amend_input" type="password">
                 </label>
             </div>
             <div class="amend_inp">
                 <label>
-                    <span class="amend_text">再次输入密码</span><input v-model="pwd2" class="amend_input" type="password">
+                    <span class="amend_text">再次输入密码</span><input v-model="pwd2" @focus="getFocus" class="amend_input" type="password">
                 </label>
             </div>
             <div class="amend_inp">
                 <label>
-                    <span class="amend_text">输入验证码</span><input v-model="code" class="amend_input" type="text">
+                    <span class="amend_text">输入验证码</span><input v-model="code" @focus="getFocus" class="amend_input" type="text">
                     <span class="amend_code" @click="getCode">{{codeText}}</span>
                 </label>
             </div>
@@ -129,7 +129,12 @@
                         }
                     }, 1000);
                 }
-            }
+            },
+            getFocus() {
+                 window.addEventListener('focusout', function () {
+                   document.body.scrollTop = document.body.scrollHeight;
+                })
+            },
         }
     }
 </script>

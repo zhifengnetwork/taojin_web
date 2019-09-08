@@ -73,7 +73,7 @@
         },
         methods:{
             login(){
-                this.$router.push('Login');
+                this.$router.replace('Login');
                 localStorage.removeItem('token')
             },
             upLoad(e){

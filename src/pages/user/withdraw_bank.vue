@@ -9,17 +9,17 @@
         <div class="bank_wrap">
             <div class="bank_inp">
                 <label>
-                    <span class="bank_text">姓名:</span><input class="bank_input" v-model="name" placeholder="请输入姓名" type="text">
+                    <span class="bank_text">姓名:</span><input class="bank_input" v-model="name" @focus="getFocus" placeholder="请输入姓名" type="text">
                 </label>
             </div>
             <div class="bank_inp">
                 <label>
-                    <span class="bank_text">卡号:</span><input class="bank_input" v-model="number" placeholder="请输入卡号" type="text">
+                    <span class="bank_text">卡号:</span><input class="bank_input" v-model="number" @focus="getFocus" placeholder="请输入卡号" type="text">
                 </label>
             </div>
             <div class="bank_inp">
                 <label>
-                    <span class="bank_text">银行:</span><input class="bank_input" v-model="bank" placeholder="请输入银行" type="text">
+                    <span class="bank_text">银行:</span><input class="bank_input" v-model="bank" @focus="getFocus" placeholder="请输入银行" type="text">
                 </label>
             </div>
             <div class="bank_btn" @click="send">
@@ -73,7 +73,12 @@
                 .catch(function(error){
                     console.log(error);
                 })
-            }
+            },
+            getFocus() {
+                 window.addEventListener('focusout', function () {
+                   document.body.scrollTop = document.body.scrollHeight;
+                })
+            },
         }
     }
 </script>

@@ -6,13 +6,13 @@
 			<!-- <img slot="backBtn" src="static/images/head_back.png"> -->
 		</TopHeader>
         <label class="login_inp">
-            <span class="login_title"><img class="login_img" src="static/images/login_ph.png"></span><input class="login_input" placeholder="请输入手机号" v-model="mobile" type="number">
+            <span class="login_title"><img class="login_img" src="static/images/login_ph.png"></span><input class="login_input" placeholder="请输入手机号" v-model="mobile" @focus="getFocus" type="number">
             <div class="login_errWrap" @click="err">
                 <img class="login_err" src="static/images/login_err.png">
             </div>
         </label>
         <label class="login_inp">
-            <span class="login_title"><img class="login_img" src="static/images/login_pwd.png"></span><input class="login_input" placeholder="请输入密码" v-model="psd" type="password">
+            <span class="login_title"><img class="login_img" src="static/images/login_pwd.png"></span><input class="login_input" placeholder="请输入密码" v-model="psd" @focus="getFocus" type="password">
         </label>
         <div class="login_btn" @click="login">
             登录
@@ -34,9 +34,26 @@
                 psd:''
             }
         },
+        mounted(){
+            // 如果支持 popstate 一般移动端都支持了
+            if (window.history && window.history.pushState) {
+                // 往历史记录里面添加一条新的当前页面的url
+                history.pushState(null, null, document.URL);
+                // 给 popstate 绑定一个方法 监听页面刷新
+                window.addEventListener('popstate', this.goBack, false);//false阻止默认事件
+            }
+        },
+        destroyed() {
+			window.removeEventListener('popstate', this.goBack, false);//false阻止默认事件
+			sessionStorage.setItem('isSign','1')
+		},
         methods:{
             err(){
                 this.mobile = '';
+            },
+            goBack() {
+                console.log("监听到了");
+                history.pushState(null, null, document.URL);
             },
             login(){
                 if(!this.mobile){
@@ -64,7 +81,7 @@
                         // _this.$store.state.token = res.data.data.token;
                         window.localStorage.setItem("token",res.data.data.token);
             			window.localStorage.setItem("reg","reg");
-                        _this.$router.push('/Home');
+                        _this.$router.replace('/Home');
                         _this.$store.state.prize = true;
                     }else{
                         Toast.fail(res.data.msg);
@@ -74,7 +91,12 @@
                 .catch(function(error){
                     console.log(error);
                 })
-            }
+            },
+            getFocus() {
+                 window.addEventListener('focusout', function () {
+                   document.body.scrollTop = document.body.scrollHeight;
+                })
+            },
         }
     }
 </script>

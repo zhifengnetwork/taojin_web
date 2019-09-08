@@ -17,8 +17,8 @@
                     <li>{{item.rank_time}}</li>
                     <li>{{item.phone}}</li>
                 </ul>
+                <Null text="中奖" v-if="flag"></Null>
             </div>
-            <Null style="margin-top:-120px;" text="中奖" v-if="flag"></Null>
         </div>
     </div>
 </template>

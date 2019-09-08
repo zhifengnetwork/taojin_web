@@ -152,6 +152,7 @@
 .code_img{
     width:100%;
     height:100%;
+    pointer-events: auto;
 }
 .promotion_link{
     margin: 80px auto 0;

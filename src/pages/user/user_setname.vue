@@ -8,7 +8,7 @@
         <div class="setname">
             <div class="setname_inp">
                 <label>
-                    <span class="setname_text">输入用户名:</span><input v-model="username" class="setname_input" type="text">
+                    <span class="setname_text">输入用户名:</span><input v-model="username" @focus="getFocus" class="setname_input" type="text">
                 </label>
             </div>
             <div class="setname_btn" @click="send">
@@ -52,6 +52,11 @@
                 })
                 .catch(function(error){
                     console.log(error);
+                })
+            },
+            getFocus() {
+                 window.addEventListener('focusout', function () {
+                   document.body.scrollTop = document.body.scrollHeight;
                 })
             },
         }

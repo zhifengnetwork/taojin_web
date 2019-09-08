@@ -8,12 +8,12 @@
         <div class="alipay_wrap">
             <div class="alipay_inp">
                 <label>
-                    <span class="alipay_text">支付宝账号:</span><input class="alipay_input" v-model="alipay" placeholder="请输入支付宝账号" type="text">
+                    <span class="alipay_text">支付宝账号:</span><input class="alipay_input" v-model="alipay" @focus="getFocus" placeholder="请输入支付宝账号" type="text">
                 </label>
             </div>
             <div class="alipay_inp">
                 <label>
-                    <span class="alipay_text">真实姓名:</span><input class="alipay_input" v-model="name" placeholder="请输入真实姓名" type="text">
+                    <span class="alipay_text">真实姓名:</span><input class="alipay_input" v-model="name" @focus="getFocus" placeholder="请输入真实姓名" type="text">
                 </label>
             </div>
             <div class="alipay_btn" @click="send">
@@ -61,7 +61,12 @@
                 .catch(function(error){
                     console.log(error);
                 })
-            }
+            },
+            getFocus() {
+                 window.addEventListener('focusout', function () {
+                   document.body.scrollTop = document.body.scrollHeight;
+                })
+            },
         }
     }
 </script>

@@ -18,10 +18,10 @@
                     <ul v-for="(item,index) in record" :key="index">
                         <li>{{item.id}}</li>
                         <li>{{item.money}}</li>
-                        <li :class="item.status_text=='申请中'?'failure':'succeed'">{{item.intro}}</li>
+                        <li :class="item.status_text=='申请中'?'failure':'succeed'">{{item.intro}}{{item.be_mobile}}</li>
                     </ul>
                 </div>
-                <Null text="出局" v-if="flag"></Null>
+                <Null text="充值" v-if="flag"></Null>
             </div>
         </div>
     </div>
@@ -115,7 +115,10 @@
 .record_title li{
     display: block;
     float: left;
-    width: 33%;
+    width: 30%;
+}
+.record_title li:nth-of-type(3){
+    width: 40%;
 }
 .record_info{
     width: 100%;
@@ -124,8 +127,11 @@
 .record_info li{
     display: block;
     float: left;
-    width: 33%;
+    width: 30%;
     background: #ffc787;
+}
+.record_info li:nth-of-type(3){
+    width: 40%;
 }
 .record_info ul:nth-of-type(2n) li{
     background: #ffbb7e;

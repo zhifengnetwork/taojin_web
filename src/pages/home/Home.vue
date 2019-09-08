@@ -60,7 +60,7 @@
         <div class="buyitem_price">￥{{home.money}}</div>
         <div class="buyitem_num">
           <span @click="minus">-</span>
-          <input v-model="buyitem_num" @input="num" type="text">
+          <input v-model="buyitem_num" @input="num" @focus="getFocus" type="text">
           <span @click="add">+</span>
         </div>
         <div class="buyitem_btn" @click="buyItem">购买</div>
@@ -109,6 +109,14 @@
       let _this = this;
       this.initalize();
       this.reward_list();
+      this.$axios.post('user/userinfo',{
+          token:localStorage.getItem('token')
+      })
+      .then(function(res){
+      })
+      .catch(function(error){
+          console.log(error);
+      })
     },
     methods:{
       initalize(){
@@ -219,6 +227,11 @@
               this.pages++;
               this.reward_list();
           }
+      },
+      getFocus() {
+            window.addEventListener('focusout', function () {
+              document.body.scrollTop = document.body.scrollHeight;
+          })
       },
     },
   }

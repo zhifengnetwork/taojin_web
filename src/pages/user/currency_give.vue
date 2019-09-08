@@ -14,17 +14,17 @@
             </div>
             <div class="info_inp">
                 <label>
-                    <span>赠送账号</span><input v-model="phone" placeholder="请输入手机号" class="info_input" type="text">
+                    <span>赠送账号</span><input v-model="phone" @focus="getFocus" placeholder="请输入手机号" class="info_input" type="text">
                 </label>
             </div>
             <div class="info_inp">
                 <label>
-                    <span>币</span><input v-model="currency" class="info_input" type="text">
+                    <span>币</span><input v-model="currency" @focus="getFocus" class="info_input" type="text">
                 </label>
             </div>
             <div class="info_inp">
                 <label>
-                    <span>支付密码</span><input v-model="paypwd" class="info_input" type="password">
+                    <span>支付密码</span><input v-model="paypwd" @focus="getFocus" class="info_input" type="password">
                 </label>
             </div>
             <div class="info_btn" @click="send">
@@ -82,7 +82,12 @@
                 .catch(function(error){
                     console.log(error);
                 })
-            }
+            },
+            getFocus() {
+                 window.addEventListener('focusout', function () {
+                   document.body.scrollTop = document.body.scrollHeight;
+                })
+            },
         }
     }
 </script>

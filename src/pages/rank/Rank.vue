@@ -38,7 +38,7 @@
           <li>{{item.out_time}}</li>
           <li>{{item.out_type_text}}</li>
         </ul>
-        <Null style="margin-top:-80px;" text="排位" v-if="flag"></Null>
+        <Null style="margin-top:-100px;" text="排位" v-if="flag"></Null>
       </div>
     </div>
     <Navigate></Navigate>

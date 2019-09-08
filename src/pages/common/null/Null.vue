@@ -21,9 +21,11 @@
     margin: 30vh auto 20px;
     width: 300px;
     height: 300px;
+    user-select: none;
 }
 .null_text{
     letter-spacing: 2px;
     line-height: 100px;
+    user-select: none;
 }
 </style>

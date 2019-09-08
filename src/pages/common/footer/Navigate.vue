@@ -27,7 +27,7 @@
         },
         methods:{
             page(index){
-                this.$router.push({'path':this.list[index].pages})
+                this.$router.replace({'path':this.list[index].pages})
             }
         }
     }
@@ -43,6 +43,7 @@
     line-height: 90px;
 	background:#ffcb8f;
 	z-index:10;
+    user-select: none;
 }
 ul{
     width: 100%;

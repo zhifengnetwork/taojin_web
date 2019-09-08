@@ -6,19 +6,19 @@
 			<img slot="backBtn" src="static/images/head_back.png">
 		</TopHeader>
         <label class="register_inp">
-            <span class="register_title"><img class="register_img" src="static/images/login_ph.png"></span><input class="register_input" placeholder="请输入手机号" v-model="mobile" type="number">
+            <span class="register_title"><img class="register_img" src="static/images/login_ph.png"></span><input class="register_input" placeholder="请输入手机号" v-model="mobile" @focus="getFocus" type="number">
             <div class="register_errWrap" @click="err">
                 <img class="register_err" src="static/images/login_err.png">
             </div>
         </label>
         <label class="register_inp">
-            <span class="register_title"><img class="register_img" src="static/images/login_pwd.png"></span><input class="register_input" placeholder="请输入密码" v-model="psd1" type="password">
+            <span class="register_title"><img class="register_img" src="static/images/login_pwd.png"></span><input class="register_input" placeholder="请输入密码" v-model="psd1" @focus="getFocus" type="password">
         </label>
         <label class="register_inp">
-            <span class="register_title"><img class="register_img" src="static/images/login_pwd.png"></span><input class="register_input" placeholder="请再次输入密码" v-model="psd2" type="password">
+            <span class="register_title"><img class="register_img" src="static/images/login_pwd.png"></span><input class="register_input" placeholder="请再次输入密码" v-model="psd2" @focus="getFocus" type="password">
         </label>
         <label class="register_inp">
-            <span class="register_title"><img class="register_img" src="static/images/login_code.png"></span><input class="register_input" placeholder="请输入验证码" v-model="code" type="text">
+            <span class="register_title"><img class="register_img" src="static/images/login_code.png"></span><input class="register_input" placeholder="请输入验证码" v-model="code" @focus="getFocus" type="text">
             <span :class="flag?'code':'codeActive'" @click="getCode">{{codeText}}</span>
         </label>
         <van-checkbox v-model="checked" checked-color="#af683b">
@@ -147,7 +147,12 @@
                         }
                     }, 1000);
                 }
-            }
+            },
+            getFocus() {
+                 window.addEventListener('focusout', function () {
+                   document.body.scrollTop = document.body.scrollHeight;
+                })
+            },
         }
     }
 </script>
@@ -216,7 +221,7 @@
     height: 36px;
 }
 .register_input{
-    display: inline-block;
+    // display: inline-block;
     width: 70%;
 }
 .register_inp:nth-last-of-type(1) .register_input{

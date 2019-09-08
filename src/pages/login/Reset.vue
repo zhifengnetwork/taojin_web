@@ -7,19 +7,19 @@
             
 		</TopHeader>
         <label class="reset_inp">
-            <span class="reset_title"><img class="reset_img" src="static/images/login_ph.png"></span><input class="reset_input" placeholder="请输入手机号" v-model="mobile" type="number">
+            <span class="reset_title"><img class="reset_img" src="static/images/login_ph.png"></span><input class="reset_input" placeholder="请输入手机号" v-model="mobile" @focus="getFocus" type="number">
             <div class="reset_errWrap" @click="err">
                 <img class="reset_err" src="static/images/login_err.png">
             </div>
         </label>
         <label class="reset_inp">
-            <span class="reset_title"><img class="reset_img" src="static/images/login_pwd.png"></span><input class="reset_input" placeholder="请输入密码" v-model="psd1" type="password">
+            <span class="reset_title"><img class="reset_img" src="static/images/login_pwd.png"></span><input class="reset_input" placeholder="请输入密码" v-model="psd1" @focus="getFocus" type="password">
         </label>
         <label class="reset_inp">
-            <span class="reset_title"><img class="reset_img" src="static/images/login_pwd.png"></span><input class="reset_input" placeholder="请再次输入密码" v-model="psd2" type="password">
+            <span class="reset_title"><img class="reset_img" src="static/images/login_pwd.png"></span><input class="reset_input" placeholder="请再次输入密码" v-model="psd2" @focus="getFocus" type="password">
         </label>
         <label class="reset_inp">
-            <span class="reset_title"><img class="reset_img" src="static/images/login_code.png"></span><input class="reset_input" placeholder="请输入验证码" v-model="code" type="text">
+            <span class="reset_title"><img class="reset_img" src="static/images/login_code.png"></span><input class="reset_input" placeholder="请输入验证码" v-model="code" @focus="getFocus" type="text">
             <span :class="flag?'code':'codeActive'" @click="getCode">{{codeText}}</span>
         </label>
         <div class="reset_btn" @click="reset">
@@ -135,7 +135,12 @@
                         }
                     }, 1000);
                 }
-            }
+            },
+            getFocus() {
+                 window.addEventListener('focusout', function () {
+                   document.body.scrollTop = document.body.scrollHeight;
+                })
+            },
         }
     }
 </script>
@@ -204,7 +209,7 @@
     height: 36px;
 }
 .reset_input{
-    display: inline-block;
+    // display: inline-block;
     width: 70%;
 }
 .reset_inp:nth-last-of-type(1) .reset_input{

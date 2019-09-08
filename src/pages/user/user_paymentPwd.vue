@@ -8,22 +8,22 @@
         <div class="payment">
             <div class="payment_inp">
                 <label>
-                    <span class="payment_text">输入手机号</span><input v-model="mobile" class="payment_input" type="text">
+                    <span class="payment_text">输入手机号</span><input v-model="mobile" @focus="getFocus" class="payment_input" type="text">
                 </label>
             </div>
             <div class="payment_inp">
                 <label>
-                    <span class="payment_text">输入密码</span><input v-model="pwd1" class="payment_input" type="password">
+                    <span class="payment_text">输入密码</span><input v-model="pwd1" @focus="getFocus" class="payment_input" type="password">
                 </label>
             </div>
             <div class="payment_inp">
                 <label>
-                    <span class="payment_text">再次输入密码</span><input v-model="pwd2" class="payment_input" type="password">
+                    <span class="payment_text">再次输入密码</span><input v-model="pwd2" @focus="getFocus" class="payment_input" type="password">
                 </label>
             </div>
             <div class="payment_inp">
                 <label>
-                    <span class="payment_text">输入验证码</span><input v-model="code" class="payment_input" type="text">
+                    <span class="payment_text">输入验证码</span><input v-model="code" @focus="getFocus" class="payment_input" type="text">
                     <span class="payment_code" @click="getCode">{{codeText}}</span>
                 </label>
             </div>
@@ -134,7 +134,12 @@
                         }
                     }, 1000);
                 }
-            }
+            },
+            getFocus() {
+                 window.addEventListener('focusout', function () {
+                   document.body.scrollTop = document.body.scrollHeight;
+                })
+            },
         }
     }
 </script>

@@ -22,12 +22,12 @@
             </div>
             <div class="info_inp">
                 <label>
-                    <span>兑换币</span><input v-model="num" class="info_input" type="text">
+                    <span>兑换币</span><input v-model="num" @focus="getFocus" class="info_input" type="text">
                 </label>
             </div>
             <div class="info_inp">
                 <label>
-                    <span>支付密码</span><input v-model="paypwd" class="info_input" type="password">
+                    <span>支付密码</span><input v-model="paypwd" @focus="getFocus" class="info_input" type="password">
                 </label>
             </div>
             <div class="info_text">
@@ -82,7 +82,12 @@
                 .catch(function(error){
                     console.log(error);
                 })
-            }
+            },
+            getFocus() {
+                 window.addEventListener('focusout', function () {
+                   document.body.scrollTop = document.body.scrollHeight;
+                })
+            },
         }
     }
 </script>

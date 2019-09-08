@@ -71,6 +71,7 @@ export default {
     font-size:30px;
     letter-spacing: 2px;
     z-index:9;
+    user-select: none;
 }
 .backBtn{
   position: relative;
@@ -83,6 +84,7 @@ export default {
   margin: auto;
   width: 90px;
   height: 56px;
+	pointer-events: auto;
 }
 .iconfont{
     font-size:36px;
