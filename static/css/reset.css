@@ -1,9 +1,11 @@
 
+img{
+	pointer-events: none;
+}
 html,body,div,p,span,i,input,button,textarea,em,h1,h2,h3,h4,h5,h6,a,form,dl,dt,dd,img {
 	margin: 0;
 	padding: 0;
 }
-
 a { text-decoration:none }
 
 input,textarea,button{
@@ -137,7 +139,17 @@ a{
     }
 }
 
-
+@media only screen and (width: 375px) and (min-height: 690px){
+	#app {
+		padding-bottom: 98px;
+	}
+	.TopHeader{
+		top: 98px;
+	}
+	.Navigate{
+		bottom: 98px;
+	}
+}
 
 
 
