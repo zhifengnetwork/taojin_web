@@ -18,7 +18,7 @@
                     <ul v-for="(item,index) in record" :key="index">
                         <li>{{item.id}}</li>
                         <li>{{item.money}}</li>
-                        <li :class="item.status_text=='申请中'?'failure':'succeed'">{{item.intro}}{{item.be_mobile}}</li>
+                        <li :class="item.status_text=='申请中'?'failure':'succeed'">充值给{{item.be_mobile}}</li>
                     </ul>
                 </div>
                 <Null text="充值" v-if="flag"></Null>
