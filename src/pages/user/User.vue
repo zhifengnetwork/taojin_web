@@ -43,13 +43,13 @@
           
         ],
         option_item:[
-          {text:'资产',img:'static/images/user/balance.png',pages:'balance'},
-          {text:'糖果',img:'static/images/user/sugar.png',pages:'sugar'},
-          {text:'币',img:'static/images/user/currency.png',pages:'currency'},
-          {text:'我的订单',img:'static/images/user/my_order.png',pages:'my_order'},
-          {text:'我的团队',img:'static/images/user/team.png',pages:'my_team'},
-          {text:'开奖记录',img:'static/images/user/prize.png',pages:'prize'},
-          {text:'我的推广',img:'static/images/user/promotion.png',pages:'promotion'}
+          {text:'资产',img:'https://taojin-zhifeng.oss-cn-shenzhen.aliyuncs.com/static/images/user/balance.png',pages:'balance'},
+          {text:'糖果',img:'https://taojin-zhifeng.oss-cn-shenzhen.aliyuncs.com/static/images/user/sugar.png',pages:'sugar'},
+          {text:'币',img:'https://taojin-zhifeng.oss-cn-shenzhen.aliyuncs.com/static/images/user/currency.png',pages:'currency'},
+          {text:'我的订单',img:'https://taojin-zhifeng.oss-cn-shenzhen.aliyuncs.com/static/images/user/my_order.png',pages:'my_order'},
+          {text:'我的团队',img:'https://taojin-zhifeng.oss-cn-shenzhen.aliyuncs.com/static/images/user/team.png',pages:'my_team'},
+          {text:'开奖记录',img:'https://taojin-zhifeng.oss-cn-shenzhen.aliyuncs.com/static/images/user/prize.png',pages:'prize'},
+          {text:'我的推广',img:'https://taojin-zhifeng.oss-cn-shenzhen.aliyuncs.com/static/images/user/promotion.png',pages:'promotion'}
         ],
         user_info:''
       }
@@ -87,7 +87,7 @@
   height: 100%;
   color: #4a1901;
   overflow-y: scroll;
-  background: url('../../../static/images/user_bg.png') no-repeat;
+  background: url('https://taojin-zhifeng.oss-cn-shenzhen.aliyuncs.com/static/images/user_bg.png') no-repeat;
   background-size: cover;
 }
 .userInfo{
@@ -95,7 +95,7 @@
   margin: 128px auto 40px;
   width: 702px;
   height: 200px;
-  background: url('../../../static/images/user/userInfo_content.png') no-repeat;
+  background: url('https://taojin-zhifeng.oss-cn-shenzhen.aliyuncs.com/static/images/user/userInfo_content.png') no-repeat;
   background-size: cover;
 }
 .userInfo_picture{
@@ -146,7 +146,7 @@
   line-height: 54px;
   border-top-left-radius: 50px;
   border-bottom-left-radius: 50px;
-  background: url('../../../static/images/user/userInfo_tag.png') no-repeat;
+  background: url('https://taojin-zhifeng.oss-cn-shenzhen.aliyuncs.com/static/images/user/userInfo_tag.png') no-repeat;
   background-size: contain;
 }
 

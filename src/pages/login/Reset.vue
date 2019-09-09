@@ -156,7 +156,7 @@
     width: 100%;
     height: 100%;
     color: #4a1901;
-    background: url('../../../static/images/login_bg.png') no-repeat;
+    background: url('https://taojin-zhifeng.oss-cn-shenzhen.aliyuncs.com/static/images/login_bg.png') no-repeat;
     background-size: cover;
 }
 .reset_inp{
@@ -266,7 +266,7 @@
     text-align: center;
     font-size: 36px;
     color: #fff;
-    background: url('../../../static/images/login_btn.png') no-repeat;
+    background: url('https://taojin-zhifeng.oss-cn-shenzhen.aliyuncs.com/static/images/login_btn.png') no-repeat;
     background-size: contain;
 }
 </style>

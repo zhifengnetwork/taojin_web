@@ -72,7 +72,7 @@
   height: 100%;
   color: #4a1901;
 	overflow-y: scroll;
-  background: url('../../../static/images/public_bg.png') no-repeat;
+  background: url('https://taojin-zhifeng.oss-cn-shenzhen.aliyuncs.com/static/images/public_bg.png') no-repeat;
   background-size: cover;
 }
 .deal_wrap{

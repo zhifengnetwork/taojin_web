@@ -3,7 +3,7 @@
         <!-- 头部组件 back-url=>反回路径，默认返回上一页 title=>标题内容 fixed=>是否固定在顶部 rgb=>背景色 col=>字体颜色 -->
 		<TopHeader back-url="" custom-title="团队列表" :custom-fixed="true" custom-rgb custom-col>
 			<!-- 返回按钮 -->
-			<img slot="backBtn" src="static/images/head_back.png">
+			<img slot="backBtn" src="https://taojin-zhifeng.oss-cn-shenzhen.aliyuncs.com/static/images/head_back.png">
 		</TopHeader>
         <div class="team_tab">
             <ul>
@@ -17,7 +17,7 @@
                         {{item.nick_name}}
                     </div>
                     <div class="team_mobile">
-                        <img class="team_img" src="static/images/team_mobile.png">
+                        <img class="team_img" src="https://taojin-zhifeng.oss-cn-shenzhen.aliyuncs.com/static/images/team_mobile.png">
                         <span>{{item.phone}}</span>
                     </div>
                     <!-- <div class="team_id">
@@ -35,7 +35,7 @@
                         {{item.nick_name}}
                     </div>
                     <div class="team_mobile">
-                        <img class="team_img" src="static/images/team_mobile.png">
+                        <img class="team_img" src="https://taojin-zhifeng.oss-cn-shenzhen.aliyuncs.com/static/images/team_mobile.png">
                         <span>{{item.phone}}</span>
                     </div>
                     <!-- <div class="team_id">
@@ -52,7 +52,7 @@
                     <div class="mask_title">
                         查看订单
                         <div class="mask_imgWrap" @click="mask_show">
-                            <img class="mask_img" src="static/images/team_back.png">
+                            <img class="mask_img" src="https://taojin-zhifeng.oss-cn-shenzhen.aliyuncs.com/static/images/team_back.png">
                         </div>
                     </div>
                     <div class="item_wrap" @scroll="page">
@@ -179,7 +179,7 @@
     height: 100%;
     color: #4a1901;
     overflow-y: scroll;
-    background: url('../../../static/images/my_team_bg.png') no-repeat;
+    background: url('https://taojin-zhifeng.oss-cn-shenzhen.aliyuncs.com/static/images/my_team_bg.png') no-repeat;
     background-size: cover;
 }
 .active{
@@ -200,7 +200,7 @@
     height: 60px;
     line-height: 60px;
     margin-right: 10px;
-    background: url('../../../static/images/withdraw_bill.png')no-repeat;
+    background: url('https://taojin-zhifeng.oss-cn-shenzhen.aliyuncs.com/static/images/withdraw_bill.png')no-repeat;
     background-size: contain;
 }
 .team_wrap{
@@ -222,7 +222,7 @@
     width: 100%;
     height: 126px;
     color: #fff;
-    background: url('../../../static/images/team_item.png')no-repeat;
+    background: url('https://taojin-zhifeng.oss-cn-shenzhen.aliyuncs.com/static/images/team_item.png')no-repeat;
     background-size: contain;
 }
 .team_name{
@@ -284,7 +284,7 @@
     width: 100%;
     height: 80px;
     line-height: 80px;
-    background: url('../../../static/images/my_team.png')no-repeat;
+    background: url('https://taojin-zhifeng.oss-cn-shenzhen.aliyuncs.com/static/images/my_team.png')no-repeat;
     background-size: cover;
 }
 .mask_imgWrap{

@@ -21,8 +21,8 @@
                     {name:'挂卖',pages:'/Deal'},
                     {name:'我的',pages:'/User'}
                 ],
-                img:'static/images/navigate.png',
-                imgactive:'static/images/navigate-active.png'
+                img:'https://taojin-zhifeng.oss-cn-shenzhen.aliyuncs.com/static/images/navigate.png',
+                imgactive:'https://taojin-zhifeng.oss-cn-shenzhen.aliyuncs.com/static/images/navigate-active.png'
             }
         },
         methods:{

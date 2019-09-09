@@ -3,7 +3,7 @@
     <van-notice-bar class="notice"
       color="#642903"
       background="#a8dbff"
-      left-icon="static/images/notice.png"
+      left-icon="https://taojin-zhifeng.oss-cn-shenzhen.aliyuncs.com/static/images/notice.png"
       :text="home.notice"
     >
     </van-notice-bar>
@@ -26,20 +26,20 @@
     </div>
     
     <div class="left_icon" @click="remov">
-      <img src="static/images/home_iconL.png">
+      <img src="https://taojin-zhifeng.oss-cn-shenzhen.aliyuncs.com/static/images/home_iconL.png">
       <p>种植场</p>
     </div>
     <div class="right_icon" @click="remov">
-      <img src="static/images/home_iconR.png">
+      <img src="https://taojin-zhifeng.oss-cn-shenzhen.aliyuncs.com/static/images/home_iconR.png">
       <p>养殖场</p>
     </div>
     
     <div class="give" v-if="home.is_give==1" @click="give_mask">
-      <img class="give_img" src="static/images/sugar.png">
+      <img class="give_img" src="https://taojin-zhifeng.oss-cn-shenzhen.aliyuncs.com/static/images/sugar.png">
     </div>
     <div class="give_mask" v-if="give">
       <div class="give_content">
-        <div class="give_text">恭喜你获得了 {{give_num.num}}<img src="static/images/sugar.png"></div>
+        <div class="give_text">恭喜你获得了 {{give_num.num}}<img src="https://taojin-zhifeng.oss-cn-shenzhen.aliyuncs.com/static/images/sugar.png"></div>
         <div class="give_btn" @click="give_mask">确定</div>
       </div>
     </div>
@@ -65,7 +65,7 @@
         </div>
         <div class="buyitem_btn" @click="buyItem">购买</div>
         <div class="buyitem_back" @click="buyMask">
-          <img class="buyitem_backimg" src="static/images/buyitem_backimg.png">
+          <img class="buyitem_backimg" src="https://taojin-zhifeng.oss-cn-shenzhen.aliyuncs.com/static/images/buyitem_backimg.png">
         </div>
       </div>
     </div>
@@ -246,7 +246,7 @@
   width: 100%;
   height: 100%;
 	overflow-y: scroll;
-  background: url("../../../static/images/home_bg.gif") no-repeat;
+  background: url("https://taojin-zhifeng.oss-cn-shenzhen.aliyuncs.com/static/images/home_bg.gif") no-repeat;
   background-size: cover;
 }
 .notice{
@@ -284,7 +284,7 @@
   font-size: 60px;
   letter-spacing: 5px;
   font-weight: bold;
-  background: url("../../../static/images/home_m.png") no-repeat;
+  background: url("https://taojin-zhifeng.oss-cn-shenzhen.aliyuncs.com/static/images/home_m.png") no-repeat;
   background-size: contain;
   text-shadow: -1px 0 5px #622804,
                 0 1px 5px #622804,
@@ -307,7 +307,7 @@
   line-height: 60px;
   font-size: 32px;
   font-weight: bold;
-  background: url('../../../static/images/home_btn.png') no-repeat;
+  background: url('https://taojin-zhifeng.oss-cn-shenzhen.aliyuncs.com/static/images/home_btn.png') no-repeat;
   background-size: contain;
 }
 .mine_btn a{
@@ -431,7 +431,7 @@
     line-height: 65px;
     color: #fff;
     font-size: 28px;
-    background: url('../../../static/images/sugar_btn.png') no-repeat;
+    background: url('https://taojin-zhifeng.oss-cn-shenzhen.aliyuncs.com/static/images/sugar_btn.png') no-repeat;
     background-size: contain;
 }
 .mask{
@@ -454,7 +454,7 @@
   height: 900px;
   overflow: hidden;
   border-radius: 50px;
-  background: url('../../../static/images/home_mask.png')no-repeat;
+  background: url('https://taojin-zhifeng.oss-cn-shenzhen.aliyuncs.com/static/images/home_mask.png')no-repeat;
   background-size: contain;
 }
 .content_title{
@@ -488,7 +488,7 @@
   height: 40px;
   color: #fff;
   font-size: 80px;
-  background: url('../../../static/images/mask_back.png')no-repeat;
+  background: url('https://taojin-zhifeng.oss-cn-shenzhen.aliyuncs.com/static/images/mask_back.png')no-repeat;
   background-size: contain;
 }
 .buyitem_mask{
@@ -508,7 +508,7 @@
   margin:auto;
   width:500px;
   height:600px;
-  background: url('../../../static/images/buyitem.png') no-repeat;
+  background: url('https://taojin-zhifeng.oss-cn-shenzhen.aliyuncs.com/static/images/buyitem.png') no-repeat;
   background-size: contain;
 }
 .buyitem_img{
@@ -550,7 +550,7 @@
   line-height: 65px;
   font-size: 28px;
   color: #fff;
-  background: url('../../../static/images/sugar_btn.png')no-repeat;
+  background: url('https://taojin-zhifeng.oss-cn-shenzhen.aliyuncs.com/static/images/sugar_btn.png')no-repeat;
   background-size: contain;
 }
 .buyitem_back{

@@ -3,20 +3,20 @@
         <!-- 头部组件 back-url=>反回路径，默认返回上一页 title=>标题内容 fixed=>是否固定在顶部 rgb=>背景色 col=>字体颜色 -->
 		<TopHeader back-url="" custom-title="兑换币" :custom-fixed="true" custom-rgb custom-col>
 			<!-- 返回按钮 -->
-			<img slot="backBtn" src="static/images/head_back.png">
+			<img slot="backBtn" src="https://taojin-zhifeng.oss-cn-shenzhen.aliyuncs.com/static/images/head_back.png">
 		</TopHeader>
         <div class="convert_info">
             <div class="info_num">
                 <span>
-                    <img src="static/images/currency.png">
+                    <img src="https://taojin-zhifeng.oss-cn-shenzhen.aliyuncs.com/static/images/currency.png">
                     {{user_info.currency}}
                 </span>
                 <span>
-                    <img src="static/images/sugar.png">
+                    <img src="https://taojin-zhifeng.oss-cn-shenzhen.aliyuncs.com/static/images/sugar.png">
                     {{user_info.integral}}
                 </span>
                 <span>
-                    <img src="static/images/gold.png">
+                    <img src="https://taojin-zhifeng.oss-cn-shenzhen.aliyuncs.com/static/images/gold.png">
                     {{parseInt(user_info.balance)}}
                 </span>
             </div>
@@ -161,7 +161,7 @@
     line-height: 65px;
     font-size: 28px;
     color: #fff;
-    background: url('../../../static/images/sugar_btn.png')no-repeat;
+    background: url('https://taojin-zhifeng.oss-cn-shenzhen.aliyuncs.com/static/images/sugar_btn.png')no-repeat;
     background-size: contain;
 }
 </style>

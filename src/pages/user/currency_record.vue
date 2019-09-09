@@ -3,7 +3,7 @@
         <!-- 头部组件 back-url=>反回路径，默认返回上一页 title=>标题内容 fixed=>是否固定在顶部 rgb=>背景色 col=>字体颜色 -->
 		<TopHeader back-url="" custom-title="交易记录" :custom-fixed="true" custom-rgb custom-col>
 			<!-- 返回按钮 -->
-			<img slot="backBtn" src="static/images/head_back.png">
+			<img slot="backBtn" src="https://taojin-zhifeng.oss-cn-shenzhen.aliyuncs.com/static/images/head_back.png">
 		</TopHeader>
         <div class="record" @scroll="page">
             <div class="record_item" v-for="(item,index) in record" :key="index">
@@ -105,7 +105,7 @@
     text-indent: 0;
     text-align: center;
     color: #fff;
-    background: url('../../../static/images/balance_money.png')no-repeat;
+    background: url('https://taojin-zhifeng.oss-cn-shenzhen.aliyuncs.com/static/images/balance_money.png')no-repeat;
     background-size: 100% 60px;
 }
 </style>

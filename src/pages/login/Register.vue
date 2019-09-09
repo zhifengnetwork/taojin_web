@@ -3,22 +3,22 @@
         <!-- 头部组件 back-url=>反回路径，默认返回上一页 title=>标题内容 fixed=>是否固定在顶部 rgb=>背景色 col=>字体颜色 -->
 		<TopHeader back-url="Login" custom-title=" " :custom-fixed="true" custom-rgb custom-col>
 			<!-- 返回按钮 -->
-			<img slot="backBtn" src="static/images/head_back.png">
+			<img slot="backBtn" src="https://taojin-zhifeng.oss-cn-shenzhen.aliyuncs.com/static/images/head_back.png">
 		</TopHeader>
         <label class="register_inp">
-            <span class="register_title"><img class="register_img" src="static/images/login_ph.png"></span><input class="register_input" placeholder="请输入手机号" v-model="mobile" @focus="getFocus" type="number">
+            <span class="register_title"><img class="register_img" src="https://taojin-zhifeng.oss-cn-shenzhen.aliyuncs.com/static/images/login_ph.png"></span><input class="register_input" placeholder="请输入手机号" v-model="mobile" @focus="getFocus" type="number">
             <div class="register_errWrap" @click="err">
-                <img class="register_err" src="static/images/login_err.png">
+                <img class="register_err" src="https://taojin-zhifeng.oss-cn-shenzhen.aliyuncs.com/static/images/login_err.png">
             </div>
         </label>
         <label class="register_inp">
-            <span class="register_title"><img class="register_img" src="static/images/login_pwd.png"></span><input class="register_input" placeholder="请输入密码" v-model="psd1" @focus="getFocus" type="password">
+            <span class="register_title"><img class="register_img" src="https://taojin-zhifeng.oss-cn-shenzhen.aliyuncs.com/static/images/login_pwd.png"></span><input class="register_input" placeholder="请输入密码" v-model="psd1" @focus="getFocus" type="password">
         </label>
         <label class="register_inp">
-            <span class="register_title"><img class="register_img" src="static/images/login_pwd.png"></span><input class="register_input" placeholder="请再次输入密码" v-model="psd2" @focus="getFocus" type="password">
+            <span class="register_title"><img class="register_img" src="https://taojin-zhifeng.oss-cn-shenzhen.aliyuncs.com/static/images/login_pwd.png"></span><input class="register_input" placeholder="请再次输入密码" v-model="psd2" @focus="getFocus" type="password">
         </label>
         <label class="register_inp">
-            <span class="register_title"><img class="register_img" src="static/images/login_code.png"></span><input class="register_input" placeholder="请输入验证码" v-model="code" @focus="getFocus" type="text">
+            <span class="register_title"><img class="register_img" src="https://taojin-zhifeng.oss-cn-shenzhen.aliyuncs.com/static/images/login_code.png"></span><input class="register_input" placeholder="请输入验证码" v-model="code" @focus="getFocus" type="text">
             <span :class="flag?'code':'codeActive'" @click="getCode">{{codeText}}</span>
         </label>
         <van-checkbox v-model="checked" checked-color="#af683b">
@@ -168,7 +168,7 @@
     width: 100%;
     height: 100%;
     color: #4a1901;
-    background: url('../../../static/images/login_bg.png') no-repeat;
+    background: url('https://taojin-zhifeng.oss-cn-shenzhen.aliyuncs.com/static/images/login_bg.png') no-repeat;
     background-size: cover;
 }
 .register_inp{
@@ -269,7 +269,7 @@
 }
 .active{
     color: #fff;
-    background: url('../../../static/images/login_btn.png') no-repeat;
+    background: url('https://taojin-zhifeng.oss-cn-shenzhen.aliyuncs.com/static/images/login_btn.png') no-repeat;
     background-size: contain;
 }
 </style>

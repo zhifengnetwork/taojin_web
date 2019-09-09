@@ -1,6 +1,6 @@
 <template>
     <div class="null">
-        <img class="null_img" src="static/images/cart.png">
+        <img class="null_img" src="https://taojin-zhifeng.oss-cn-shenzhen.aliyuncs.com/static/images/cart.png">
         <div class="null_text">暂无{{text}}数据哦~</div>
     </div>
 </template>

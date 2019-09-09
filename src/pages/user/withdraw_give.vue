@@ -3,11 +3,11 @@
         <!-- 头部组件 back-url=>反回路径，默认返回上一页 title=>标题内容 fixed=>是否固定在顶部 rgb=>背景色 col=>字体颜色 -->
 		<TopHeader back-url="" custom-title="赠送" :custom-fixed="true" custom-rgb custom-col>
 			<!-- 返回按钮 -->
-			<img slot="backBtn" src="static/images/head_back.png">
+			<img slot="backBtn" src="https://taojin-zhifeng.oss-cn-shenzhen.aliyuncs.com/static/images/head_back.png">
 		</TopHeader>
         <div class="withdraw_container">
             <div class="withdraw_num">
-                <img class="withdraw_img" src="static/images/withdraw_money.png">
+                <img class="withdraw_img" src="https://taojin-zhifeng.oss-cn-shenzhen.aliyuncs.com/static/images/withdraw_money.png">
                 <span>{{money}}</span>
             </div>
             <div class="give_inp">
@@ -152,7 +152,7 @@ input::-webkit-input-placeholder{
     line-height: 65px;
     color: #fff;
     font-size: 28px;
-    background: url('../../../static/images/sugar_btn.png') no-repeat;
+    background: url('https://taojin-zhifeng.oss-cn-shenzhen.aliyuncs.com/static/images/sugar_btn.png') no-repeat;
     background-size: contain;
 }
 </style>

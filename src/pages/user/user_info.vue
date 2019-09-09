@@ -3,7 +3,7 @@
         <!-- 头部组件 back-url=>反回路径，默认返回上一页 title=>标题内容 fixed=>是否固定在顶部 rgb=>背景色 col=>字体颜色 -->
 		<TopHeader back-url="" custom-title="个人资料" :custom-fixed="true" custom-rgb custom-col>
 			<!-- 返回按钮 -->
-			<img slot="backBtn" src="static/images/head_back.png">
+			<img slot="backBtn" src="https://taojin-zhifeng.oss-cn-shenzhen.aliyuncs.com/static/images/head_back.png">
             
 		</TopHeader>
         <div class="info_wrap">
@@ -12,7 +12,7 @@
                     头像
                     <input class="picture_inp" type="file" @change="upLoad" accept="image/*">
                     <div class="info_picture">
-                        <img class="info_img" :src="user_info.avatar?user_info.avatar:'static/images/user_icon.png'">
+                        <img class="info_img" :src="user_info.avatar?user_info.avatar:'https://taojin-zhifeng.oss-cn-shenzhen.aliyuncs.com/static/images/user_icon.png'">
                     </div>
                 </div>
                 <div class="option_item">
@@ -173,7 +173,7 @@
   height: 100%;
   color: #4a1901;
   overflow-y: scroll;
-  background: url('../../../static/images/user_info_bg.png') no-repeat;
+  background: url('https://taojin-zhifeng.oss-cn-shenzhen.aliyuncs.com/static/images/user_info_bg.png') no-repeat;
   background-size: cover;
 }
 .info_wrap{
@@ -265,7 +265,7 @@
   height: 66px;
   line-height: 66px;
   color: #fff;
-  background: url('../../../static/images/sugar_btn.png')no-repeat;
+  background: url('https://taojin-zhifeng.oss-cn-shenzhen.aliyuncs.com/static/images/sugar_btn.png')no-repeat;
   background-size: contain;
 }
 

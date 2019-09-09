@@ -116,7 +116,7 @@
   height: 100%;
   color: #4a1901;
 	overflow-y: scroll;
-  background: url('../../../static/images/public_bg.png') no-repeat;
+  background: url('https://taojin-zhifeng.oss-cn-shenzhen.aliyuncs.com/static/images/public_bg.png') no-repeat;
   background-size: cover;
 }
 .rank_list{
@@ -158,7 +158,7 @@
   box-sizing: border-box;
   -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;
-  background: url('../../../static/images/rank_notice.png') no-repeat;
+  background: url('https://taojin-zhifeng.oss-cn-shenzhen.aliyuncs.com/static/images/rank_notice.png') no-repeat;
   background-size: 100% 100%;
 }
 .notice span{
@@ -173,7 +173,7 @@
     line-height: 65px;
     color: #fff;
     font-size: 28px;
-    background: url('../../../static/images/sugar_btn.png') no-repeat;
+    background: url('https://taojin-zhifeng.oss-cn-shenzhen.aliyuncs.com/static/images/sugar_btn.png') no-repeat;
     background-size: 100% 100%;
 }
 </style>

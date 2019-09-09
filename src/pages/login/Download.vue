@@ -1,6 +1,6 @@
 <template>
     <div class="Download">
-        <img src="static/images/live_weixin.png" alt="">
+        <img src="https://taojin-zhifeng.oss-cn-shenzhen.aliyuncs.com/static/images/live_weixin.png" alt="">
     </div>
 </template>
 
