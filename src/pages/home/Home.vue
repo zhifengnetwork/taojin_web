@@ -12,7 +12,7 @@
       <p>{{home.integral_num}}</p>
     </div>
 
-    <!-- <div class="mine_btns">
+    <div class="mine_btns">
         <span class="mine_btn" @click="buyMask">
           <router-link to="#">
             实时参与
@@ -23,7 +23,7 @@
             购买时间段
           </router-link>
         </span>
-    </div> -->
+    </div>
     
     <div class="left_icon" @click="remov">
       <img src="static/images/home_iconL.png">
