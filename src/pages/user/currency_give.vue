@@ -43,7 +43,8 @@
                 user_info:'',
                 phone:'',
                 currency:'',
-                paypwd:''
+                paypwd:'',
+                flag:true
             }
         },
         mounted(){
@@ -63,6 +64,10 @@
                     Toast('请输入支付密码')
                     return false;
                 }
+                if(!this.flag){
+                    return false;
+                }
+                this.flag = false;
                 let _this = this;
                 this.$axios.post('users/give_currency',{
                     token:localStorage.getItem('token'),
@@ -78,6 +83,7 @@
                     }else{
                         Toast(res.data.msg)
                     }
+                    _this.flag = true;
                 })
                 .catch(function(error){
                     console.log(error);

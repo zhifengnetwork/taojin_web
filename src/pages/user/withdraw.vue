@@ -73,7 +73,8 @@
                 money:'',
                 rate_decimals:'',
                 num:'',
-                paypwd:''
+                paypwd:'',
+                flag:true
             }
         },
         mounted(){
@@ -132,6 +133,10 @@
                     Toast('请绑定银行卡')
                     return false;
                 }
+                if(!this.flag){
+                    return false;
+                }
+                this.flag = false;
                 let _this = this;
                 let card = null;
                 if(this.tp==2){
@@ -152,6 +157,7 @@
                     }else{
                         Toast(res.data.msg)
                     }
+                    _this.flag = true;
                 })
                 .catch(function(error){
                     console.log(error);

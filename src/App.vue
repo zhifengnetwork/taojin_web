@@ -51,6 +51,9 @@ export default {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
+  width: 100vw;
+  height: 100vh;
   color: #151515;
+	background: linear-gradient(to bottom, #fdd287 0%,#eaa050 100%);
 }
 </style>

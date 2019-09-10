@@ -89,7 +89,7 @@
   padding: 20px;
   margin: 10px 0;
   border: solid 1px #e7e1cd;
-  background-color: #fffdef;
+  background: #fffdef;
   overflow: auto;
 }
 
@@ -379,12 +379,12 @@
 
 .hljs-addition {
   color: #55a532;
-  background-color: #eaffea;
+  background: #eaffea;
 }
 
 .hljs-deletion {
   color: #bd2c00;
-  background-color: #ffecec;
+  background: #ffecec;
 }
 
 .hljs-link {

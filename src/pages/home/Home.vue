@@ -70,7 +70,7 @@
       </div>
     </div>
     <!-- 中奖弹窗 -->
-    <div class="mask" v-if="this.$store.state.prize&&maskInfo!=''">
+    <div class="mask" v-if="maskInfo!=''">
       <div class="mask_content">
         <div class="list_title">
             <span>中奖时间</span>
@@ -134,7 +134,8 @@
         let _this = this;
         this.$axios.post('index/reward_list',{
             token:localStorage.getItem('token'),
-            page:_this.pages
+            page:_this.pages,
+            is_reward:1
         })
         .then(function(res){
             console.log(res);
