@@ -149,8 +149,8 @@
                 }
             },
             getFocus() {
-                 window.addEventListener('focusout', function () {
-                   document.body.scrollTop = document.body.scrollHeight;
+                window.addEventListener('focusout', function () {
+                    window.scrollTo(0,0);
                 })
             },
         }
@@ -162,7 +162,7 @@
     padding: 0 86px;
 }
 .register{
-    position: fixed;
+    position: absolute;
     top: 0;
     left: 0;
     width: 100%;

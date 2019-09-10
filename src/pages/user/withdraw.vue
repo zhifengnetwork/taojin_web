@@ -158,8 +158,8 @@
                 })
             },
             getFocus() {
-                 window.addEventListener('focusout', function () {
-                   document.body.scrollTop = document.body.scrollHeight;
+                window.addEventListener('focusout', function () {
+                    window.scrollTo(0,0);
                 })
             },
         },

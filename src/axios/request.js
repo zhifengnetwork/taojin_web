@@ -71,6 +71,9 @@ axios.interceptors.response.use(
 		if(error.response.status == 401){
 			
 			window.localStorage.removeItem("token");
+			router.replace({  	
+				path: '/Login',
+			})
 			// Dialog.alert({
 			// 	message: error.response.data['msg']
 			// }).then(() => {
