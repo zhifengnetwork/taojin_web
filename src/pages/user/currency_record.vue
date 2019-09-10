@@ -72,6 +72,7 @@
     width: 702px;
     height: 1180px;
     overflow-y: scroll;
+    -webkit-overflow-scrolling: touch; 
     border: 4px solid #c17b2a;
     border-radius: 20px;
     background: #ffc787;

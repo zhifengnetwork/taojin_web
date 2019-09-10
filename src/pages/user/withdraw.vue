@@ -175,6 +175,7 @@
   height: 100%;
   color: #4a1901;
   overflow-y: scroll;
+  -webkit-overflow-scrolling: touch; 
   background: #ffda9e;
 }
 .money{

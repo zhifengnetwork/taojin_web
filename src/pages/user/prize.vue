@@ -103,6 +103,7 @@
     width:100%;
     height:90%;
     overflow-y: scroll;
+    -webkit-overflow-scrolling: touch; 
 }
 .prize_item li{
     float: left;

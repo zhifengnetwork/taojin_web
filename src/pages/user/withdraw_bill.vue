@@ -180,6 +180,7 @@
     width: 702px;
     height: 1120px;
     overflow-y: scroll;
+    -webkit-overflow-scrolling: touch; 
     border: 4px solid #c17b2a;
     border-radius: 5px;
     box-sizing: border-box;
@@ -190,6 +191,7 @@
     width: 100%;
     height: 90%;
     overflow-y: scroll;
+    -webkit-overflow-scrolling: touch; 
 }
 .bill_content{
     width: 100%;

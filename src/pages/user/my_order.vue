@@ -109,6 +109,7 @@
     width: 100%;
     height: 93vh;
     overflow-y: scroll;
+    -webkit-overflow-scrolling: touch; 
 }
 .order_item{
     position: relative;

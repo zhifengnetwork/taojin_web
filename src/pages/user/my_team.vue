@@ -179,6 +179,7 @@
     height: 100%;
     color: #4a1901;
     overflow-y: scroll;
+    -webkit-overflow-scrolling: touch; 
     background: url('https://taojin-zhifeng.oss-cn-shenzhen.aliyuncs.com/static/images/my_team_bg.png') no-repeat;
     background-size: cover;
 }
@@ -208,6 +209,7 @@
     width: 702px;
     height: 1040px;
     overflow-y: scroll;
+    -webkit-overflow-scrolling: touch; 
     padding: 10px;
     border: 4px solid #c17b2a;
     border-radius: 5px;

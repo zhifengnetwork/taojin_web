@@ -97,6 +97,7 @@
     width: 100%;
     height: 91%;
     overflow-y: scroll;
+    -webkit-overflow-scrolling: touch; 
 }
 .record{
     margin: 20px auto;

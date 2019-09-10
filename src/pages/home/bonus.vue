@@ -174,6 +174,7 @@
     height: 100%;
     color: #4a1901;
 	overflow-y: scroll;
+    -webkit-overflow-scrolling: touch; 
     background: url("https://taojin-zhifeng.oss-cn-shenzhen.aliyuncs.com/static/images/bonus.png") no-repeat;
     background-size: cover;
 }

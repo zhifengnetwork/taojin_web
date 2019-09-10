@@ -116,6 +116,7 @@
   height: 100%;
   color: #4a1901;
 	overflow-y: scroll;
+  -webkit-overflow-scrolling: touch; 
   background: url('https://taojin-zhifeng.oss-cn-shenzhen.aliyuncs.com/static/images/public_bg.png') no-repeat;
   background-size: cover;
 }
@@ -146,6 +147,7 @@
   width:100%;
   height:86%;
   overflow-y: scroll;
+  -webkit-overflow-scrolling: touch; 
 }
 .notice{
   margin: auto;
