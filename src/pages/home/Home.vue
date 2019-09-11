@@ -85,6 +85,15 @@
         <div class="mask_off" @click="mask_off"></div>
       </div>
     </div>
+    <!-- 更新弹窗 -->
+    <div class="buyitem_mask" v-if="home.update==1">
+      <div class="buyitem" style="height:200px;line-height:60px;font-size:18px;background-size:100% 100%;">
+        <h3>检测到有新版本!</h3>
+        <h3>是否更新?</h3>
+        <div class="buyitem_btn" @click="update(true)" style="display:inline-block;margin:0 10px;">去更新</div>
+        <div class="buyitem_btn" @click="update(false)" style="display:inline-block;margin:0 10px;">暂不更新</div>
+      </div>
+    </div>
     <Navigate></Navigate>
   </div>
 </template>
@@ -125,6 +134,17 @@
         .then(function(res){
             console.log(res);
             _this.home = res.data.data;
+            let reg = new RegExp("(^|&)time=([^&]*)(&|$)", "i");
+            let r = window.location.search.substr(1).match(reg);
+            let time = r ? Number(r[2])+60:'';
+            console.log(time >= Math.round(new Date().getTime()/1000))
+            if(r && time >= Math.round(new Date().getTime()/1000)){
+              return false;
+            }
+            if(res.data.data.version != 1.1 && res.data.data.version ? true : false){
+              let Version = Math.round(new Date().getTime()/1000); //定义一个时间作为版本号
+              window.location.href = '/index.html?time='+ Version
+            }
         })
         .catch(function(error){
             console.log(error);
@@ -194,7 +214,7 @@
         })
       },
       mask_off(){
-        this.$store.state.prize = false;
+        this.maskInfo = [];
       },
       num(e){
         this.buyitem_num = e.target.value.replace(/\D/gi,"")
@@ -234,6 +254,13 @@
               window.scrollTo(0,0);
           })
       },
+      update(app){
+        if(app){
+          this.$router.push('Download');
+        }else{
+          this.home.update = 0;
+        }
+      }
     },
   }
 </script>

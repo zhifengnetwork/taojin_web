@@ -20,10 +20,46 @@
     </div>
     <!-- 列表项 -->
     <div class="user_option">
-      <div class="option_item" v-for="(item,index) in option_item" :key="index">
-        <router-link :to="item.pages">
-          <img class="option_img" :src="item.img">
-          <p>{{item.text}}</p>
+      <div class="option_item">
+        <router-link to="balance">
+          <img class="option_img" src="https://taojin-zhifeng.oss-cn-shenzhen.aliyuncs.com/static/images/user/balance.png">
+          <p>资产</p>
+        </router-link>
+      </div>
+      <div class="option_item">
+        <router-link to="sugar">
+          <img class="option_img" src="https://taojin-zhifeng.oss-cn-shenzhen.aliyuncs.com/static/images/user/sugar.png">
+          <p>糖果</p>
+        </router-link>
+      </div>
+      <div class="option_item">
+        <router-link to="currency">
+          <img class="option_img" src="https://taojin-zhifeng.oss-cn-shenzhen.aliyuncs.com/static/images/user/currency.png">
+          <p>币</p>
+        </router-link>
+      </div>
+      <div class="option_item">
+        <router-link to="my_order">
+          <img class="option_img" src="https://taojin-zhifeng.oss-cn-shenzhen.aliyuncs.com/static/images/user/my_order.png">
+          <p>我的订单</p>
+        </router-link>
+      </div>
+      <div class="option_item">
+        <router-link to="my_team">
+          <img class="option_img" src="https://taojin-zhifeng.oss-cn-shenzhen.aliyuncs.com/static/images/user/team.png">
+          <p>我的团队</p>
+        </router-link>
+      </div>
+      <div class="option_item">
+        <router-link to="prize">
+          <img class="option_img" src="https://taojin-zhifeng.oss-cn-shenzhen.aliyuncs.com/static/images/user/prize.png">
+          <p>开奖记录</p>
+        </router-link>
+      </div>
+      <div class="option_item">
+        <router-link to="promotion">
+          <img class="option_img" src="https://taojin-zhifeng.oss-cn-shenzhen.aliyuncs.com/static/images/user/promotion.png">
+          <p>我的推广</p>
         </router-link>
       </div>
     </div>
