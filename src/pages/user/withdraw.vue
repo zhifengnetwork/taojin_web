@@ -207,6 +207,7 @@
     margin-top: 20px;
 }
 .type_img{
+    pointer-events: auto;
     margin: 0 20px;
     width: 54px;
     height: 54px;

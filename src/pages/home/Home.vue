@@ -77,9 +77,14 @@
             <span>手机号码</span>
         </div>
         <div class="list_content" @scroll="page">
-          <div class="list_info" v-for="(item,index) in maskInfo" :key="index">
-              <span>{{item.rank_time}}</span>
-              <span>{{item.phone}}</span>
+          <div v-if="maskInfo!=1">
+            <div class="list_info" v-for="(item,index) in maskInfo" :key="index">
+                <span>{{item.rank_time}}</span>
+                <span>{{item.phone}}</span>
+            </div>
+          </div>
+          <div class="no_text" v-else>
+            无人中奖--再接再厉
           </div>
         </div>
         <div class="mask_off" @click="mask_off"></div>
@@ -159,8 +164,12 @@
         })
         .then(function(res){
             console.log(res);
-            for(let i=0;i<res.data.data.length;i++){
-                _this.maskInfo.push(res.data.data[i]);
+            if(res.data.status == 2){
+              _this.maskInfo = '1'
+            }else{
+              for(let i=0;i<res.data.data.length;i++){
+                  _this.maskInfo.push(res.data.data[i]);
+              }
             }
             if(res.data.data==''&&_this.pages==1){
                 _this.flag = true;
@@ -508,6 +517,9 @@
   display: inline-block;
   width: 49%;
   line-height: 100px;
+}
+.no_text{
+  line-height: 480px;
 }
 .mask_off{
   position: absolute;

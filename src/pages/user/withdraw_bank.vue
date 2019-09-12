@@ -64,7 +64,7 @@
                 .then(function(res){
                     console.log(res);
                     if(res.data.status == 1){
-                        Toast.success('提交成功,等待审核');
+                        Toast.success('提交成功');
                         _this.$router.push({name:'withdraw'})
                     }else{
                         Toast(res.data.msg)

@@ -44,6 +44,7 @@
             <van-datetime-picker class="mask_item"
                 v-model="currentTime"
                 type="time"
+                :min-hour="ti.getHours()"
                 @confirm="state_time"
                 @cancel="state_time"
             />
@@ -66,11 +67,13 @@
                 time_mask:false,
                 currentTime:'',
                 endTime:'',
-                num:'1'
+                num:'1',
+                ti:''
             }
         },
         mounted(){
             var ti = new Date();
+            this.ti = ti;
             this.currentTime = ti.getHours()+':'+ti.getMinutes();
             this.endTime = this.currentTime.split(':');
             this.initalize();
