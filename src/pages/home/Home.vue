@@ -73,8 +73,8 @@
     <div class="mask" v-if="maskInfo!=''">
       <div class="mask_content">
         <div class="list_title">
-            <span>中奖时间</span>
-            <span>手机号码</span>
+            <span v-if="maskInfo!=1">中奖时间</span>
+            <span v-if="maskInfo!=1">手机号码</span>
         </div>
         <div class="list_content" @scroll="page">
           <div v-if="maskInfo!=1">
@@ -84,7 +84,8 @@
             </div>
           </div>
           <div class="no_text" v-else>
-            无人中奖--再接再厉
+            <h3>{{noDate}}</h3>
+            <h2>无人中奖--再接再厉</h2>
           </div>
         </div>
         <div class="mask_off" @click="mask_off"></div>
@@ -116,7 +117,8 @@
         give:false,
         give_num:'',
         flag:true,
-        pages:1
+        pages:1,
+        noDate:''
       }
     },
     mounted(){
@@ -166,6 +168,7 @@
             console.log(res);
             if(res.data.status == 2){
               _this.maskInfo = '1'
+              _this.noDate = res.data.data
             }else{
               for(let i=0;i<res.data.data.length;i++){
                   _this.maskInfo.push(res.data.data[i]);
@@ -519,7 +522,15 @@
   line-height: 100px;
 }
 .no_text{
-  line-height: 480px;
+  margin-top: 80px;
+  line-height: 120px;
+  h2{
+    font-size: 36px;
+    font-weight: normal;
+  }
+  h3{
+    font-weight: normal;
+  }
 }
 .mask_off{
   position: absolute;
