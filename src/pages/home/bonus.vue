@@ -146,7 +146,7 @@
                 this.$axios.post('ranking/order_time_slot',{
                     token:localStorage.getItem('token'),
                     type:type,
-                    state_time:_this.currentTime
+                    check_time:_this.currentTime
                 })
                 .then(function(res){
                     console.log(res);
