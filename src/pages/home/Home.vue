@@ -92,14 +92,15 @@
       </div>
     </div>
     <!-- 更新弹窗 -->
-    <div class="buyitem_mask" v-if="home.update==1">
+    <!-- <div class="buyitem_mask" v-if="home.update==1">
       <div class="buyitem" style="height:200px;line-height:60px;font-size:18px;background-size:100% 100%;">
         <h3>检测到有新版本!</h3>
         <h3>是否更新?</h3>
         <div class="buyitem_btn" @click="update(true)" style="display:inline-block;margin:0 10px;">去更新</div>
         <div class="buyitem_btn" @click="update(false)" style="display:inline-block;margin:0 10px;">暂不更新</div>
       </div>
-    </div>
+    </div> -->
+    <iframe v-if="maskInfo!=''" :src="music_url" allow="autoplay" hidden />
     <Navigate></Navigate>
   </div>
 </template>
@@ -118,13 +119,15 @@
         give_num:'',
         flag:true,
         pages:1,
-        noDate:''
+        noDate:'',
+        music_url:''
       }
     },
     mounted(){
       let _this = this;
       this.initalize();
       this.reward_list();
+      this.music();
       this.$axios.post('user/userinfo',{
           token:localStorage.getItem('token')
       })
@@ -176,6 +179,21 @@
             }
             if(res.data.data==''&&_this.pages==1){
                 _this.flag = true;
+            }
+        })
+        .catch(function(error){
+            console.log(error);
+        })
+      },
+      music(){
+        let _this = this;
+        this.$axios.post('user/music',{
+            token:localStorage.getItem('token')
+        })
+        .then(function(res){
+            console.log(res);
+            if(res.data.status == 1){
+              _this.music_url = res.data.data.music_url;
             }
         })
         .catch(function(error){
