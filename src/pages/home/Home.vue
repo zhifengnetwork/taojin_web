@@ -33,7 +33,18 @@
       <img src="https://taojin-zhifeng.oss-cn-shenzhen.aliyuncs.com/static/images/home_iconR.png">
       <p>养殖场</p>
     </div>
-    
+    <div class="left_icon btn_top" @click="remov">
+      <img src="https://taojin-zhifeng.oss-cn-shenzhen.aliyuncs.com/static/images/home_iconL.png">
+      <p>全球购物</p>
+    </div>
+    <div class="right_icon btn_top" @click="remov">
+      <img src="https://taojin-zhifeng.oss-cn-shenzhen.aliyuncs.com/static/images/home_iconR.png">
+      <p>全民直播</p>
+    </div>
+    <div class="left_icon btn2_top" @click="remov">
+      <img src="https://taojin-zhifeng.oss-cn-shenzhen.aliyuncs.com/static/images/home_iconL.png">
+      <p>数字游戏</p>
+    </div>
     <div class="give" v-if="home.is_give==1" @click="give_mask">
       <img class="give_img" src="https://taojin-zhifeng.oss-cn-shenzhen.aliyuncs.com/static/images/sugar.png">
     </div>
@@ -374,13 +385,21 @@
 }
 .left_icon{
   position: absolute;
-  top: 380px;
+  top: 350px;
   left: 20px;
+  width: 120px;
 }
 .right_icon{
   position: absolute;
-  top: 380px;
+  top: 350px;
   right: 20px;
+  width: 120px;
+}
+.btn_top{
+  top: 500px;
+}
+.btn2_top{
+  top: 650px;
 }
 .left_icon img,.right_icon img{
   width: 60px;
