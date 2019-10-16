@@ -455,8 +455,8 @@
 }
 .give{
   position: absolute;
-  top: 520px;
-  right: 24px;
+  top: 650px;
+  right: 40px;
   width: 80px;
   height: 60px;
   animation: give 1s infinite 0.5s;
