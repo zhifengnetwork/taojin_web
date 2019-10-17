@@ -257,7 +257,7 @@
       mask_off(){
         this.maskInfo = [];
         this.music_url = '';
-        window.reload();
+        location.reload();
       },
       num(e){
         this.buyitem_num = e.target.value.replace(/\D/gi,"")
