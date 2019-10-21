@@ -55,6 +55,13 @@ export default new Router({
       component: () => import('@/pages/home/bonus'),
     },
 
+    // 养殖场
+    {
+      path: '/farm',
+      name: 'farm',
+      component: () => import('@/pages/farm/farm'),
+    },
+
     // 排名
     {
       path: '/Rank',
