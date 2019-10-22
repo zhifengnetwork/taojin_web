@@ -29,9 +29,11 @@
       <img src="https://taojin-zhifeng.oss-cn-shenzhen.aliyuncs.com/static/images/home_iconL.png">
       <p>种植场</p>
     </div>
-    <div class="right_icon" @click="remov">
-      <img src="https://taojin-zhifeng.oss-cn-shenzhen.aliyuncs.com/static/images/home_iconR.png">
-      <p>养殖场</p>
+    <div class="right_icon">
+      <router-link to="farm">
+        <img src="https://taojin-zhifeng.oss-cn-shenzhen.aliyuncs.com/static/images/home_iconR.png">
+        <p>养殖场</p>
+      </router-link>
     </div>
     <div class="left_icon btn_top" @click="remov">
       <img src="https://taojin-zhifeng.oss-cn-shenzhen.aliyuncs.com/static/images/home_iconL.png">
@@ -396,6 +398,9 @@
   top: 350px;
   right: 20px;
   width: 120px;
+}
+.left_icon a,.right_icon a{
+  color: #632904;
 }
 .btn_top{
   top: 500px;
