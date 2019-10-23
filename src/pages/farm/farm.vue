@@ -31,19 +31,20 @@
         </div>
         <!-- 滑动部分 -->
         <div class="chook">
-            <div class="chook_item" v-for="(item,index) in 100" :key="index">
+            <div class="chook_item" v-for="(item,index) in 100" :key="index" @click="chook(index+1)">
                 <img src="/static/images/farm/type-1.png">
+                <img class="feed" v-if="feed" src="/static/images/farm/feed.gif">
                 <div class="chook_num">2</div>
                 <div class="chook_name">鸡窝{{index+1}}号</div>
             </div>
         </div>
         <!-- 底部菜单 -->
         <div class="menu">
-            <div class="menu_item">
+            <div class="menu_item" @click="rob">
                 <img src="/static/images/farm/menu-1.png">
                 <p>抢饲料</p>
             </div>
-            <div class="menu_item">
+            <div class="menu_item" @click="feedStart">
                 <img src="/static/images/farm/menu-2.png">
                 <p>喂养</p>
             </div>
@@ -61,7 +62,8 @@
             </div>
         </div>
         <div class="mask" v-if="flag">
-            <div class="buy_content">
+            <!-- 购买弹窗 -->
+            <div class="buy_content" v-if="!pay">
                 <div class="buy_off" @click="show"></div>
                 <img class="buy_bg" src="/static/images/farm/pop-up.png">
                 <div class="buy_title title_left">工具</div>
@@ -69,17 +71,72 @@
                 <div class="buy_item">
                     鸡窝
                     <div class="itrm_btn">
-                        <p>金沙购买</p>
-                        <p>余额购买</p>
+                        <p @click="payShow(1,1)">金沙购买</p>
+                        <p @click="payShow(2,1)">余额购买</p>
                     </div>
                 </div>
                 <div class="buy_item2">
                     金鸡
                     <div class="itrm_btn">
-                        <p>金沙购买</p>
-                        <p>余额购买</p>
+                        <p @click="payShow(1,2)">金沙购买</p>
+                        <p @click="payShow(2,2)">余额购买</p>
                     </div>
                 </div>
+            </div>
+            <div class="pay_content" v-if="pay">
+                <div class="pay_off" @click="payShow"></div>
+                <img class="pay_bg" v-if="paytype == 1" src="/static/images/farm/gold.png">
+                <img class="pay_bg" v-if="paytype == 2" src="/static/images/farm/balance.png">
+                <div class="pay_item">
+                    <h3 v-if="itemtype == 1" class="item_title">鸡窝</h3>
+                    <h3 v-if="itemtype == 2" class="item_title">金鸡</h3>
+                    <img v-if="itemtype == 1" class="item_img item_top" src="/static/images/farm/itemtype-1.png">
+                    <img v-if="itemtype == 2" class="item_img" src="/static/images/farm/itemtype-2.png">
+                </div>
+                <div class="pay_num">
+                    <div class="num_btn"></div>
+                    <input class="num_inp" type="text" v-model.number="num">
+                    <div class="num_btn"></div>
+                </div>
+                <div class="pay_info">
+                    <h3 class="info_title" v-if="paytype == 1">金沙总数:111</h3>
+                    <h3 class="info_title" v-if="paytype == 2">余额总数:22</h3>
+                    <div class="info_price">200</div>
+                    <div class="info_btn">立即购买</div>
+                </div>
+            </div>
+            <!-- chook弹窗 -->
+            <div v-if="chookMask" class="chookMask">
+                <div class="chook_off" @click="chook"></div>
+                <img class="chook_bg" src="/static/images/farm/chookMask.png">
+                <h2 class="chook_title">鸡窝{{chookIndex}}号</h2>
+                <div class="chook_item">
+                    <div class="item_index">1</div>
+                    <p>购买时间: 2018-10-10</p>
+                    <p>产蛋数量: 2个</p>
+                </div>
+                <div class="chook_item">
+                    <div class="item_index">2</div>
+                    <p>购买时间: 2018-10-10</p>
+                    <p>产蛋数量: 2个</p>
+                </div>
+                <div class="chook_item">
+                    <div class="item_index">3</div>
+                    <p>购买时间: 2018-10-10</p>
+                    <p>产蛋数量: 2个</p>
+                </div>
+                <!-- <div class="chook_no">
+                    <img class="item_img" src="/static/images/farm/itemtype-2.png">
+                    <p>暂时没有鸡 赶紧去买鸡</p>
+                </div> -->
+            </div>
+        </div>
+        <div class="fodder_wrap" v-if="fodder">
+            <!-- 饲料 -->
+            <div class="fodder">
+                <div class="fodder_off" @click="rob"></div>
+                <img class="fodder_bg" src="/static/images/farm/fodder.gif">
+                <!-- <img class="fodder_bg" src="/static/images/farm/fodder-err.gif"> -->
             </div>
         </div>
     </div>
@@ -90,12 +147,39 @@
         name:'farm',
         data(){
             return{
+                chookMask:false,
+                chookIndex:'',
+                feed:false,
                 flag:false,
+                pay:false,
+                paytype:'',
+                itemtype:'',
+                num:1,
+                fodder:false,
             }
         },
         methods:{
-            show(){
+            show(type){
                 this.flag = !this.flag;
+            },
+            payShow(paytype,itemtype){
+                this.pay = !this.pay;
+                this.paytype = paytype;
+                this.itemtype = itemtype;
+            },
+            feedStart(){
+                this.feed = true;
+                setTimeout(() => {
+                    this.feed = false;
+                }, 3000);
+            },
+            chook(index){
+                this.flag = !this.flag;
+                this.chookIndex = index;
+                this.chookMask = !this.chookMask;
+            },
+            rob(){
+                this.fodder = !this.fodder;
             }
         }
     }
@@ -210,6 +294,12 @@
     width: 180px;
     height: 215px;
     align-items: flex-end;
+    .feed{
+        position: absolute;
+        left: 20px;
+        top: -20px;
+        width: 80px;
+    }
     img{
         width: 100%;
     }
@@ -258,7 +348,7 @@
 .menu_item:nth-of-type(4) img{
     width: 66px;
 }
-.mask{
+.mask,.fodder_wrap{
     position: fixed;
     top: 0;
     left: 0;
@@ -273,10 +363,10 @@
     width: 100%;
     .buy_off{
         position: absolute;
-        top: 30px;
-        right: 60px;
-        width: 60px;
-        height: 60px;
+        top: 20px;
+        right: 50px;
+        width: 80px;
+        height: 80px;
     }
     .buy_bg{
         width: 700px;
@@ -359,6 +449,169 @@
                             0 -1px 5px #622804;
             }
         }
+    }
+}
+.pay_content{
+    position: absolute;
+    top: 400px;
+    width: 100%;
+    .pay_off{
+        position: absolute;
+        top: 20px;
+        right: 50px;
+        width: 80px;
+        height: 80px;
+    }
+    .pay_bg{
+        width: 700px;
+    }
+    .pay_item{
+        position: absolute;
+        left: 140px;
+        top: 140px;
+        width: 200px;
+        height: 200px;
+        .item_title{
+            line-height: 50px;
+        }
+        .item_img{
+            width: 130px;
+        }
+        .item_top{
+            margin-top: 40px;
+        }
+    }
+    .pay_num{
+        position: absolute;
+        left: 136px;
+        top: 368px;
+        width: 210px;
+        height: 50px;
+        line-height: 50px;
+        display: flex;
+        justify-content: flex-start;
+        .num_btn{
+            width: 40px;
+        }
+        .num_inp{
+            width: 125px;
+            text-align: center;
+        }
+    }
+    .pay_info{
+        position: absolute;
+        top: 140px;
+        right: 110px;
+        width: 260px;
+        height: 330px;
+        .info_title{
+            margin-top: 10px;
+            margin-left: 10px;
+            text-align: left;
+            font-size: 30px;
+        }
+        .info_price{
+            margin-top: 110px;
+            margin-left: 130px;
+            text-align: left;
+            font-size: 26px;
+        }
+        .info_btn{
+            margin: 50px auto 0;
+            width: 150px;
+            height: 50px;
+            line-height: 50px;
+            color: #fff;
+            font-size: 24px;
+            font-weight: bold;
+            text-shadow: -1px 0 5px #622804,
+                        0 1px 5px #622804,
+                        1px 0 5px #622804,
+                        0 -1px 5px #622804;
+        }
+    }
+}
+.chookMask{
+    position: absolute;
+    top: 400px;
+    width: 100%;
+    color: #fff;
+    .chook_off{
+        position: absolute;
+        top: 20px;
+        right: 50px;
+        width: 80px;
+        height: 80px;
+    }
+    .chook_bg{
+        width: 700px;
+    }
+    .chook_title{
+        position: absolute;
+        top: 10px;
+        width: 100%;
+        text-shadow: -1px 0 5px #622804,
+                        0 1px 5px #622804,
+                        1px 0 5px #622804,
+                        0 -1px 5px #622804;
+    }
+    .chook_item{
+        display: block;
+        position: absolute;
+        top: 120px;
+        left: 0;
+        right: 0;
+        margin: auto;
+        width: 525px;
+        height: 120px;
+        text-align: left;
+        padding-left: 200px;
+        padding-top: 20px;
+        box-sizing: border-box;
+        background: url('/static/images/farm/chookitem.png') no-repeat;
+        background-size: contain;
+        .item_index{
+            position: absolute;
+            left: 92px;
+            top: 22px;
+            color: #4a1901;
+        }
+    }
+    .chook_no{
+        position: absolute;
+        top: 150px;
+        left: 0;
+        right: 0;
+        margin: auto;
+        color: #ff976a;
+        img{
+            margin-bottom: 20px;
+            width: 160px;
+        }
+    }
+}
+.chookMask .chook_item:nth-of-type(3){
+    top: 250px;
+}
+.chookMask .chook_item:nth-of-type(4){
+    top: 380px;
+}
+.fodder{
+    position: absolute;
+    top: 400px;
+    width: 100%;
+    color: #fff;
+    .fodder_off{
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        left: 0;
+        margin: auto;
+        width: 80px;
+        height: 80px;
+    }
+    .fodder_bg{
+        width: 700px;
     }
 }
 </style>
