@@ -8,21 +8,21 @@
         <!-- 用户信息 -->
         <div class="user">
             <div class="user_img">
-                <img src="/static/images/farm/head.png">
+                <img :src="user_info.avatar">
             </div>
             <div class="user_info">
-                <p class="user_name">七</p>
+                <p class="user_name">{{user_info.nick_name}}</p>
                 <span>
-                    <img class="user_icon" src="/static/images/farm/chook.png">333
+                    <img class="user_icon" src="/static/images/farm/chook.png">{{user_info.chicken_num}}
                 </span>
                 <span>
-                    <img class="user_icon" src="/static/images/farm/egg.png">999
+                    <img class="user_icon" src="/static/images/farm/egg.png">{{user_info.egg_num}}
                 </span>
             </div>
         </div>
-        <div class="notice">
+        <div class="notice" @click="notice_off">
             <h3>公告</h3>
-            <span>新华社金凤凰虎虎生风</span>
+            <span>{{user_info.notice}}</span>
         </div>
         <div class="tips">
             游戏
@@ -56,7 +56,7 @@
                 <img src="/static/images/farm/menu-4.png">
                 <p>商店</p>
             </div>
-            <div class="menu_item">
+            <div class="menu_item" @click="wallet_off">
                 <img src="/static/images/farm/menu-5.png">
                 <p>钱包</p>
             </div>
@@ -131,12 +131,87 @@
                 </div> -->
             </div>
         </div>
+        <!-- 公告 -->
+        <div class="notice_mask" v-if="notice">
+            <div class="notice_info">
+                <div class="notice_off" @click="notice_off"></div>
+                <img class="notice_bg" src="/static/images/farm/notice.png">
+                <div class="notice_content">
+                    {{user_info.notice}}
+                </div>
+            </div>
+        </div>
+        <!-- 饲料 -->
         <div class="fodder_wrap" v-if="fodder">
-            <!-- 饲料 -->
             <div class="fodder">
                 <div class="fodder_off" @click="rob"></div>
                 <img class="fodder_bg" src="/static/images/farm/fodder.gif">
                 <!-- <img class="fodder_bg" src="/static/images/farm/fodder-err.gif"> -->
+            </div>
+        </div>
+        <!-- 钱包 -->
+        <div class="wallet_wrap" v-if="wallet">
+            <div class="wallet">
+                <div class="wallet_item">
+                    <div class="wallet_off" @click="wallet_off"></div>
+                    <div class="item_title">
+                       <img src="/static/images/farm/wallet-icon.png">余额
+                    </div>
+                    <p class="item_val">1111111.00</p>
+                    <div class="item_btns">
+                        <div class="btn btn1">
+                            转账
+                        </div>
+                        <div class="btn btn2">
+                            明细
+                        </div>
+                    </div>
+                </div>
+                <div class="wallet_item">
+                    <div class="item_title">
+                       <img src="/static/images/farm/wallet-1.png">金沙
+                    </div>
+                    <p class="item_val">1111111.00</p>
+                    <div class="item_btns">
+                        <div class="btn btn1">
+                            转账
+                        </div>
+                        <div class="btn btn2">
+                            明细
+                        </div>
+                    </div>
+                </div>
+                <div class="wallet_item">
+                    <div class="item_title">
+                       <img src="/static/images/farm/wallet-icon.png">收益
+                    </div>
+                    <p class="item_val">1111111.00</p>
+                    <div class="item_btns">
+                        <div class="btn btn1">
+                            转账
+                        </div>
+                        <div class="btn btn3">
+                            转账
+                        </div>
+                        <div class="btn btn2">
+                            明细
+                        </div>
+                    </div>
+                </div>
+                <div class="wallet_item">
+                    <div class="item_title">
+                       <img src="/static/images/farm/wallet-2.png">糖果
+                    </div>
+                    <p class="item_val">1111111.00</p>
+                    <div class="item_btns">
+                        <div class="btn btn1">
+                            转账
+                        </div>
+                        <div class="btn btn2">
+                            明细
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -156,9 +231,40 @@
                 itemtype:'',
                 num:1,
                 fodder:false,
+                wallet:false,
+                notice:false,
+                notice:false,
+                user_info:'',
+                list:''
             }
         },
+        mounted(){
+            this.initalize();
+            this.chookList();
+        },
         methods:{
+            initalize(){
+                let _this = this;
+                this.$axios.post('farm/index')
+                .then(function(res){
+                    console.log(res.data);
+                    _this.user_info = res.data.data;
+                })
+                .catch(function(error){
+                    console.log(error);
+                })
+            },
+            chookList(){
+                let _this = this;
+                this.$axios.post('farm/chicken_coop_list')
+                .then(function(res){
+                    console.log(res.data);
+                    _this.list = res.data.data;
+                })
+                .catch(function(error){
+                    console.log(error);
+                })
+            },
             show(type){
                 this.flag = !this.flag;
             },
@@ -180,6 +286,12 @@
             },
             rob(){
                 this.fodder = !this.fodder;
+            },
+            wallet_off(){
+                this.wallet = !this.wallet;
+            },
+            notice_off(){
+                this.notice = !this.notice;
             }
         }
     }
@@ -313,6 +425,7 @@
         color: #df3b3b;
         border-radius: 50%;
         background: #fff;
+        animation: egg 5s 1;
     }
     .chook_name{
         position: absolute;
@@ -348,7 +461,7 @@
 .menu_item:nth-of-type(4) img{
     width: 66px;
 }
-.mask,.fodder_wrap{
+.mask,.fodder_wrap,.wallet_wrap,.notice_mask{
     position: fixed;
     top: 0;
     left: 0;
@@ -531,6 +644,30 @@
         }
     }
 }
+.notice_info{
+    position: absolute;
+    top: 260px;
+    width: 100%;
+    color: #fff;
+    .notice_off{
+        position: absolute;
+        top: 0;
+        right: 20px;
+        width: 80px;
+        height: 80px;
+    }
+    .notice_bg{
+        width: 700px;
+    }
+    .notice_content{
+        position: absolute;
+        left: 80px;
+        top: 120px;
+        width: 600px;
+        height: 650px;
+        color: #835536;
+    }
+}
 .chookMask{
     position: absolute;
     top: 400px;
@@ -612,6 +749,74 @@
     }
     .fodder_bg{
         width: 700px;
+    }
+}
+.wallet{
+    margin: 5vh 24px 0;
+    background: url('/static/images/farm/wallet.png') no-repeat;
+    background-size: contain;
+    width: 702px;
+    height: 1180px;
+    padding-top: 70px;
+    .wallet_off{
+        position: absolute;
+        top: 50px;
+        right: 15px;
+        width: 80px;
+        height: 80px;
+    }
+    .wallet_item{
+        margin-left: 25px;
+        margin-bottom: 10px;
+        width: 640px;
+        height: 260px;
+        border-radius: 10px;
+        background: url('/static/images/farm/walletitem.png') no-repeat;
+        background-size: contain;
+        .item_title{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            line-height: 60px;
+            font-size: 26px;
+            color: #fff;
+            img{
+                margin-right: 10px;
+                width: 55px;
+            }
+        }
+        .item_val{
+            line-height: 100px;
+            color: #a23403;
+            font-size: 30px;
+        }
+        .item_btns{
+            display: flex;
+            justify-content: space-between;
+            padding: 0 50px;
+            .btn{
+                width: 152px;
+                height: 52px;
+                line-height: 52px;
+                color: #fff;
+                text-shadow: -1px 0 5px #622804,
+                        0 1px 5px #622804,
+                        1px 0 5px #622804,
+                        0 -1px 5px #622804;
+            }
+            .btn1{
+                background: url('/static/images/farm/btn1.png') no-repeat;
+                background-size: contain;
+            }
+            .btn2{
+                background: url('/static/images/farm/btn2.png') no-repeat;
+                background-size: contain;
+            }
+            .btn3{
+                background: url('/static/images/farm/btn3.png') no-repeat;
+                background-size: contain;
+            }
+        }
     }
 }
 </style>
