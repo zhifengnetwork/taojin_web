@@ -30,26 +30,30 @@
             说明
         </div>
         <!-- 滑动部分 -->
-        <div class="chook">
-            <div class="chook_item" v-for="(item,index) in 100" :key="index" @click="chook(index+1)">
-                <img src="/static/images/farm/type-1.png">
-                <img class="feed" v-if="feed" src="/static/images/farm/feed.gif">
-                <div class="chook_num">2</div>
+        <div class="chook" @scroll="page">
+            <div class="chook_item" v-for="(item,index) in list" :key="index" @click="chook(index+1,item.coop_id)">
+                <img v-if="item.num==0" src="/static/images/farm/type-0.png">
+                <img v-if="item.num!=0" src="/static/images/farm/type-1.png">
+                <img class="feed" v-if="feed&&item.num!=0" src="/static/images/farm/feed.gif">
+                <div class="chook_num" v-if="item.num!=0">{{item.num}}</div>
                 <div class="chook_name">鸡窝{{index+1}}号</div>
             </div>
         </div>
         <!-- 底部菜单 -->
         <div class="menu">
             <div class="menu_item" @click="rob">
-                <img src="/static/images/farm/menu-1.png">
+                <img src="/static/images/farm/menu-1.png" v-if="user_info.is_feed==0">                
+                <img class="active" src="/static/images/farm/menu-1-active.gif" v-if="user_info.is_feed==1">
                 <p>抢饲料</p>
             </div>
             <div class="menu_item" @click="feedStart">
-                <img src="/static/images/farm/menu-2.png">
+                <img src="/static/images/farm/menu-2.png" v-if="user_info.is_feed_chicken==0">                
+                <img class="active" src="/static/images/farm/menu-2-active.gif" v-if="user_info.is_feed_chicken==1">
                 <p>喂养</p>
             </div>
-            <div class="menu_item">
-                <img src="/static/images/farm/menu-3.png">
+            <div class="menu_item" @click="harvest">
+                <img src="/static/images/farm/menu-3.png" v-if="user_info.is_chicken==0">                
+                <img class="active" src="/static/images/farm/menu-3-active.gif" v-if="user_info.is_chicken==1">
                 <p>拾蛋</p>
             </div>
             <div class="menu_item" @click="show">
@@ -65,21 +69,36 @@
             <!-- 购买弹窗 -->
             <div class="buy_content" v-if="!pay">
                 <div class="buy_off" @click="show"></div>
-                <img class="buy_bg" src="/static/images/farm/pop-up.png">
-                <div class="buy_title title_left">工具</div>
-                <div class="buy_title title_right">购买记录</div>
-                <div class="buy_item">
-                    鸡窝
-                    <div class="itrm_btn">
-                        <p @click="payShow(1,1)">金沙购买</p>
-                        <p @click="payShow(2,1)">余额购买</p>
+                <img class="buy_bg" v-if="active == 1" src="/static/images/farm/pop-up.png">
+                <img class="buy_bg" v-if="active == 2" src="/static/images/farm/pop-up2.png">
+                <div class="buy_title title_left" @click="buy_tab(1)">工具</div>
+                <div class="buy_title title_right" @click="buy_tab(2)">购买记录</div>
+                <div v-if="active == 1">
+                    <div class="buy_item">
+                        鸡窝
+                        <div class="itrm_btn">
+                            <p @click="payShow(1,1)">金沙购买</p>
+                            <p @click="payShow(2,1)">余额购买</p>
+                        </div>
+                    </div>
+                    <div class="buy_item2">
+                        金鸡
+                        <div class="itrm_btn">
+                            <p @click="payShow(1,2)">金沙购买</p>
+                            <p @click="payShow(2,2)">余额购买</p>
+                        </div>
                     </div>
                 </div>
-                <div class="buy_item2">
-                    金鸡
-                    <div class="itrm_btn">
-                        <p @click="payShow(1,2)">金沙购买</p>
-                        <p @click="payShow(2,2)">余额购买</p>
+                <div v-if="active == 2">
+                    <div class="buy_right" @scroll="tabpage">
+                        <div class="right_item" v-for="(item,index) in tab" :key="index">
+                            <ul>
+                                <li>{{item.pay_text}}</li>
+                                <li>{{item.type_text}}({{item.num}})</li>
+                                <li>{{item.add_time}}</li>
+                                <li>{{item.money}}个</li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -94,15 +113,18 @@
                     <img v-if="itemtype == 2" class="item_img" src="/static/images/farm/itemtype-2.png">
                 </div>
                 <div class="pay_num">
-                    <div class="num_btn"></div>
+                    <div class="num_btn" @click="pay_subtract"></div>
                     <input class="num_inp" type="text" v-model.number="num">
-                    <div class="num_btn"></div>
+                    <div class="num_btn" @click="pay_plus"></div>
                 </div>
                 <div class="pay_info">
-                    <h3 class="info_title" v-if="paytype == 1">金沙总数:111</h3>
-                    <h3 class="info_title" v-if="paytype == 2">余额总数:22</h3>
-                    <div class="info_price">200</div>
-                    <div class="info_btn">立即购买</div>
+                    <h3 class="info_title" v-if="paytype == 1">金沙总数:{{user_info.chicken_balance}}</h3>
+                    <h3 class="info_title" v-if="paytype == 2">余额总数:{{user_info.recharge_balance}}</h3>
+                    <div class="info_price" v-if="paytype == 1 && itemtype == 1">50</div>
+                    <div class="info_price" v-if="paytype == 2 && itemtype == 1">100</div>
+                    <div class="info_price" v-if="paytype == 1 && itemtype == 2">120</div>
+                    <div class="info_price" v-if="paytype == 2 && itemtype == 2">200</div>
+                    <div class="info_btn" @click="purchase">立即购买</div>
                 </div>
             </div>
             <!-- chook弹窗 -->
@@ -110,25 +132,15 @@
                 <div class="chook_off" @click="chook"></div>
                 <img class="chook_bg" src="/static/images/farm/chookMask.png">
                 <h2 class="chook_title">鸡窝{{chookIndex}}号</h2>
-                <div class="chook_item">
-                    <div class="item_index">1</div>
-                    <p>购买时间: 2018-10-10</p>
-                    <p>产蛋数量: 2个</p>
+                <div class="chook_item" v-for="(item,index) in chicken" :key="index">
+                    <div class="item_index">{{index+1}}</div>
+                    <p>购买时间: {{item.add_time}}</p>
+                    <p>产蛋数量: {{item.num}}个</p>
                 </div>
-                <div class="chook_item">
-                    <div class="item_index">2</div>
-                    <p>购买时间: 2018-10-10</p>
-                    <p>产蛋数量: 2个</p>
-                </div>
-                <div class="chook_item">
-                    <div class="item_index">3</div>
-                    <p>购买时间: 2018-10-10</p>
-                    <p>产蛋数量: 2个</p>
-                </div>
-                <!-- <div class="chook_no">
+                <div class="chook_no" v-if="chicken==''">
                     <img class="item_img" src="/static/images/farm/itemtype-2.png">
                     <p>暂时没有鸡 赶紧去买鸡</p>
-                </div> -->
+                </div>
             </div>
         </div>
         <!-- 公告 -->
@@ -144,9 +156,9 @@
         <!-- 饲料 -->
         <div class="fodder_wrap" v-if="fodder">
             <div class="fodder">
-                <div class="fodder_off" @click="rob"></div>
-                <img class="fodder_bg" src="/static/images/farm/fodder.gif">
-                <!-- <img class="fodder_bg" src="/static/images/farm/fodder-err.gif"> -->
+                <div class="fodder_off" @click="this.fodder = !this.fodder"></div>
+                <img class="fodder_bg" v-if="robStatus==1" src="/static/images/farm/fodder.gif">
+                <img class="fodder_bg" v-if="robStatus==0" src="/static/images/farm/fodder-err.gif">
             </div>
         </div>
         <!-- 钱包 -->
@@ -157,7 +169,7 @@
                     <div class="item_title">
                        <img src="/static/images/farm/wallet-icon.png">余额
                     </div>
-                    <p class="item_val">1111111.00</p>
+                    <p class="item_val">{{user_info.recharge_balance}}</p>
                     <div class="item_btns">
                         <div class="btn btn1">
                             转账
@@ -171,7 +183,7 @@
                     <div class="item_title">
                        <img src="/static/images/farm/wallet-1.png">金沙
                     </div>
-                    <p class="item_val">1111111.00</p>
+                    <p class="item_val">{{user_info.chicken_balance}}</p>
                     <div class="item_btns">
                         <div class="btn btn1">
                             转账
@@ -185,7 +197,7 @@
                     <div class="item_title">
                        <img src="/static/images/farm/wallet-icon.png">收益
                     </div>
-                    <p class="item_val">1111111.00</p>
+                    <p class="item_val">{{user_info.egg_num}}</p>
                     <div class="item_btns">
                         <div class="btn btn1">
                             转账
@@ -202,7 +214,7 @@
                     <div class="item_title">
                        <img src="/static/images/farm/wallet-2.png">糖果
                     </div>
-                    <p class="item_val">1111111.00</p>
+                    <p class="item_val">{{user_info.chicken_integral}}</p>
                     <div class="item_btns">
                         <div class="btn btn1">
                             转账
@@ -214,12 +226,33 @@
                 </div>
             </div>
         </div>
+        <!-- 红包 -->
+        <div class="package">
+            <div class="red-package-contain">
+                <img src="/static/images/farm/hongbao.png" :class="getClass()" :style="getStyle()" v-for="item in count" :key="item" @webkitAnimationIteration='iterationEvent(item, $event)'>
+            </div>
+        </div>
     </div>
 </template>
 
 <script>
+    import { Toast } from 'vant';
     export default {
         name:'farm',
+        props: {
+            count: {
+                type: Number,
+                default: 30
+            },
+            minSize: {
+                type: Number,
+                default: 30
+            },
+            maxSize: {
+                type: Number,
+                default: 100
+            }
+        },
         data(){
             return{
                 chookMask:false,
@@ -235,7 +268,13 @@
                 notice:false,
                 notice:false,
                 user_info:'',
-                list:''
+                list:[],
+                chicken:'',
+                robStatus:'',
+                active:'1',
+                pages:1,
+                tab:[],
+                tabpages:1,
             }
         },
         mounted(){
@@ -256,42 +295,210 @@
             },
             chookList(){
                 let _this = this;
-                this.$axios.post('farm/chicken_coop_list')
+                this.$axios.post('farm/chicken_coop_list',{
+                    'page':_this.pages,
+                    'limit':9
+                })
                 .then(function(res){
                     console.log(res.data);
-                    _this.list = res.data.data;
+                    for(let i=0;i<res.data.data.length;i++){
+                        _this.list.push(res.data.data[i]);
+                    }
                 })
                 .catch(function(error){
                     console.log(error);
                 })
             },
+            buy_tab(index){
+                this.active = index;
+                if(index == 2){
+                    let _this = this;
+                    this.$axios.post('farm/purchase',{
+                        'page':_this.tabpages,
+                    })
+                    .then(function(res){
+                        console.log(res.data);
+                        _this.tab = [];
+                        for(let i=0;i<res.data.data.length;i++){
+                            _this.tab.push(res.data.data[i]);
+                        }
+                    })
+                    .catch(function(error){
+                        console.log(error);
+                    })
+                }
+            },
             show(type){
                 this.flag = !this.flag;
+            },
+            pay_subtract(){
+                if(this.num == 1){
+                    return Toast('数量不能小于1');
+                }
+                this.num--;
+            },
+            pay_plus(){
+                this.num++;
             },
             payShow(paytype,itemtype){
                 this.pay = !this.pay;
                 this.paytype = paytype;
                 this.itemtype = itemtype;
             },
-            feedStart(){
-                this.feed = true;
-                setTimeout(() => {
-                    this.feed = false;
-                }, 3000);
+            purchase(){
+                let _this = this;
+                let money = 0;
+                if(this.itemtype == 1){
+                    if(this.paytype == 1){
+                        money = _this.num * 50;
+                    }else{
+                        money = _this.num * 100;
+                    }
+                }else{
+                    if(this.paytype == 1){
+                        money = _this.num * 120;
+                    }else{
+                        money = _this.num * 200;
+                    }
+                }
+                if(this.itemtype == 1){
+                    this.$axios.post('egg/buy_chicken_coop',{
+                        'type':_this.paytype,
+                        'num':_this.num,
+                        'money':money
+                    })
+                    .then(function(res){
+                        if(res.data.status == 1){
+                            Toast('购买成功!');
+                            setTimeout(() => {
+                                _this.list = [];
+                                _this.chookList();
+                                _this.pay = !_this.pay;
+                                _this.flag = !_this.flag;
+                            }, 1000);
+                        }
+                    })
+                    .catch(function(error){
+                        console.log(error);
+                    })
+                }else{
+                    this.$axios.post('egg/buy_chicken',{
+                        'type':_this.paytype,
+                        'num':_this.num,
+                        'money':money
+                    })
+                    .then(function(res){
+                        if(res.data.status == 1){
+                            Toast('购买成功!');
+                            setTimeout(() => {
+                                _this.list = [];
+                                _this.chookList();
+                                _this.pay = !_this.pay;
+                                _this.flag = !_this.flag;
+                            }, 3000);
+                        }
+                    })
+                    .catch(function(error){
+                        console.log(error);
+                    })
+                }
             },
-            chook(index){
+            feedStart(){
+                let _this = this;
+                this.$axios.post('egg/feed_chicken')
+                .then(function(res){
+                    console.log(res.data);
+                    if(res.data.status == 1){
+                        _this.feed = true;
+                        setTimeout(() => {
+                            _this.feed = false;
+                            _this.$forceUpdate();
+                        }, 3000);
+                    }
+                })
+                .catch(function(error){
+                    console.log(error);
+                })
+            },
+            harvest(){
+                let _this = this;
+                this.$axios.post('egg/harvest_egg')
+                .then(function(res){
+                    console.log(res.data);
+                    if(res.data.status == 1){
+                        Toast('收取成功!');
+                        setTimeout(() => {
+                            _this.initalize();
+                            _this.$forceUpdate();
+                        }, 1000);
+                    }
+                })
+                .catch(function(error){
+                    console.log(error);
+                })
+            },
+            chook(index,id){
+                let _that = this;
                 this.flag = !this.flag;
                 this.chookIndex = index;
                 this.chookMask = !this.chookMask;
+                if(index,id){
+                    let _this = this;
+                    this.$axios.post('farm/chicken_list',{
+                        'coop_id':id
+                    })
+                    .then(function(res){
+                        console.log(res.data);
+                        if(res.data.status == 1){
+                            _that.chicken = res.data.data;
+                        }
+                    })
+                    .catch(function(error){
+                        console.log(error);
+                    })
+                }
             },
             rob(){
-                this.fodder = !this.fodder;
+                let _this = this;
+                this.$axios.post('egg/rob_feed')
+                .then(function(res){
+                    console.log(res.data);
+                    if(res.data.status == 1){
+                        _this.fodder = !this.fodder;
+                        _this.robStatus = res.data.data;
+                        _this.$forceUpdate();
+                    }
+                })
+                .catch(function(error){
+                    console.log(error);
+                })
             },
             wallet_off(){
                 this.wallet = !this.wallet;
             },
             notice_off(){
                 this.notice = !this.notice;
+            },
+            page(e){
+                if(e.target.scrollTop+e.target.offsetHeight>=e.target.scrollHeight-5){
+                    this.pages++;
+                    this.chookList();
+                }
+            },
+            tabpage(e){
+                if(e.target.scrollTop+e.target.offsetHeight>=e.target.scrollHeight-5){
+                    this.tabpages++;
+                    this.buy_tab(2);
+                }
+            },
+            iterationEvent (item, $event) {
+                $event.target.style.cssText = this.getStyle()
+            },
+            getClass () {
+                return `hb-item hbsd-${Math.floor(Math.random() * 50 + 30)}`
+            },
+            getStyle () {
+                return `width:${Math.random() * (this.maxSize - this.minSize) + this.minSize}px;left:${Math.random() * 74 + 10}%`
             }
         }
     }
@@ -442,9 +649,10 @@
 .menu{
     display: flex;
     justify-content: space-around;
+    align-items: flex-end;
     position: absolute;
     width: 100%;
-    bottom: 40px;
+    bottom: 20px;
     padding: 0 24px;
     box-sizing: border-box;
 }
@@ -454,6 +662,10 @@
         width: 50px;
         height: 56px;
     }
+    .active{
+        width: 70px;
+        height: 120px;
+    }
 }
 .menu_item:nth-of-type(3) img{
     width: 60px;
@@ -461,7 +673,7 @@
 .menu_item:nth-of-type(4) img{
     width: 66px;
 }
-.mask,.fodder_wrap,.wallet_wrap,.notice_mask{
+.mask,.fodder_wrap,.wallet_wrap,.notice_mask,.package{
     position: fixed;
     top: 0;
     left: 0;
@@ -563,6 +775,30 @@
             }
         }
     }
+    .buy_right{
+        position: absolute;
+        top: 170px;
+        left: 105px; 
+        width: 550px;
+        height: 330px;
+        overflow-y: scroll;
+        .right_item{
+            height: 80px;
+            line-height: 80px;
+            border-bottom: 2px dashed#ff9c1b;
+            li{
+                float: left;
+                width: 20%;
+            }
+            li:nth-of-type(3){
+                width: 40%;
+                line-height: 40px;
+            }
+            li:nth-of-type(4){
+                color: #834401;
+            }
+        }
+    }
 }
 .pay_content{
     position: absolute;
@@ -622,6 +858,7 @@
             margin-left: 10px;
             text-align: left;
             font-size: 30px;
+            white-space: nowrap;
         }
         .info_price{
             margin-top: 110px;
@@ -686,7 +923,10 @@
     .chook_title{
         position: absolute;
         top: 10px;
-        width: 100%;
+        left: 0;
+        right: 0;
+        margin: auto;
+        width: 200px;
         text-shadow: -1px 0 5px #622804,
                         0 1px 5px #622804,
                         1px 0 5px #622804,
@@ -819,4 +1059,38 @@
         }
     }
 }
+.hb-item{
+  position: absolute;
+  top: 0;
+  z-index: 30000;
+  cursor: pointer;
+}
+/////////////////////////////////
+@keyframes startHB {
+  0% {
+    transform: translateY(-300px);
+    -ms-transform:translateY(-300px);
+    -webkit-transform:translateY(-300px);
+  }
+  100% {
+    transform: translateY(100vh);
+    -ms-transform:translateY(100vh);
+    -webkit-transform:translateY(100vh);
+  }
+}
+@keyframes chandou{
+    0%{margin-left:-120px}
+    50%{margin-left:0px}
+    100%{margin-left:120px}
+}
+
+$total: 100;
+@for $i from 1 through $total {
+  .hbsd-#{$i}{
+      animation: startHB #{$i/20}s linear infinite,chandou #{$i/20}s infinite linear alternate both;
+      -ms-animation:startHB #{$i/20}s linear infinite,chandou #{$i/20}s infinite linear alternate both;
+      -webkit-animation:startHB #{$i/20}s linear infinite,chandou #{$i/20}s infinite linear alternate both;
+    }
+}
+/////////////////////////////////
 </style>

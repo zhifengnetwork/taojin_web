@@ -25,6 +25,12 @@
                     <span>支付密码</span><input v-model="paypwd" class="give_input" type="password">
                 </label>
             </div>
+            <div class="give_radio">
+                <van-radio-group v-model="radio">
+                    <van-radio name="1" checked-color="#b38a5b">转到淘金</van-radio>
+                    <van-radio name="2" checked-color="#b38a5b">转到养殖场</van-radio>
+                </van-radio-group>
+            </div>
             <div class="give_btn" @click="give_send">
                 确认赠送
             </div>
@@ -43,7 +49,8 @@
                 mobile:'',
                 integral:'',
                 paypwd:'',
-                flag:true
+                flag:true,
+                radio:'1'
             }
         },
         mounted(){
@@ -73,7 +80,8 @@
                     token:localStorage.getItem('token'),
                     phone:_this.phone,
                     money:_this.integral,
-                    paypwd:_this.paypwd
+                    paypwd:_this.paypwd,
+                    type:_this.radio
                 })
                 .then(function(res){
                     console.log(res);
@@ -100,7 +108,7 @@ input::-webkit-input-placeholder{
 .withdraw_container{
     margin: 20px auto;
     width: 702px;
-    height: 710px;
+    height: 820px;
     background: #ffc787;
     border: 4px solid #c17b2a;
     border-radius: 20px;
@@ -150,6 +158,12 @@ input::-webkit-input-placeholder{
 .give_i{
     display: inline-block;
     width: 50px;
+}
+.give_radio{
+    margin: 0 24px;
+    .van-radio{
+        height: 60px;
+    }
 }
 .give_btn{
     margin: 40px auto 0;
