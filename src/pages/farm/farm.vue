@@ -324,7 +324,6 @@
                 fodder:false,
                 wallet:false,
                 notice:false,
-                notice:false,
                 user_info:'',
                 list:[],
                 chicken:'',
@@ -775,7 +774,7 @@
 }
 .notice{
     position: absolute;
-    top: 284px;
+    top: 21vh;
     left: 0;
     right: 0;
     margin: auto;
@@ -786,14 +785,14 @@
 }
 .tips{
     position: absolute;
-    top: 290px;
+    top: 22vh;
     right: 94px;
     color: #eea146;
     font-size: 20px;
 }
 .chook{
     position: absolute;
-    top: 384px;
+    top: 29vh;
     left: 70px;
     width: 620px;
     height: 632px;
