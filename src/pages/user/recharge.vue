@@ -97,7 +97,8 @@
     line-height: 80px;
     text-align: left;
     text-indent: 35px;
-    border-left: 2px solid #916f49;
+    border-left: 4px solid #916f49;
+    border-top: 4px solid #916f49;
     background: #b38a5b;
 }
 .recharge_text{
