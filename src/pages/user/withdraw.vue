@@ -1,7 +1,7 @@
 <template>
     <div class="height-88 withdraw_wrap">
         <!-- 头部组件 back-url=>反回路径，默认返回上一页 title=>标题内容 fixed=>是否固定在顶部 rgb=>背景色 col=>字体颜色 -->
-		<TopHeader back-url="" custom-title="账户提现" :custom-fixed="true" custom-rgb custom-col>
+		<TopHeader back-url="" :custom-title="egg?'收益提现':'账户提现'" :custom-fixed="true" custom-rgb custom-col>
 			<!-- 返回按钮 -->
 			<img slot="backBtn" src="https://taojin-zhifeng.oss-cn-shenzhen.aliyuncs.com/static/images/head_back.png">
             
@@ -74,10 +74,14 @@
                 rate_decimals:'',
                 num:'',
                 paypwd:'',
-                flag:true
+                flag:true,
+                egg:''
             }
         },
         mounted(){
+            if(this.$route.query){
+                this.egg = this.$route.query.egg;
+            }
             this.initalize();
         },
         methods:{
@@ -90,6 +94,9 @@
                     console.log(res);
                     if(res.data.status == 1){
                         _this.withdraw = res.data.data;
+                        if(_this.egg){
+                            _this.withdraw.money = res.data.data.egg_num;
+                        }
                     }else{
                         Toast(res.data.msg)
                     }

@@ -24,7 +24,7 @@
             <h3>公告</h3>
             <span>{{user_info.notice}}</span>
         </div>
-        <div class="tips">
+        <div class="tips" @click="notice_off(2)">
             游戏
             <br>
             说明
@@ -147,8 +147,9 @@
         <div class="notice_mask" v-if="notice">
             <div class="notice_info">
                 <div class="notice_off" @click="notice_off"></div>
-                <img class="notice_bg" src="/static/images/farm/notice.png">
-                <div class="notice_content">
+                <img class="notice_bg" v-if="notice!=2" src="/static/images/farm/notice.png">
+                <img class="notice_bg" v-if="notice==2" src="/static/images/farm/explain.png">
+                <div class="notice_content" v-if="notice!=2">
                     {{user_info.notice}}
                 </div>
             </div>
@@ -171,10 +172,10 @@
                     </div>
                     <p class="item_val">{{user_info.recharge_balance}}</p>
                     <div class="item_btns">
-                        <div class="btn btn1">
+                        <div class="btn btn1" @click="accounts(1)">
                             转账
                         </div>
-                        <div class="btn btn2">
+                        <div class="btn btn2" @click="detail(1)">
                             明细
                         </div>
                     </div>
@@ -185,10 +186,10 @@
                     </div>
                     <p class="item_val">{{user_info.chicken_balance}}</p>
                     <div class="item_btns">
-                        <div class="btn btn1">
+                        <div class="btn btn1" @click="accounts(2)">
                             转账
                         </div>
-                        <div class="btn btn2">
+                        <div class="btn btn2" @click="detail(2)">
                             明细
                         </div>
                     </div>
@@ -199,13 +200,13 @@
                     </div>
                     <p class="item_val">{{user_info.egg_num}}</p>
                     <div class="item_btns">
-                        <div class="btn btn1">
+                        <div class="btn btn1" @click="accounts(3)">
                             转账
                         </div>
-                        <div class="btn btn3">
-                            转账
+                        <div class="btn btn3" @click="withdrawShow">
+                            提现
                         </div>
-                        <div class="btn btn2">
+                        <div class="btn btn2" @click="detail(3)">
                             明细
                         </div>
                     </div>
@@ -216,42 +217,99 @@
                     </div>
                     <p class="item_val">{{user_info.chicken_integral}}</p>
                     <div class="item_btns">
-                        <div class="btn btn1">
+                        <div class="btn btn1" @click="accounts(4)">
                             转账
                         </div>
-                        <div class="btn btn2">
+                        <div class="btn btn2" @click="detail(4)">
                             明细
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <!-- 红包 -->
-        <div class="package">
-            <div class="red-package-contain">
-                <img src="/static/images/farm/hongbao.png" :class="getClass()" :style="getStyle()" v-for="item in count" :key="item" @webkitAnimationIteration='iterationEvent(item, $event)'>
+        <!-- 转账 -->
+        <div class="wallet_mask" v-if="wallet_mask">
+            <div class="accounts" v-if="accounts_type">
+                <div class="accounts_off" @click="accounts_off"></div>
+                <div class="accounts_title" v-if="accounts_type==1">
+                    余额转账
+                </div>
+                <div class="accounts_title" v-if="accounts_type==2">
+                    金沙转账
+                </div>
+                <div class="accounts_title" v-if="accounts_type==3">
+                    收益转账
+                </div>
+                <div class="accounts_title" v-if="accounts_type==4">
+                    糖果转账
+                </div>
+                <div class="accounts_value" v-if="accounts_type==1">
+                    <img class="png" src="/static/images/farm/wallet-icon.png"> {{user_info.recharge_balance}}
+                </div>
+                <div class="accounts_value" v-if="accounts_type==2">
+                    <img class="png" src="/static/images/farm/wallet-1.png"> {{user_info.chicken_balance}}
+                </div>
+                <div class="accounts_value" v-if="accounts_type==3">
+                    <img class="png" src="/static/images/farm/wallet-icon.png"> {{user_info.egg_num}}
+                </div>
+                <div class="accounts_value" v-if="accounts_type==4">
+                    <img src="/static/images/farm/wallet-2.png"> {{user_info.chicken_integral}}
+                </div>
+                <label class="accounts_label">
+                    <span>转账账号:</span><input type="text" v-model.number="phone" placeholder="请输入手机号码">
+                </label>
+                <label class="accounts_label">
+                    <span>余&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;额:</span><input type="text" v-model.number="money" placeholder="请输入余额">
+                </label>
+                <label class="accounts_label">
+                    <span>支付密码:</span><input type="password" v-model.number="psd" placeholder="请输入支付密码">
+                </label>
+                <div class="accounts_btn" @click="transfer">
+                    确定转账
+                </div>
             </div>
+            <!-- 明细 -->
+            <div class="detail" v-if="detail_type">
+                <div class="detail_off" @click="detail_off"></div>
+                <div class="detail_title" v-if="detail_type==1">
+                    余额明细
+                </div>
+                <div class="detail_title" v-if="detail_type==2">
+                    金沙明细
+                </div>
+                <div class="detail_title" v-if="detail_type==3">
+                    收益明细
+                </div>
+                <div class="detail_title" v-if="detail_type==4">
+                    糖果明细
+                </div>
+                <div class="detail_content" @scroll="detailpages">
+                    <div class="detail_item" v-for="(item,index) in detailList" :key="index">
+                        <div class="item_left">
+                            <p>{{item.intro||item.add_time}}</p>
+                            <p>{{item.createtime||item.desc}}</p>
+                        </div>
+                        <div class="item_right">
+                            <p>{{item.money}}元</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- 红包 -->
+        <div class="package" v-if="redpack" @click="pack_wrap">
+            <pack></pack>
         </div>
     </div>
 </template>
 
 <script>
     import { Toast } from 'vant';
+    import pack from "@/pages/common/pack/pack";
     export default {
         name:'farm',
-        props: {
-            count: {
-                type: Number,
-                default: 30
-            },
-            minSize: {
-                type: Number,
-                default: 30
-            },
-            maxSize: {
-                type: Number,
-                default: 100
-            }
+        components:{
+            pack
         },
         data(){
             return{
@@ -275,11 +333,27 @@
                 pages:1,
                 tab:[],
                 tabpages:1,
+                redpack:false,
+                wallet_mask:false,
+                accounts_type:false,
+                phone:'',
+                money:'',
+                psd:'',
+                detail_type:'',
+                detailpage:1,
+                detailList:[],
             }
         },
         mounted(){
             this.initalize();
             this.chookList();
+            let myDate = new Date();
+            if(myDate.getHours()==12&&myDate.getMinutes()==0){
+                this.redpack = true;
+                setTimeout(() => {
+                    this.redpack = false;
+                }, 10000);
+            }
         },
         methods:{
             initalize(){
@@ -318,7 +392,6 @@
                     })
                     .then(function(res){
                         console.log(res.data);
-                        _this.tab = [];
                         for(let i=0;i<res.data.data.length;i++){
                             _this.tab.push(res.data.data[i]);
                         }
@@ -330,6 +403,9 @@
             },
             show(type){
                 this.flag = !this.flag;
+                this.tab = [];
+                this.tabpages = 1;
+                this.active = 1;
             },
             pay_subtract(){
                 if(this.num == 1){
@@ -375,6 +451,7 @@
                                 _this.chookList();
                                 _this.pay = !_this.pay;
                                 _this.flag = !_this.flag;
+                                _this.$forceUpdate();
                             }, 1000);
                         }
                     })
@@ -395,6 +472,7 @@
                                 _this.chookList();
                                 _this.pay = !_this.pay;
                                 _this.flag = !_this.flag;
+                                _this.$forceUpdate();
                             }, 3000);
                         }
                     })
@@ -411,7 +489,9 @@
                     if(res.data.status == 1){
                         _this.feed = true;
                         setTimeout(() => {
+                            Toast('喂养成功!');
                             _this.feed = false;
+                            _this.initalize();
                             _this.$forceUpdate();
                         }, 3000);
                     }
@@ -464,9 +544,13 @@
                 .then(function(res){
                     console.log(res.data);
                     if(res.data.status == 1){
-                        _this.fodder = !this.fodder;
+                        Toast('领取成功');
+                        // _this.fodder = !this.fodder;
                         _this.robStatus = res.data.data;
-                        _this.$forceUpdate();
+                        setTimeout(() => {
+                            _this.initalize();
+                            _this.$forceUpdate();
+                        }, 1000);
                     }
                 })
                 .catch(function(error){
@@ -476,8 +560,11 @@
             wallet_off(){
                 this.wallet = !this.wallet;
             },
-            notice_off(){
+            notice_off(type){
                 this.notice = !this.notice;
+                if(type==2){
+                    this.notice = 2;
+                }
             },
             page(e){
                 if(e.target.scrollTop+e.target.offsetHeight>=e.target.scrollHeight-5){
@@ -491,15 +578,122 @@
                     this.buy_tab(2);
                 }
             },
-            iterationEvent (item, $event) {
-                $event.target.style.cssText = this.getStyle()
+            pack_wrap(){
+                let _this = this;
+                this.$axios.post('farm/random_red')
+                .then(function(res){
+                    console.log(res.data);
+                    if(res.data.status == 1){
+                        if(res.data.data==0){
+                            Toast(res.data.msg);
+                        }else{
+                            Toast(res.data.msg+res.data.data+'个糖果');
+                        }
+                    }
+                })
+                .catch(function(error){
+                    console.log(error);
+                })
             },
-            getClass () {
-                return `hb-item hbsd-${Math.floor(Math.random() * 50 + 30)}`
+            accounts(type){
+                this.wallet = !this.wallet;
+                this.wallet_mask = !this.wallet_mask;
+                this.accounts_type = type;
             },
-            getStyle () {
-                return `width:${Math.random() * (this.maxSize - this.minSize) + this.minSize}px;left:${Math.random() * 74 + 10}%`
-            }
+            accounts_off(){
+                this.wallet_mask = !this.wallet_mask;
+                this.accounts_type = false;
+            },
+            transfer(){
+                let _this = this;
+                let type = this.accounts_type;
+                let url = '';
+                if(type == 1){
+                   url = 'egg/give_recharge_balance';
+                }else if(type == 2){
+                   url = 'egg/give_chicken_balance';
+                }else if(type == 3){
+                   url = 'egg/give_egg_num';
+                }else if(type == 4){
+                   url = 'egg/give_chicken_integral';
+                }
+                if(_this.phone==''){
+                    return Toast('请输入转账账号');
+                }
+                if(_this.money==''){
+                    return Toast('请输入转账金额');
+                }
+                if(_this.psd==''){
+                    return Toast('请输入支付密码');
+                }
+                this.$axios.post(url,{
+                    'money':_this.money,
+                    'phone':_this.phone,
+                    'paypwd':_this.psd
+                })
+                .then(function(res){
+                    console.log(res.data);
+                    if(res.data.status == 1){
+                        Toast('转账成功!');
+                        _this.accounts_type = '';
+                        _this.wallet_mask = false;
+                        _this.money = '';
+                        _this.phone = '';
+                        _this.psd = '';
+                        _this.initalize();
+                        _this.$forceUpdate();
+                    }
+                })
+                .catch(function(error){
+                    console.log(error);
+                })
+            },
+            detail(type){
+                this.wallet = true;
+                this.wallet_mask = true;
+                this.detail_type = type;
+                let _this = this;
+                let url = '';
+                if(type == 1){
+                   url = 'farm/recharge_balance_detailed';
+                }else if(type == 2){
+                   url = 'farm/chicken_balance_list';
+                }else if(type == 3){
+                   url = 'farm/egg_num_list';
+                }else if(type == 4){
+                   url = 'farm/chicken_integral_list';
+                }
+                this.$axios.post(url,{
+                    page:_this.detailpage
+                })
+                .then(function(res){
+                    console.log(res.data);
+                    if(res.data.status == 1){
+                        for(let i=0;i<res.data.data.length;i++){
+                            _this.detailList.push(res.data.data[i]);
+                        }
+                    }
+                })
+                .catch(function(error){
+                    console.log(error);
+                })
+            },
+            detailpages(e){
+                if(e.target.scrollTop+e.target.offsetHeight>=e.target.scrollHeight-5){
+                    this.detailpage++;
+                    this.detail(this.detail_type);
+                }
+            },
+            detail_off(){
+                console.log(111)
+                this.wallet_mask = !this.wallet_mask;
+                this.detail_type = false;
+                this.detailList = [];
+                this.detailpage = 1;
+            },
+            withdrawShow(){
+                this.$router.push({name:'withdraw',query:{egg:true}});
+            },
         }
     }
 </script>
@@ -551,7 +745,6 @@
         height: 40px;
         line-height: 40px;
         text-align: right;
-        padding-right: 20px;
         border-radius: 5px;
         background: #fedf69;
         box-sizing: border-box;
@@ -673,7 +866,7 @@
 .menu_item:nth-of-type(4) img{
     width: 66px;
 }
-.mask,.fodder_wrap,.wallet_wrap,.notice_mask,.package{
+.mask,.fodder_wrap,.wallet_wrap,.notice_mask,.package,.wallet_mask{
     position: fixed;
     top: 0;
     left: 0;
@@ -785,10 +978,14 @@
         .right_item{
             height: 80px;
             line-height: 80px;
+            white-space: normal;
             border-bottom: 2px dashed#ff9c1b;
             li{
                 float: left;
                 width: 20%;
+            }
+            li:nth-of-type(2){
+                white-space: nowrap;
             }
             li:nth-of-type(3){
                 width: 40%;
@@ -1059,38 +1256,121 @@
         }
     }
 }
-.hb-item{
-  position: absolute;
-  top: 0;
-  z-index: 30000;
-  cursor: pointer;
+.accounts{
+    position: relative;
+    margin: 20vh 24px 0;
+    background: url('/static/images/farm/accounts.png') no-repeat;
+    background-size: contain;
+    width: 702px;
+    height: 1180px;
+    padding-top: 24px;
+    color: #a23403;
 }
-/////////////////////////////////
-@keyframes startHB {
-  0% {
-    transform: translateY(-300px);
-    -ms-transform:translateY(-300px);
-    -webkit-transform:translateY(-300px);
-  }
-  100% {
-    transform: translateY(100vh);
-    -ms-transform:translateY(100vh);
-    -webkit-transform:translateY(100vh);
-  }
+.accounts_off{
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 60px;
+    height: 60px;
 }
-@keyframes chandou{
-    0%{margin-left:-120px}
-    50%{margin-left:0px}
-    100%{margin-left:120px}
+.accounts_title{
+    line-height: 80px;
 }
-
-$total: 100;
-@for $i from 1 through $total {
-  .hbsd-#{$i}{
-      animation: startHB #{$i/20}s linear infinite,chandou #{$i/20}s infinite linear alternate both;
-      -ms-animation:startHB #{$i/20}s linear infinite,chandou #{$i/20}s infinite linear alternate both;
-      -webkit-animation:startHB #{$i/20}s linear infinite,chandou #{$i/20}s infinite linear alternate both;
+.accounts_value{
+    margin: 20px auto 20px;
+    width: 400px;
+    line-height: 75px;
+    display: flex;
+    align-items: center;
+    font-size: 36px;
+    img{
+        margin: 10px 15px;
+        width: 80px;
+    }
+    .png{
+        margin: 10px 15px;
+        width: 60px;
     }
 }
-/////////////////////////////////
+.accounts_label{
+    display: block;
+    margin: 20px auto 0;
+    width: 600px;
+    height: 80px;
+    line-height: 80px;
+    text-align: left;
+    text-indent: 30px;
+    border-top: 2px solid #c4ad94;
+    border-left: 2px solid #c4ad94;
+    background: #f4e8bb;
+    span{
+        display: inline-block;
+        width: 200px;
+        text-align:justify;
+    }
+    input{
+        color: #151515;
+    }
+}
+.accounts_btn{
+    margin: 54px auto 0;
+    width: 150px;
+    height: 54px;
+    color: #fff;
+    line-height: 54px;
+    text-shadow: -1px 0 5px #622804,
+                0 1px 5px #622804,
+                1px 0 5px #622804,
+                0 -1px 5px #622804;
+}
+.detail{
+    position: relative;
+    margin: 5vh 24px 0;
+    background: url('/static/images/farm/detail.png') no-repeat;
+    background-size: contain;
+    width: 702px;
+    height: 1180px;
+    padding-top: 24px;
+}
+.detail_off{
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 60px;
+    height: 60px;
+}
+.detail_title{
+    line-height: 80px;
+}
+.detail_content{
+    margin-left: 15px;
+    width: 660px;
+    height: 1020px;
+    overflow-y: scroll;
+    line-height: 120px;
+}
+.detail_item{
+    width: 660px;
+    height: 120px;
+    color: #151515;
+    background: #ffe79e;
+}
+.detail_item:nth-of-type(2n){
+    background: #f3da8e;
+}
+.item_left{
+    float: left;
+    padding-top: 20px;
+    width: 50%;
+    text-align: left;
+    text-indent: 20px;
+    line-height: 40px;
+}
+.item_right{
+    float: left;
+    width: 50%;
+    padding-right: 40px;
+    box-sizing: border-box;
+    text-align: right;
+}
 </style>

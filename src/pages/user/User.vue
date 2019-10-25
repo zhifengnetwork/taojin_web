@@ -62,6 +62,12 @@
           <p>我的推广</p>
         </router-link>
       </div>
+      <div class="option_item">
+        <router-link to="recharge">
+          <img class="option_img" src="/static/images/user/recharge.png">
+          <p>充值</p>
+        </router-link>
+      </div>
     </div>
     <!-- 底部导航 -->
     <Navigate></Navigate>
@@ -205,6 +211,9 @@
               0 -1px 5px #622804;
 }
 .option_item:nth-last-of-type(1){
+  border:0;
+}
+.option_item:nth-last-of-type(2){
   border:0;
 }
 .option_item a{

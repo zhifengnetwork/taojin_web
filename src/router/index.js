@@ -120,6 +120,12 @@ export default new Router({
       component: () => import('@/pages/user/my_order'),
     },
 
+    // 充值
+    {
+      path: '/recharge',
+      name: 'recharge',
+      component: () => import('@/pages/user/recharge'),
+    },
 
     // 账号余额
     {
