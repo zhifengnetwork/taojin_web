@@ -16,13 +16,16 @@
                     <img class="user_icon" src="/static/images/farm/chook.png">{{user_info.chicken_num}}
                 </span>
                 <span>
-                    <img class="user_icon" src="/static/images/farm/egg.png">{{user_info.egg_num}}
+                    <img class="user_icon" src="/static/images/farm/egg.png">{{user_info.egg}}
                 </span>
             </div>
         </div>
         <div class="notice" @click="notice_off">
             <h3>公告</h3>
-            <span>{{user_info.notice}}</span>
+            <van-notice-bar
+                :text="user_info.notice"
+            />
+            <!-- <span>{{user_info.notice}}</span> -->
         </div>
         <div class="tips" @click="notice_off(2)">
             游戏
@@ -90,7 +93,8 @@
                     </div>
                 </div>
                 <div v-if="active == 2">
-                    <div class="buy_right" @scroll="tabpage">
+                    <div class="buy_right">
+                    <!-- <div class="buy_right" @scroll="tabpage"> -->
                         <div class="right_item" v-for="(item,index) in tab" :key="index">
                             <ul>
                                 <li>{{item.pay_text}}</li>
@@ -352,7 +356,8 @@
                 setTimeout(() => {
                     this.redpack = false;
                 }, 10000);
-            }
+            };
+           
         },
         methods:{
             initalize(){
@@ -388,12 +393,14 @@
                     let _this = this;
                     this.$axios.post('farm/purchase',{
                         'page':_this.tabpages,
+                        'limit':100,
                     })
                     .then(function(res){
-                        console.log(res.data);
-                        for(let i=0;i<res.data.data.length;i++){
-                            _this.tab.push(res.data.data[i]);
-                        }
+                        console.log(res.data.data);
+                        _this.tab = res.data.data;
+                        // for(let i=0;i<res.data.data.length;i++){
+                        //     _this.tab.push(res.data.data[i]);
+                        // }
                     })
                     .catch(function(error){
                         console.log(error);
@@ -571,12 +578,12 @@
                     this.chookList();
                 }
             },
-            tabpage(e){
-                if(e.target.scrollTop+e.target.offsetHeight>=e.target.scrollHeight-5){
-                    this.tabpages++;
-                    this.buy_tab(2);
-                }
-            },
+            // tabpage(e){
+            //     if(e.target.scrollTop+e.target.offsetHeight >=e.target.scrollHeight-5){
+            //         this.tabpages++;
+            //         this.buy_tab(2);
+            //     }
+            // },
             pack_wrap(){
                 let _this = this;
                 this.$axios.post('farm/random_red')
@@ -773,12 +780,23 @@
     height: 30px;
 }
 .notice{
+    width: 250px;
+    overflow: hidden;
     position: absolute;
     top: 21vh;
     left: 0;
     right: 0;
     margin: auto;
     color: #eea146;
+    padding: 5px 0;
+    box-sizing: border-box;
+    .van-notice-bar{
+        height: auto;
+        background:none;
+        color: #eea146;
+        font-size: 22px;
+        padding: 0;
+    }
     span{
         font-size: 20px;
     }

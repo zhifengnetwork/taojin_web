@@ -53,7 +53,12 @@
                     console.log(res);
                     if(res.data.status == 1){
                         Toast.success('添加成功');
-                        _this.$router.push({name:'withdraw'})
+                        _this.$router.push({
+                            path: 'withdraw',
+                            query:{
+                                egg:true
+                            }
+                        })
                     }else{
                         Toast(res.data.msg)
                     }

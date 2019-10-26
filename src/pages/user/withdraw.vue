@@ -154,7 +154,8 @@
                     type:_this.tp,
                     money:_this.money,
                     card_id:card,
-                    paypwd:_this.paypwd
+                    paypwd:_this.paypwd,
+                    pay_type:2
                 })
                 .then(function(res){
                     console.log(res);
