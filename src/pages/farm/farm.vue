@@ -67,6 +67,12 @@
                 <img src="/static/images/farm/menu-5.png">
                 <p>钱包</p>
             </div>
+            <div class="menu_item">
+                <router-link to="autonym">
+                    <img src="/static/images/farm/menu-6.png">
+                    <p>认证</p>
+                </router-link>
+            </div>
         </div>
         <div class="mask" v-if="flag">
             <!-- 购买弹窗 -->
@@ -93,8 +99,8 @@
                     </div>
                 </div>
                 <div v-if="active == 2">
-                    <div class="buy_right">
-                    <!-- <div class="buy_right" @scroll="tabpage"> -->
+                    <!-- <div class="buy_right"> -->
+                    <div class="buy_right" @scroll="tabpage">
                         <div class="right_item" v-for="(item,index) in tab" :key="index">
                             <ul>
                                 <li>{{item.pay_text}}</li>
@@ -124,10 +130,10 @@
                 <div class="pay_info">
                     <h3 class="info_title" v-if="paytype == 1">金沙总数:{{user_info.chicken_balance}}</h3>
                     <h3 class="info_title" v-if="paytype == 2">余额总数:{{user_info.recharge_balance}}</h3>
-                    <div class="info_price" v-if="paytype == 1 && itemtype == 1">50</div>
-                    <div class="info_price" v-if="paytype == 2 && itemtype == 1">100</div>
-                    <div class="info_price" v-if="paytype == 1 && itemtype == 2">120</div>
-                    <div class="info_price" v-if="paytype == 2 && itemtype == 2">200</div>
+                    <div class="info_price" v-if="paytype == 1 && itemtype == 1">{{num*50}}</div>
+                    <div class="info_price" v-if="paytype == 2 && itemtype == 1">{{num*100}}</div>
+                    <div class="info_price" v-if="paytype == 1 && itemtype == 2">{{num*120}}</div>
+                    <div class="info_price" v-if="paytype == 2 && itemtype == 2">{{num*200}}</div>
                     <div class="info_btn" @click="purchase">立即购买</div>
                 </div>
             </div>
@@ -171,10 +177,10 @@
             <div class="wallet">
                 <div class="wallet_item">
                     <div class="wallet_off" @click="wallet_off"></div>
+                    <p class="item_val"><img src="/static/images/farm/wallet-icon.png">{{user_info.recharge_balance}}元</p>
                     <div class="item_title">
-                       <img src="/static/images/farm/wallet-icon.png">余额
+                       余额
                     </div>
-                    <p class="item_val">{{user_info.recharge_balance}}</p>
                     <div class="item_btns">
                         <div class="btn btn1" @click="accounts(1)">
                             转账
@@ -185,10 +191,10 @@
                     </div>
                 </div>
                 <div class="wallet_item">
+                    <p class="item_val"><img src="/static/images/farm/wallet-1.png">{{user_info.chicken_balance}}个</p>
                     <div class="item_title">
-                       <img src="/static/images/farm/wallet-1.png">金沙
+                       金沙
                     </div>
-                    <p class="item_val">{{user_info.chicken_balance}}</p>
                     <div class="item_btns">
                         <div class="btn btn1" @click="accounts(2)">
                             转账
@@ -199,10 +205,10 @@
                     </div>
                 </div>
                 <div class="wallet_item">
+                    <p class="item_val"><img src="/static/images/farm/wallet-icon.png">{{user_info.egg_num}}元</p>
                     <div class="item_title">
-                       <img src="/static/images/farm/wallet-icon.png">收益
+                       收益
                     </div>
-                    <p class="item_val">{{user_info.egg_num}}</p>
                     <div class="item_btns">
                         <div class="btn btn1" @click="accounts(3)">
                             转账
@@ -216,10 +222,10 @@
                     </div>
                 </div>
                 <div class="wallet_item">
+                    <p class="item_val"><img src="/static/images/farm/wallet-2.png">{{user_info.chicken_integral}}个</p>
                     <div class="item_title">
-                       <img src="/static/images/farm/wallet-2.png">糖果
+                       糖果
                     </div>
-                    <p class="item_val">{{user_info.chicken_integral}}</p>
                     <div class="item_btns">
                         <div class="btn btn1" @click="accounts(4)">
                             转账
@@ -294,7 +300,8 @@
                             <p>{{item.createtime||item.desc}}</p>
                         </div>
                         <div class="item_right">
-                            <p>{{item.money}}元</p>
+                            <p v-if="detail_type==4">{{item.money}}个</p>
+                            <p v-if="detail_type!=4">{{item.money}}元</p>
                         </div>
                     </div>
                 </div>
@@ -392,15 +399,17 @@
                 if(index == 2){
                     let _this = this;
                     this.$axios.post('farm/purchase',{
-                        'page':_this.tabpages,
-                        'limit':100,
+                        'page':_this.tabpages
                     })
                     .then(function(res){
                         console.log(res.data.data);
-                        _this.tab = res.data.data;
-                        // for(let i=0;i<res.data.data.length;i++){
-                        //     _this.tab.push(res.data.data[i]);
-                        // }
+                        if(_this.tabpages==1){
+                            _this.tab = [];
+                        }
+                        // _this.tab = res.data.data;
+                        for(let i=0;i<res.data.data.length;i++){
+                            _this.tab.push(res.data.data[i]);
+                        }
                     })
                     .catch(function(error){
                         console.log(error);
@@ -455,8 +464,8 @@
                             setTimeout(() => {
                                 _this.list = [];
                                 _this.chookList();
-                                _this.pay = !_this.pay;
-                                _this.flag = !_this.flag;
+                                _this.pay = false;
+                                _this.flag = false;
                                 _this.$forceUpdate();
                             }, 1000);
                         }
@@ -476,8 +485,8 @@
                             setTimeout(() => {
                                 _this.list = [];
                                 _this.chookList();
-                                _this.pay = !_this.pay;
-                                _this.flag = !_this.flag;
+                                _this.pay = false;
+                                _this.flag = false;
                                 _this.$forceUpdate();
                             }, 3000);
                         }
@@ -578,12 +587,12 @@
                     this.chookList();
                 }
             },
-            // tabpage(e){
-            //     if(e.target.scrollTop+e.target.offsetHeight >=e.target.scrollHeight-5){
-            //         this.tabpages++;
-            //         this.buy_tab(2);
-            //     }
-            // },
+            tabpage(e){
+                if(e.target.scrollTop+e.target.offsetHeight >=e.target.scrollHeight-5){
+                    this.tabpages++;
+                    this.buy_tab(2);
+                }
+            },
             pack_wrap(){
                 let _this = this;
                 this.$axios.post('farm/random_red')
@@ -872,6 +881,9 @@
         width: 50px;
         height: 56px;
     }
+    p{
+        color: #fff;
+    }
     .active{
         width: 70px;
         height: 120px;
@@ -999,13 +1011,13 @@
             border-bottom: 2px dashed#ff9c1b;
             li{
                 float: left;
-                width: 20%;
+                width: 22%;
             }
             li:nth-of-type(2){
                 white-space: nowrap;
             }
             li:nth-of-type(3){
-                width: 40%;
+                width: 34%;
                 line-height: 40px;
             }
             li:nth-of-type(4){
@@ -1207,11 +1219,11 @@
 }
 .wallet{
     margin: 5vh 24px 0;
-    background: url('/static/images/farm/wallet.png') no-repeat;
+    background: url('/static/images/farm/wallet2.png') no-repeat;
     background-size: contain;
     width: 702px;
     height: 1180px;
-    padding-top: 70px;
+    padding-top: 40px;
     .wallet_off{
         position: absolute;
         top: 50px;
@@ -1224,25 +1236,33 @@
         margin-bottom: 10px;
         width: 640px;
         height: 260px;
+        border: 4px solid #e3ac31; 
         border-radius: 10px;
-        background: url('/static/images/farm/walletitem.png') no-repeat;
-        background-size: contain;
+        // background: url('/static/images/farm/walletitem.png') no-repeat;
+        // background-size: contain;
         .item_title{
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            line-height: 60px;
+            margin-bottom: 20px;
+            line-height: 40px;
             font-size: 26px;
-            color: #fff;
-            img{
-                margin-right: 10px;
-                width: 55px;
-            }
+            color: #a53c0c;
         }
         .item_val{
-            line-height: 100px;
-            color: #a23403;
+            margin: 20px auto;
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            width: 354px;
+            height: 64px;
+            line-height: 64px;
             font-size: 30px;
+            color: #a23403;
+            border: 4px solid #c17b2a;
+            border-radius: 100px;
+            box-shadow: 0 2px 5px #000; 
+            img{
+                margin: 0 10px;
+                width: 55px;
+            }
         }
         .item_btns{
             display: flex;
@@ -1251,25 +1271,23 @@
             .btn{
                 width: 152px;
                 height: 52px;
+                border: 2px solid #a23403;
+                border-radius: 100px;
                 line-height: 52px;
-                color: #fff;
-                text-shadow: -1px 0 5px #622804,
-                        0 1px 5px #622804,
-                        1px 0 5px #622804,
-                        0 -1px 5px #622804;
+                color: #a53c0c;
             }
-            .btn1{
-                background: url('/static/images/farm/btn1.png') no-repeat;
-                background-size: contain;
-            }
-            .btn2{
-                background: url('/static/images/farm/btn2.png') no-repeat;
-                background-size: contain;
-            }
-            .btn3{
-                background: url('/static/images/farm/btn3.png') no-repeat;
-                background-size: contain;
-            }
+            // .btn1{
+            //     background: url('/static/images/farm/btn1.png') no-repeat;
+            //     background-size: contain;
+            // }
+            // .btn2{
+            //     background: url('/static/images/farm/btn2.png') no-repeat;
+            //     background-size: contain;
+            // }
+            // .btn3{
+            //     background: url('/static/images/farm/btn3.png') no-repeat;
+            //     background-size: contain;
+            // }
         }
     }
 }

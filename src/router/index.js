@@ -61,6 +61,12 @@ export default new Router({
       name: 'farm',
       component: () => import('@/pages/farm/farm'),
     },
+    // 实名制
+    {
+      path: '/autonym',
+      name: 'autonym',
+      component: () => import('@/pages/farm/autonym'),
+    },
 
     // 排名
     {

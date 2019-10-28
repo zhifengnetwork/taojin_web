@@ -9,19 +9,19 @@
             <img :src="recharge.qr_code">
         </div>
         <div class="recharge_text">
-            收款码
+            支付宝充值二维码
         </div>
         <div class="recharge_item">
             客服1号:&nbsp;&nbsp;{{recharge.customer_service_three}}
         </div>
         <div class="recharge_item">
-            客服1号:&nbsp;&nbsp;{{recharge.customer_service_two}}
+            客服2号:&nbsp;&nbsp;{{recharge.customer_service_two}}
         </div>
         <div class="recharge_item">
-            客服1号:&nbsp;&nbsp;{{recharge.customer_service_one}}
+            客服3号:&nbsp;&nbsp;{{recharge.customer_service_one}}
         </div>
         <div class="recharge_text">
-            钱包地址
+            USDT充值地址
         </div>
         <div class="recharge_item">
             {{recharge.recharge_link}}
