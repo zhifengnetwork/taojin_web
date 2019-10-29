@@ -67,12 +67,12 @@
                 <img src="/static/images/farm/menu-5.png">
                 <p>钱包</p>
             </div>
-            <div class="menu_item">
+            <!-- <div class="menu_item">
                 <router-link to="autonym">
                     <img src="/static/images/farm/menu-6.png">
                     <p>认证</p>
                 </router-link>
-            </div>
+            </div> -->
         </div>
         <div class="mask" v-if="flag">
             <!-- 购买弹窗 -->
@@ -162,6 +162,23 @@
                 <div class="notice_content" v-if="notice!=2">
                     {{user_info.notice}}
                 </div>
+                <div class="notice_content" v-if="notice==2">
+                    <div class="content_text">
+                        <p>5GCEC 全民养殖玩法</p>
+                        <p>120金沙或200余额 购买1只金鸡</p>
+                        <p>每只金鸡每日生2个金蛋🥚</p>
+                        <p>金鸡总产量：120个金蛋🥚</p>
+                        <p>金蛋🥚价格：2元1个</p>
+                        <br>
+                        <p>金鸡喂养时间：</p>
+                        <p>上午12点️ - 13点</p>
+                        <p>晚上18点️ - 19点</p>
+                        <br>
+                        <p style="text-align:left;">每生产一个金蛋🥚赠送一个糖果🍬，可兑换5GCEC，价格不可估量。推荐朋友养金鸡可还加速释放产蛋🥚量。</p>
+                        <br>
+                        <p style="text-align:left;">矿工级别会员推荐朋友养金，每只鸡收益48元，10只就是480，100只就是4800，矿场主级别会员推荐朋友养金鸡，每只收益96元，10只就是960，100只就是9600。具体收益制度详情咨询领导人。</p>
+                    </div>
+                </div>
             </div>
         </div>
         <!-- 饲料 -->
@@ -188,6 +205,13 @@
                         <div class="btn btn2" @click="detail(1)">
                             明细
                         </div>
+                    </div>
+                </div>
+                <div class="wallet_item">
+                    <div class="wallet_off" @click="wallet_off"></div>
+                    <p class="item_val"><img src="/static/images/farm/wallet-icon.png">{{user_info.chicken_recharge_balance}}元</p>
+                    <div class="item_title">
+                       冻结余额
                     </div>
                 </div>
                 <div class="wallet_item">
@@ -396,6 +420,10 @@
             },
             buy_tab(index){
                 this.active = index;
+                if(index==1){
+                    this.tab = [];
+                    this.tabpages = 1;
+                }
                 if(index == 2){
                     let _this = this;
                     this.$axios.post('farm/purchase',{
@@ -488,7 +516,7 @@
                                 _this.pay = false;
                                 _this.flag = false;
                                 _this.$forceUpdate();
-                            }, 3000);
+                            }, 1000);
                         }
                     })
                     .catch(function(error){
@@ -902,6 +930,7 @@
     width: 100%;
     height: 100%;
     background: rgba(0,0,0,0.5);
+    overflow-y: scroll;
     z-index: 20;
 }
 .buy_content{
@@ -1112,6 +1141,13 @@
     top: 260px;
     width: 100%;
     color: #fff;
+    .content_text{
+        width: 100%;
+        height: 620px;
+        box-sizing: border-box;
+        padding-bottom: 50px;
+        overflow-y: scroll;
+    }
     .notice_off{
         position: absolute;
         top: 0;
@@ -1224,6 +1260,9 @@
     width: 702px;
     height: 1180px;
     padding-top: 40px;
+    padding-bottom: 40px;
+    box-sizing: border-box;
+    overflow-y: scroll;
     .wallet_off{
         position: absolute;
         top: 50px;
