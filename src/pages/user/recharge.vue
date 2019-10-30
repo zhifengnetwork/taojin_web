@@ -1,7 +1,7 @@
 <template>
-    <div class="height-88">
+    <div class="height-88 recharge">
         <!-- 头部组件 back-url=>反回路径，默认返回上一页 title=>标题内容 fixed=>是否固定在顶部 rgb=>背景色 col=>字体颜色 -->
-		<TopHeader back-url="" custom-title="充值" :custom-fixed="true" custom-rgb custom-col>
+		<TopHeader back-url="" custom-title="充值" :custom-fixed="true" custom-rgb="#fdd287" custom-col>
 			<!-- 返回按钮 -->
 			<img slot="backBtn" src="https://taojin-zhifeng.oss-cn-shenzhen.aliyuncs.com/static/images/head_back.png">
 		</TopHeader>
@@ -20,8 +20,14 @@
         <div class="recharge_item">
             客服3号:&nbsp;&nbsp;{{recharge.customer_service_one}}
         </div>
+        <div class="code">
+            <img :src="recharge.money_qr_code">
+        </div>
         <div class="recharge_text">
             USDT充值地址
+        </div>
+        <div class="recharge_tips">
+            <p>提示：链类型请检查选择ERC20</p>
         </div>
         <div class="recharge_item">
             {{recharge.recharge_link}}
@@ -78,6 +84,11 @@
 </script>
 
 <style lang="scss" scoped>
+.recharge{
+    height: 100vh;
+    padding-bottom: 200px;
+    overflow-y: scroll;
+}
 .code{
     margin: 0 auto;
     width: 702px;
@@ -88,6 +99,7 @@
     color: #c3ae8b;
     img{
         height: 100%;
+        pointer-events: auto;
     }
 }
 .recharge_item{
@@ -100,6 +112,12 @@
     border-left: 4px solid #916f49;
     border-top: 4px solid #916f49;
     background: #b38a5b;
+}
+.recharge_tips{
+    margin-left: 24px;
+    margin-bottom: 20px;
+    text-align: left;
+    color: #333;
 }
 .recharge_text{
     line-height: 110px;

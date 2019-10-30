@@ -75,7 +75,7 @@
                 num:'',
                 paypwd:'',
                 flag:true,
-                egg:''
+                egg:false
             }
         },
         mounted(){
@@ -155,7 +155,7 @@
                     money:_this.money,
                     card_id:card,
                     paypwd:_this.paypwd,
-                    pay_type:2
+                    pay_type:_this.egg?'2':'1'
                 })
                 .then(function(res){
                     console.log(res);
