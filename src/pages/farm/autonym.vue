@@ -40,7 +40,8 @@
                 <img v-else class="identity_img" :src="identity_2">
             </div>
         </div>
-        <div class="identity_btn" @click="send">
+        <p v-if="id">{{desc}}</p>
+        <div class="identity_btn" v-if="id" @click="send">
             提交
         </div>
     </div>
@@ -58,9 +59,37 @@
                 identity_1:'',
                 identity_2:'',
                 flag:true,
+                img_1:'',
+                img_2:'',
+                user_info:'',
+                id:'',
+                desc:''
             }
         },
+        mounted(){
+            this.initalize();
+        },
         methods:{
+            initalize(){
+                let _this = this;
+                this.$axios.post('user/id_card_add')
+                .then(function(res){
+                    console.log(res.data);
+                    _this.name = res.data.data.user_name;
+                    _this.phone = res.data.data.phone;
+                    _this.autonym = res.data.data.id_card;
+                    _this.img_1 = _this.identity_1 = res.data.data.idcard_front;
+                    _this.img_2 = _this.identity_2 = res.data.data.idcard_back;
+                    _this.id = res.data.data.id;
+                    _this.desc = res.data.data.desc;
+                    if(res.data.data == ''){
+                        _this.id = -1;
+                    }
+                })
+                .catch(function(error){
+                    console.log(error);
+                })
+            },
             upLoad(e,index){
                 if (!e.target.files[0].size) return;
                 let _this = this;
@@ -80,6 +109,24 @@
                         }else{
                             _this.identity_2 = base64;
                         }
+                        _this.$axios.post('user/uploads',{
+                            image:base64
+                        })
+                        .then(function(res){
+                            console.log(res);
+                            if(res.data.status == 1){
+                                if(index==1){
+                                    _this.img_1 = res.data.data;
+                                }else{
+                                    _this.img_2 = res.data.data;
+                                }
+                            }else{
+                                Toast(res.data.msg)
+                            }
+                        })
+                        .catch(function(error){
+                            console.log(error);
+                        })
                     }
                 };
             },
@@ -160,8 +207,14 @@
                 }
                 this.flag = false;
                 let _this = this;
-                this.$axios.post('user/withdraw',{
-                    token:localStorage.getItem('token')
+                this.$axios.post('user/id_card',{
+                    token:localStorage.getItem('token'),
+                    name:_this.name,
+                    phone:_this.phone,
+                    id_card:_this.autonym,
+                    idcard_front:_this.img_1,
+                    idcard_back:_this.img_2,
+                    id:_this.id==-1?'':_this.id,
                 })
                 .then(function(res){
                     console.log(res);
@@ -222,6 +275,7 @@ input::-webkit-input-placeholder, textarea::-webkit-input-placeholder {
 .identity_img{
     margin: 15px auto;
     height: 90%;
+    max-width: 100%;
 }
 .identity_btn{
     margin: 20px auto;

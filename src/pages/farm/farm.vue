@@ -67,12 +67,12 @@
                 <img src="/static/images/farm/menu-5.png">
                 <p>钱包</p>
             </div>
-            <!-- <div class="menu_item">
+            <div class="menu_item">
                 <router-link to="autonym">
                     <img src="/static/images/farm/menu-6.png">
                     <p>认证</p>
                 </router-link>
-            </div> -->
+            </div>
         </div>
         <div class="mask" v-if="flag">
             <!-- 购买弹窗 -->
@@ -213,6 +213,11 @@
                     <div class="item_title">
                        冻结余额
                     </div>
+                    <div class="item_btns">
+                        <div class="btn btn2" @click="detail(5)">
+                            明细
+                        </div>
+                    </div>
                 </div>
                 <div class="wallet_item">
                     <p class="item_val"><img src="/static/images/farm/wallet-1.png">{{user_info.chicken_balance}}个</p>
@@ -316,6 +321,9 @@
                 </div>
                 <div class="detail_title" v-if="detail_type==4">
                     糖果明细
+                </div>
+                <div class="detail_title" v-if="detail_type==5">
+                    冻结余额明细
                 </div>
                 <div class="detail_content" @scroll="detailpages">
                     <div class="detail_item" v-for="(item,index) in detailList" :key="index">
@@ -705,6 +713,8 @@
                    url = 'farm/egg_num_list';
                 }else if(type == 4){
                    url = 'farm/chicken_integral_list';
+                }else if(type == 5){
+                   url = 'farm/release_balance_detailed';
                 }
                 this.$axios.post(url,{
                     page:_this.detailpage
