@@ -384,6 +384,7 @@
                 detail_type:'',
                 detailpage:1,
                 detailList:[],
+                transferFlag:true
             }
         },
         mounted(){
@@ -677,6 +678,10 @@
                 if(_this.psd==''){
                     return Toast('请输入支付密码');
                 }
+                if(!_this.transferFlag){
+                    return false;
+                }
+                _this.transferFlag = false;
                 this.$axios.post(url,{
                     'money':_this.money,
                     'phone':_this.phone,
@@ -694,6 +699,7 @@
                         _this.initalize();
                         _this.$forceUpdate();
                     }
+                    _this.transferFlag = true;
                 })
                 .catch(function(error){
                     console.log(error);
