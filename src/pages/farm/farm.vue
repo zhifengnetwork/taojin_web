@@ -367,6 +367,7 @@
                 feed:false,
                 flag:false,
                 pay:false,
+                pay_flag:true,
                 paytype:'',
                 itemtype:'',
                 num:1,
@@ -496,6 +497,10 @@
                         money = _this.num * 200;
                     }
                 }
+                if(!this.pay_flag){
+                    return false;
+                }
+                this.pay_flag = false;
                 if(this.itemtype == 1){
                     this.$axios.post('egg/buy_chicken_coop',{
                         'type':_this.paytype,
@@ -510,6 +515,7 @@
                                 _this.chookList();
                                 _this.pay = false;
                                 _this.flag = false;
+                                _this.pay_flag = true;
                                 _this.$forceUpdate();
                             }, 1000);
                         }
@@ -531,6 +537,7 @@
                                 _this.chookList();
                                 _this.pay = false;
                                 _this.flag = false;
+                                _this.pay_flag = true;
                                 _this.$forceUpdate();
                             }, 1000);
                         }
