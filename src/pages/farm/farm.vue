@@ -303,6 +303,12 @@
                 <label class="accounts_label">
                     <span>支付密码:</span><input type="password" v-model.number="psd" placeholder="请输入支付密码">
                 </label>
+                <div class="give_radio">
+                    <van-radio-group v-if="accounts_type==4" v-model="radio">
+                            <van-radio name="1" checked-color="#b38a5b">转到养殖场</van-radio>
+                            <van-radio name="2" checked-color="#b38a5b">转到淘金</van-radio>
+                    </van-radio-group>
+                </div>
                 <div class="accounts_btn" @click="transfer">
                     确定转账
                 </div>
@@ -384,7 +390,8 @@
                 detail_type:'',
                 detailpage:1,
                 detailList:[],
-                transferFlag:true
+                transferFlag:true,
+                radio:'1'
             }
         },
         mounted(){
@@ -685,7 +692,8 @@
                 this.$axios.post(url,{
                     'money':_this.money,
                     'phone':_this.phone,
-                    'paypwd':_this.psd
+                    'paypwd':_this.psd,
+                    'type':type == 4?_this.radio:''
                 })
                 .then(function(res){
                     console.log(res.data);
@@ -1400,6 +1408,13 @@
     }
     input{
         color: #151515;
+    }
+}
+.give_radio{
+    float: left;
+    margin: 0 0 0 50px;
+    .van-radio{
+        height: 60px;
     }
 }
 .accounts_btn{
