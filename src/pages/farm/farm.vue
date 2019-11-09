@@ -346,9 +346,9 @@
             </div>
         </div>
         <!-- 红包 -->
-        <div class="package" v-if="redpack" @click="pack_wrap">
+        <!-- <div class="package" v-if="redpack" @click="pack_wrap">
             <pack></pack>
-        </div>
+        </div> -->
     </div>
 </template>
 
