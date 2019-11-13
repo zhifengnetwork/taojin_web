@@ -512,13 +512,14 @@
                             Toast('购买成功!');
                             setTimeout(() => {
                                 _this.list = [];
+                                _this.pages = 1;
                                 _this.chookList();
                                 _this.pay = false;
                                 _this.flag = false;
-                                _this.pay_flag = true;
                                 _this.$forceUpdate();
                             }, 1000);
                         }
+                        _this.pay_flag = true;
                     })
                     .catch(function(error){
                         console.log(error);
@@ -534,13 +535,14 @@
                             Toast('购买成功!');
                             setTimeout(() => {
                                 _this.list = [];
+                                _this.pages = 1;
                                 _this.chookList();
                                 _this.pay = false;
                                 _this.flag = false;
-                                _this.pay_flag = true;
                                 _this.$forceUpdate();
                             }, 1000);
                         }
+                        _this.pay_flag = true;
                     })
                     .catch(function(error){
                         console.log(error);
@@ -883,6 +885,7 @@
     width: 620px;
     height: 632px;
     overflow-y: scroll;
+    -webkit-overflow-scrolling: touch;
 }
 .chook_item{
     position: relative;
