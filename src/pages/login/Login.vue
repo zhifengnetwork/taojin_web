@@ -34,6 +34,13 @@
                 psd:''
             }
         },
+        created(){
+            this.$dialog.alert({
+                message: '需验证开通权限'
+            }).then(() => {
+                // on close
+            });
+        },
         mounted(){
             // 如果支持 popstate 一般移动端都支持了
             if (window.history && window.history.pushState) {

@@ -113,7 +113,9 @@
         <div class="buyitem_btn" @click="update(false)" style="display:inline-block;margin:0 10px;">暂不更新</div>
       </div>
     </div> -->
+
     <iframe v-if="maskInfo!=''" :src="music_url" allow="autoplay" hidden />
+    
     <Navigate></Navigate>
   </div>
 </template>
