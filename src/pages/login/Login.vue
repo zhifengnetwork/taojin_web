@@ -36,7 +36,8 @@
         },
         created(){
             this.$dialog.alert({
-                message: '需验证开通权限'
+                message: '需验证开通权限',
+                showConfirmButton:false
             }).then(() => {
                 // on close
             });
