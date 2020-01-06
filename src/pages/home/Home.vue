@@ -30,7 +30,7 @@
       <p>种植场</p>
     </div>
     <div class="right_icon">
-      <router-link to="farm">
+      <router-link to="/farm">
         <img src="https://taojin-zhifeng.oss-cn-shenzhen.aliyuncs.com/static/images/home_iconR.png">
         <p>养殖场</p>
       </router-link>
@@ -317,6 +317,7 @@
   position: fixed;
   left: 0;
   top: 0;
+  z-index: 1;
   color: #632904;
   width: 100%;
   height: 100%;
